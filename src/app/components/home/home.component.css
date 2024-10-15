@@ -1,0 +1,296 @@
+/* Background image style */
+.landing-page {
+  height: 70vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.landing-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Wrapper for all content below the landing page */
+.content-wrapper {
+  width: 90%; /* Central width for all content */
+  /*max-width: 1200px; !* You can control the maximum width here *!*/
+  margin-left: auto;
+  margin-right: auto;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Form container */
+.form-container {
+  margin-top: -10%;
+  width: 100%; /* Full width inside the content-wrapper */
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  width: 100%; /* Card will take the full width of the parent container */
+}
+
+/* Button */
+.custom-btn {
+  background-color: #8ad0b0;
+  border: none;
+  color: #333;
+  padding: 8px 16px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: #76b699;
+}
+
+.custom-btn:disabled {
+  background-color: #d3d3d3;
+  cursor: not-allowed;
+}
+
+.button-icon {
+  height: 16px;
+  margin-right: 8px;
+}
+
+/* Additional content */
+.additional-content {
+  width: 100%;
+  text-align: center;
+}
+
+.additional-content h3 {
+  margin-bottom: 24px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.title-recent-searches {
+  margin-bottom: 24px;
+  font-size: 32px;
+  text-align: start;
+  font-family: "TradeGothic ST Extended Bold", serif;
+}
+
+.recent-searches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive column layout */
+  gap: 20px;
+  justify-items: center;
+  width: 100%;
+}
+
+.search-item {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  /*max-width: 300px;*/
+}
+
+.search-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.search-item img {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.search-item p {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  /* Form container */
+  .form-container {
+    margin-top: -50%;
+  }
+
+  .recent-searches {
+    grid-template-columns: repeat(2, 1fr); /* Dve kolone za tablete */
+    gap: 20px;
+  }
+
+  .search-item {
+    flex-direction: column; /* Stack image and text vertically */
+    text-align: center;
+    max-width: 100%; /* Full width on smaller screens */
+  }
+
+  .search-item img {
+    width: 150px; /* Smanjena slika za tablete */
+    height: 150px;
+  }
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 480px) {
+  .recent-searches {
+    grid-template-columns: 1fr; /* Jedna kolona za mobilne uređaje */
+  }
+
+  .search-item {
+    flex-direction: row; /* Horizontalno poravnjanje */
+    max-width: 100%; /* Full width na manjim ekranima */
+  }
+
+  .search-item img {
+    width: 120px; /* Manja slika za mobilne uređaje */
+    height: 120px;
+  }
+}
+
+
+
+
+/* Travel Section */
+.travel-section {
+  width: 100%;
+  padding: 40px 0;
+}
+
+.travel-header {
+  display: flex;
+  justify-content: space-between; /* Razmak između naslova i dugmeta */
+  align-items: center; /* Vertikalno centriranje dugmeta */
+  margin-bottom: 20px; /* Razmak između headera i kartica */
+}
+
+.header-text {
+  max-width: 70%; /* Ograničava širinu teksta */
+}
+.header-text h2 {
+  font-size: 32px;
+  font-family: "TradeGothic ST Extended Bold", serif;
+  margin-bottom: 10px;
+}
+.header-text p {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Montserrat', serif;
+  margin-bottom: 0;
+}
+.see-all-btn {
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 1px solid #8DD3BB;
+  border-radius: 5px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Montserrat', serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.see-all-btn:hover {
+  background-color: #8DD3BB;
+  color: #fff;
+}
+
+.travel-cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Card General Styling */
+.travel-card {
+  background-size: cover; /* Pokriva celu karticu */
+  background-position: top; /* Prikazuje gornji deo slike kako bi vrh bio vidljiv */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  overflow: hidden;
+  color: white; /* Osigurava čitljivost teksta na slici */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.travel-info h3 {
+  font-size: 24px;
+  font-weight: 600; /* Montserrat SemiBold */
+  font-family: 'Montserrat', serif;
+  margin-bottom: -10px;
+  /*margin: 0 auto;*/
+  text-align: left; /* Align title to the left */
+}
+
+.card-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-details p {
+  font-size: 14px;
+  font-weight: 400; /* Montserrat Regular */
+  margin: 0;
+  color: white; /* Make the description text white */
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 600; /* Montserrat SemiBold */
+  color: #fff;
+}
+
+/* Button */
+.book-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  /*background-color: #8ad0b0;*/
+  background-color: #8DD3BB;
+  border: none;
+  border-radius: 5px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  cursor: pointer;
+  width: 100%; /* Make the button as wide as possible */
+  box-sizing: border-box; /* Ensures padding is included within width */
+  transition: background-color 0.3s ease;
+}
+
+.book-btn:hover {
+  background-color: #76b699;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .travel-cards {
+    flex-direction: column; /* Kartice u koloni na manjim ekranima */
+    gap: 20px; /* Razmak između kartica */
+  }
+
+  .travel-card {
+    width: 100%; /* Puna širina kartice na manjim ekranima */
+  }
+}

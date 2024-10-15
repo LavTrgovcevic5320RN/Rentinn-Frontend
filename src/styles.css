@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+@font-face {
+  font-family: 'TradeGothic LT Extended';
+  src: url('/assets/fonts/Trade Gothic LT Extended.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TradeGothic LT Extended Bold';
+  src: url('/assets/fonts/Trade Gothic LT Bold Extended.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TradeGothic ST Extended';
+  src: url('/assets/fonts/Trade Gothic LT Std Extended.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TradeGothic ST Extended Bold';
+  src: url('/assets/fonts/TradeGothicLTStd-BoldExt.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

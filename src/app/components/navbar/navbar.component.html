@@ -1,0 +1,94 @@
+<nav [ngClass]="{'navbar-custom': isHomePage, 'navbar-other': !isHomePage}" class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+
+    <button *ngIf="!isLoggedIn" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse text-end" id="navbarNavDropdown">
+      <ul *ngIf="!isLoggedIn" class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/login'">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/sign-up'">Sign Up</a>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="isLoggedIn" class="d-flex align-items-center">
+      <div class="dropdown">
+        <a
+          class="nav-link dropdown-toggle d-flex align-items-center"
+          href="#"
+          id="userDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img
+            src="{{ userImage }}"
+            alt="User Image"
+            class="rounded-circle"
+            width="40"
+            height="40"
+          />
+          <span class="ms-2">{{ username }}</span>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+          <li class="dropdown-item">
+            <div class="d-flex">
+              <img src="https://via.placeholder.com/40" alt="User Profile" class="rounded-circle me-2">
+              <span class="fw-bold">John Doe.</span>
+            </div>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+
+          <li class="dropdown-item d-flex justify-content-between align-items-center">
+            <div class="d-flex ">
+              <mat-icon class="me-2">person</mat-icon>
+              <a class="text-decoration-none" href="#">My Account</a>
+            </div>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </li>
+
+          <li class="dropdown-item d-flex justify-content-between align-items-center">
+            <div class="d-flex ">
+              <mat-icon class="me-2">payment</mat-icon>
+              <a class="text-decoration-none" href="#">Payments</a>
+            </div>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </li>
+
+          <li class="dropdown-item d-flex justify-content-between align-items-center">
+            <div class="d-flex ">
+              <mat-icon class="me-2">settings</mat-icon>
+              <a class="text-decoration-none" href="#">Settings</a>
+            </div>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </li>
+
+          <li><hr class="dropdown-divider"></li>
+
+          <li class="dropdown-item d-flex justify-content-between align-items-center">
+            <div class="d-flex ">
+              <mat-icon class="me-2">support</mat-icon>
+              <a class="text-decoration-none" href="#">Support</a>
+            </div>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </li>
+
+          <li class="dropdown-item d-flex justify-content-between align-items-center">
+            <div class="d-flex ">
+              <mat-icon class="me-2">logout</mat-icon>
+              <a class="text-decoration-none" href="#" (click)="logout()">Logout</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</nav>

@@ -1,0 +1,194 @@
+[
+  {
+    "id": 1,
+    "name": "CVK Park Bosphorus Hotel Istanbul",
+    "location": "Gümüssuyu Mah. Inönü Cad. No:8, Istanbul 34437",
+    "rating": 1,
+    "price": 50,
+    "images": ["assets/home_page_pool.png"],
+    "freebies": ["Free Breakfast"],
+    "amenities": ["Indoor Pool"],
+    "description": "CVK Park Bosphorus Hotel Istanbul is a 5-star hotel located in the heart of the city. The hotel offers a swimming pool, spa, and a rooftop terrace with a bar. The hotel is located in the Taksim district, which is known for its vibrant nightlife and shopping. The hotel is also close to the famous Istiklal Street and the historic Galata Tower. The hotel offers free breakfast.",
+    "highlights": ["Close to park", "Near theater", "Clean hotel"],
+    "reviews": [
+      {
+        "name": "John Doe",
+        "rating": 5,
+        "comment": "Great hotel, excellent service!"
+      },
+      {
+        "name": "Jane Doe",
+        "rating": 4,
+        "comment": "Beautiful hotel, great location!"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Eresin Hotels Sultanahmet - Boutique Class",
+    "location": "Kucukayasofya No: 40 Sultanahmet, Istanbul 34022",
+    "rating": 1,
+    "price": 50,
+    "images": ["assets/eresin-hotel-2.png"],
+    "freebies": ["Free Breakfast"],
+    "amenities": ["Fitness Center"],
+    "description": "Eresin Hotels Sultanahmet - Boutique Class is a 4-star hotel located in the heart of the city. The hotel offers a fitness center, spa, and a rooftop terrace with a pool and a bar. The hotel is located in the Sultanahmet district, which is known for its historic sites and museums. The hotel is also close to the famous Hagia Sophia and the Blue Mosque. The hotel offers free breakfast.",
+    "highlights": ["Near historic sites", "Close to museums", "Rooftop terrace"],
+    "reviews": [
+      {
+        "name": "John Doe",
+        "rating": 5,
+        "comment": "Great hotel, excellent service!"
+      },
+      {
+        "name": "Jane Doe",
+        "rating": 4,
+        "comment": "Beautiful hotel, great location!"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "The Marmara Taksim",
+    "location": "Taksim Meydani, Istanbul 34437",
+    "rating": 2,
+    "price": 100,
+    "images": ["assets/eresin-hotel-3.png"],
+    "freebies": ["Free Breakfast"],
+    "amenities": ["Fitness Center"],
+    "description": "The Marmara Taksim is a 5-star hotel located in the heart of the city. The hotel offers a fitness center, spa, and a rooftop terrace with a pool and a bar. The hotel is located in the Taksim district, which is known for its vibrant nightlife and shopping. The hotel is also close to the famous Istiklal Street and the historic Galata Tower. The hotel offers free breakfast.",
+    "highlights": ["Vibrant nightlife", "Close to shopping", "Near historic sites"],
+    "reviews": [
+      {
+        "name": "John Doe",
+        "rating": 5,
+        "comment": "Great hotel, excellent service!"
+      },
+      {
+        "name": "Jane Doe",
+        "rating": 4,
+        "comment": "Beautiful hotel, great location!"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Swissotel The Bosphorus Istanbul",
+    "location": "Bayildim Caddesi No:2, Istanbul 34357",
+    "rating": 2,
+    "price": 100,
+    "images": ["assets/eresin-hotel-4.png"],
+    "freebies": ["Free Breakfast"],
+    "amenities": ["Outdoor Pool"],
+    "description": "Swissotel The Bosphorus Istanbul is a 5-star hotel located in the heart of the city. The hotel offers a swimming pool, spa, and a rooftop terrace with a bar. The hotel is located in the Besiktas district, which is known for its luxury shopping and entertainment. The hotel is also close to the famous Bosphorus Strait and the historic Dolmabahce Palace. The hotel offers free breakfast.",
+    "highlights": ["Luxury shopping", "Near Bosphorus Strait", "Close to Dolmabahce Palace"],
+    "reviews": [
+      {
+        "name": "John Doe",
+        "rating": 5,
+        "comment": "Great hotel, excellent service!"
+      },
+      {
+        "name": "Jane Doe",
+        "rating": 4,
+        "comment": "Beautiful hotel, great location!"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Hilton Istanbul Bosphorus",
+    "location": "Cumhuriyet Caddesi Harbiye, Istanbul 34367",
+    "rating": 3,
+    "price": 150,
+    "images": ["assets/eresin-hotel-4.png"],
+    "freebies": ["Free Breakfast"],
+    "amenities": ["Spa"],
+    "description": "Hilton Istanbul Bosphorus is a 5-star hotel located in the heart of the city. The hotel offers a swimming pool, spa, and a rooftop terrace with a bar. The hotel is located in the Harbiye district, which is known for its luxury shopping and entertainment. The hotel is also close to the famous Taksim Square and the historic Dolmabahce Palace. The hotel offers free breakfast.",
+    "highlights": ["Luxury shopping", "Near Taksim Square", "Close to Dolmabahce Palace"],
+    "reviews": [
+      {
+        "name": "John Doe",
+        "rating": 5,
+        "comment": "Great hotel, excellent service!"
+      },
+      {
+        "name": "Jane Doe",
+        "rating": 4,
+        "comment": "Beautiful hotel, great location!"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Raffles Istanbul",
+    "location": "Zorlu Center, Istanbul 34340",
+    "rating": 3,
+    "price": 200,
+    "images": ["assets/eresin-hotel-4.png"],
+    "freebies": ["Free Breakfast"],
+    "amenities": ["Pool", "Spa"],
+    "description": "Raffles Istanbul is a 5-star hotel located in the heart of the city. The hotel offers a swimming pool, spa, and a rooftop terrace with a bar. The hotel is located in the Zorlu Center, which is known for its luxury shopping and entertainment. The hotel is also close to the famous Bosphorus Strait and the historic Dolmabahce Palace. The hotel offers free breakfast.",
+    "highlights": ["Luxury shopping", "Near Bosphorus Strait", "Close to Dolmabahce Palace"],
+    "reviews": [
+      {
+        "name": "John Doe",
+        "rating": 5,
+        "comment": "Great hotel, excellent service!"
+      },
+      {
+        "name": "Jane Doe",
+        "rating": 4,
+        "comment": "Beautiful hotel, great location!"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Four Seasons Hotel Istanbul at Sultanahmet",
+    "location": "Tevkifhane Sokak No:1, Istanbul 34122",
+    "rating": 4,
+    "price": 300,
+    "images": ["assets/eresin-hotel-4.png", "assets/eresin-hotel-3.png"],
+    "freebies": ["Free Breakfast", "Free Parking"],
+    "amenities": ["Fitness Center"],
+    "description": "Four Seasons Hotel Istanbul at Sultanahmet is a 5-star hotel located in the heart of the city. The hotel offers a fitness center, spa, and a rooftop terrace with a pool and a bar. The hotel is located in the Sultanahmet district, which is known for its historic sites and museums. The hotel is also close to the famous Hagia Sophia and the Blue Mosque. The hotel offers free breakfast and free parking.",
+    "highlights": ["Near Hagia Sophia", "Close to Blue Mosque", "Historic sites"],
+    "reviews": [
+      {
+        "name": "John Doe",
+        "rating": 5,
+        "comment": "Great hotel, excellent service!"
+      },
+      {
+        "name": "Jane Doe",
+        "rating": 4,
+        "comment": "Beautiful hotel, great location!"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Radisson Blu Hotel Istanbul Pera",
+    "location": "Evliya Celebi Mah. Refik Saydam Cad. No 19, Istanbul 34430",
+    "rating": 4.2,
+    "price": 400,
+    "images": ["assets/eresin-hotel-4.png"],
+    "freebies": ["Free breakfast", "Free Cancellation"],
+    "amenities": ["Fitness Center", "Spa"],
+    "description": "Radisson Blu Hotel Istanbul Pera is a 5-star hotel located in the heart of the city. The hotel offers a fitness center, spa, and a rooftop terrace with a pool and a bar. The hotel is located in the Pera district, which is known for its vibrant nightlife and shopping. The hotel is also close to the historic Galata Tower and the famous Istiklal Street. The hotel offers free breakfast and free cancellation.",
+    "highlights": ["Vibrant nightlife", "Close to shopping", "Near Galata Tower"],
+    "reviews": [
+      {
+        "name": "John Doe",
+        "rating": 5,
+        "comment": "Great hotel, excellent service!"
+      },
+      {
+        "name": "Jane Doe",
+        "rating": 4,
+        "comment": "Beautiful hotel, great location!"
+      }
+    ]
+  }
+]

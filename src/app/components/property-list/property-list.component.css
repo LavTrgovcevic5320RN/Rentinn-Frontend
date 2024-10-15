@@ -1,0 +1,822 @@
+.property-list-wrapper {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 3%;
+  padding-bottom: 50px;
+}
+
+.search-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #C4C4C4;
+  border-radius: 12px;
+  width: 100%;
+  /*max-width: 100%;*/
+}
+
+.search-fields {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.search-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+.search-fields .search-button {
+  background-color: #8DD3BB;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  height: 100%;
+  width: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  min-width: 56px;
+}
+
+.search-button mat-icon {
+  color: #000000;
+}
+
+.custom-search-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.search-button:hover {
+  background-color: #76b699;
+}
+
+@media (max-width: 768px) {
+  .search-fields {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .search-fields .search-button {
+    width: 100%;
+    /*width: 50%;
+    height: auto;
+    /*align-items: center;*/
+  }
+}
+
+@media (max-width: 480px) {
+  .search-fields {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .search-field {
+    min-width: 150px;
+  }
+
+  .search-button {
+    width: 100%;
+    height: 48px;
+  }
+
+  .search-header {
+    padding: 10px;
+  }
+}
+
+.content-section {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.filters {
+  width: 40%;
+  /*padding: 0;*/
+  background-color: #fff;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.filters h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding-left: 24px;
+  color: #333;
+}
+
+.mat-expansion-panel-header {
+  background-color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: #333;
+}
+
+.mat-expansion-panel {
+  box-shadow: none !important;
+  border: none;
+}
+
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header {
+  border-bottom: none;
+}
+
+.mat-expansion-panel.mat-expanded {
+  background-color: #fff;
+  /*padding: 0 16px 16px;*/
+  border-bottom: 2px solid #eee;
+  border-radius: 0;
+}
+
+.mat-expansion-panel:last-child {
+  border-radius: 0 !important;
+}
+
+.mat-accordion {
+  border-radius: 0;
+}
+
+.price-slider {
+  padding: 10px 0;
+}
+
+mat-slider {
+  width: 100%;
+}
+
+.mat-slider-thumb {
+  background-color: #8DD3BB !important;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+}
+
+.mat-slider-track-fill {
+  background-color: #1a4327 !important;
+}
+
+.price-range {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1a4327;
+}
+
+.rating-filter {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rating-filter button {
+  border: 1px solid #8DD3BB;
+  background-color: white;
+  color: #333;
+  border-radius: 5px;
+  padding: 8px 16px;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.rating-filter button.selected {
+  background-color: #8DD3BB;
+  color: white;
+}
+
+.rating-filter button:hover {
+  background-color: #76b699;
+  color: white;
+}
+
+.freebies-filter, .amenities-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mat-checkbox {
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+}
+
+.freebies-filter .mat-checkbox-label,
+.amenities-filter .mat-checkbox-label {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+}
+
+::ng-deep .mdc-label {
+  font-size: 14px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  /*line-height: 24px;*/
+  letter-spacing: .5px;
+}
+
+.rating-filter button {
+  border: 1px solid #8DD3BB;
+  background-color: #fff;
+  color: #333;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.rating-filter button:hover {
+  background-color: #8DD3BB;
+  color: #fff;
+}
+
+.mat-checkbox-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+.mat-slider {
+  color: #8DD3BB;
+}
+
+.mat-slider-thumb, .mat-slider-track {
+  background-color: #8DD3BB;
+}
+
+.mat-slider-ticks {
+  background-color: #ccc;
+}
+
+
+.use-other-color {
+  --mdc-slider-handle-color: #8DD3BB;
+  --mdc-slider-hover-handle-color: #8DD3BB;
+  --mdc-slider-focus-handle-color: #8DD3BB;
+  --mdc-slider-active-track-color: #112211;
+  --mdc-slider-inactive-track-color: #C4C4C4;
+  /*--mdc-slider-active-track-height: 6px;*/
+  /*--mdc-slider-inactive-track-height: 6px;*/
+  --mdc-slider-ripple-color: #8DD3BB;
+}
+
+.hidden {
+  display: none;
+}
+
+.filters-toggle-button {
+  display: none;
+  margin-top: 20px;
+  width: 100%;
+  background-color: #8DD3BB;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+
+.content-section {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.content-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.filters {
+  width: 25%;
+  padding: 0;
+  background-color: #fff;
+}
+
+@media (min-width: 769px) {
+  .filters-toggle-button {
+    display: none;
+  }
+
+  .filters {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .filters-toggle-button {
+    display: block;
+  }
+
+  .filters-wrapper {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .filters {
+    width: 100%;
+    border-right: none;
+  }
+
+  .content-section {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+
+.property-list-section {
+  width: 80%;  /* Mozda i ostaviti 80%, jer ovako zmanji duzinu filtera sa leve strane */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.property-listings {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+  padding-left: 20px;
+  width: 100%;
+}
+
+.property-border {
+  border-left: 2px solid #eee;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.listing-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.places-count {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+.places-count span {
+  color: #1b2b1b;
+}
+
+.places-count .bold-text {
+  font-weight: 600;
+  color: #1b2b1b;
+}
+
+.places-count .pink-text {
+  color: #f57b7b;
+}
+
+.sort-by {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.sort-by mat-select {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  margin-left: 5px;
+  color: #112211;
+}
+
+.mat-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #1b2b1b;
+}
+
+.mat-select-placeholder {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600; /* Semibold */
+}
+
+.mat-option-text {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+::ng-deep .sort-mat-select .mat-mdc-select-arrow  {
+  color: #112211;
+  margin-left: 10px;
+}
+
+/*::ng-deep .sortmat-select .mat-mdc-option.mdc-list-item--selected:not(.mat-mdc-option-multiple):not(.mdc-list-item-disabled) {*/
+/*  color: #112211;*/
+/*  font-size: 14px; !* Set font size for placeholder text *!*/
+/*  font-family: "Montserrat", sans-serif;*/
+/*  font-weight: 600; !* Semibold *!*/
+/*}*/
+
+::ng-deep .sort-mat-option .mdc-list-item__primary-text  {
+  color: #112211;
+  /*font-size: 14px; !* Set font size for placeholder text *!*/
+  /*font-family: "Montserrat", sans-serif;*/
+  /*font-weight: 600; !* Semibold *!*/
+}
+
+.sort-by mat-select .mat-select-trigger {
+  padding: 0;
+  margin-left: 5px;
+}
+
+.sort-mat-select mat-select {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #1b2b1b;
+}
+
+.property-card {
+  display: flex;
+  /*padding: 24px;*/
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+  /*align-items: flex-start;*/
+}
+
+.property-card:last-child {
+  margin-bottom: 0;
+}
+
+.property-image {
+  display: flex;
+  position: relative;
+  width: 40%;
+  /*max-width: 320px;*/
+  height: 360px;
+  flex-shrink: 0;
+  border-radius: 12px 0 0 12px;
+  overflow: hidden;
+}
+
+.property-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px 0 0 12px;
+}
+
+/*.image-overlay {*/
+/*  position: absolute;*/
+/*  top: 10px;*/
+/*  right: 10px;*/
+/*  background-color: rgba(0, 0, 0, 0.6);*/
+/*  color: white;*/
+/*  padding: 5px 10px;*/
+/*  border-radius: 5px;*/
+/*  font-size: 12px;*/
+/*}*/
+
+.image-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #112211;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+
+.property-content {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.property-info-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.property-info {
+  max-width: 70%;
+}
+
+.property-info h3 {
+  font-size: 24px;
+  font-family: "TradeGothic ST Extended Bold", sans-serif;
+  margin: 0 0 16px 0;
+}
+
+.property-info p {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Montserrat', serif;
+  color: rgba(17, 34, 17, 0.75);
+  margin: 0;
+}
+
+.property-amenities {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Montserrat', serif;
+  color: rgba(17, 34, 17, 0.75);
+}
+
+.property-reviews {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.rating-box {
+  border: 1px solid #8DD3BB;
+  border-radius: 4px;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: center;
+  width: 45px;
+  height: 35px;
+}
+
+.rating-value {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Montserrat', serif;
+  color: #112211;
+}
+
+.review-text {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.bold-text {
+  /*font-size: 14px;*/
+  font-size: 14px;
+  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+  color: #112211;
+}
+
+.review-count {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  color: #112211;
+}
+
+.property-price {
+  text-align: right;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 5px;
+}
+
+.property-price .price-label {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  color: rgba(17, 34, 17, 0.75);
+  align-self: start;
+}
+
+.price-value {
+  display: flex;
+  align-items: baseline;
+  font-size: 26px;
+  font-weight: bold;
+  color: #FF8682;
+  line-height: 1.2;
+}
+
+.price-amount {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+  color: #FF8682;
+}
+
+.price-night {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+  color: #FF8682;
+  margin-left: 4px;
+}
+
+.price-excl {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  color: rgba(17, 34, 17, 0.75);
+}
+
+.property-divider {
+  margin: 24px 0;
+  border: none;
+  border-top: 2px solid #ccc;
+  align-self: auto;
+}
+
+.property-actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+}
+
+.like-button {
+  width: 48px;
+  height: 48px;
+  border: 1px solid #8DD3BB;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #333;
+}
+
+.like-button mat-icon {
+  color: black;
+}
+
+.like-button:hover {
+  background-color: #f0f0f0;
+}
+
+.property-actions .view-place-button {
+  flex-grow: 1;
+  background-color: #8DD3BB;
+  color: #112211;
+  border-radius: 8px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.view-place-button:hover {
+  background-color: #76b699;
+}
+
+.property-listings .show-more-button {
+  height: auto;
+  width: 50%;
+  align-self: center;
+  background-color: #112211;
+  color: #fff;
+  /*margin-top: 20px;*/
+  /*margin-bottom: 10px;*/
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.show-more-button:hover {
+  background-color: #555;
+}
+
+@media (max-width: 768px) {
+  .property-list-section {
+    width: 100%;  /* Use full width on smaller screens */
+  }
+
+  .property-listings {
+    padding-left: 0;  /* Remove left padding */
+  }
+
+  .property-border {
+    border-left: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .property-card {
+    flex-direction: column;  /* Stack image and content vertically */
+  }
+
+  .property-image {
+    width: 100%;  /* Make image take full width */
+    height: 200px;  /* Reduce image height on smaller screens */
+    border-radius: 12px 12px 0 0;  /* Adjust border radius for stacked layout */
+  }
+
+  .property-content {
+    padding: 16px;  /* Reduce padding */
+  }
+
+  .property-info-price {
+    flex-direction: column;
+    align-items: flex-start;  /* Stack the property info and price vertically */
+  }
+
+  .property-info {
+    max-width: 100%;  /* Make property info take full width */
+  }
+
+  .property-price {
+    text-align: left;  /* Align price text to the left */
+    margin-top: 12px;  /* Add some space between info and price */
+    margin-bottom: 0;
+    /*align-self: end;*/ /* ???????????? */
+  }
+
+  .property-actions {
+    justify-content: space-between;
+  }
+
+  .property-divider {
+    margin: 16px 0;  /* Reduce space between property sections */
+  }
+
+}
+
+@media (max-width: 480px) {
+  .property-card {
+    padding: 12px;  /* Reduce padding further on very small screens */
+  }
+
+  .property-image {
+    height: 150px;  /* Reduce image height for very small screens */
+  }
+
+  .property-content {
+    padding: 12px;
+  }
+
+  .property-info h3 {
+    font-size: 20px;  /* Decrease font size for the property title */
+  }
+
+  .property-info p, .property-amenities, .review-count {
+    font-size: 12px;  /* Decrease font size for smaller texts */
+  }
+
+  .price-value {
+    font-size: 22px;  /* Reduce price text size */
+  }
+
+  .property-actions .view-place-button {
+    height: 40px;  /* Adjust button height */
+  }
+
+  .like-button {
+    width: 40px;
+    height: 40px;
+  }
+}

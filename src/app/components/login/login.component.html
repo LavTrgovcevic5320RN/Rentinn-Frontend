@@ -1,0 +1,109 @@
+<div class="content-wrapper">
+  <div class="login-container">
+    <div class="login-form-container">
+
+      <div *ngIf="currentStage === 'login'">
+        <h2 class="login-title">Login</h2>
+        <p class="login-title-text">Login to access your Golobe account</p>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required />
+            <button mat-icon-button matSuffix (click)="hide = !hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <div class="remember-forgot-container">
+            <mat-checkbox formControlName="rememberMe">Remember me</mat-checkbox>
+            <a class="forgot-password" (click)="currentStage = 'forgotPassword'">Forgot Password</a>
+          </div>
+
+          <button type="submit" class="login-btn" [disabled]="loginForm.invalid">Login</button>
+
+          <div class="sign-up-container">
+            <p class="sign-up-text">Don't have an account?<a class="sign-up-link" [routerLink]="'/sign-up'">Sign up</a></p>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="currentStage === 'forgotPassword'">
+        <a class="back-to-login" (click)="backToLogin()">
+          <img src="assets/arrow-back.png" alt="Back" class="back-arrow" /> Back to login
+        </a>
+        <h2 class="login-title">Forgot your password?</h2>
+        <p class="login-title-text">Don’t worry, it happens. Enter your email below to recover your password.</p>
+
+        <form [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPasswordSubmit()">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required />
+          </mat-form-field>
+
+          <button type="submit" class="login-btn" [disabled]="forgotPasswordForm.invalid">Submit</button>
+        </form>
+      </div>
+
+      <div *ngIf="currentStage === 'verifyCode'">
+        <a class="back-to-login" (click)="backToLogin()">
+          <img src="assets/arrow-back.png" alt="Back" class="back-arrow" /> Back to login
+        </a>
+        <h2 class="login-title">Verify Code</h2>
+        <p class="login-title-text">An authentication code has been sent to your email.</p>
+
+        <form [formGroup]="verifyCodeForm" (ngSubmit)="onVerifyCodeSubmit()">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Enter Code</mat-label>
+            <input matInput formControlName="code" required />
+          </mat-form-field>
+
+          <a href="#" class="forgot-password">Didn't receive a code? Resend</a>
+
+          <button type="submit" class="login-btn" [disabled]="verifyCodeForm.invalid">Verify</button>
+        </form>
+      </div>
+
+      <div *ngIf="currentStage === 'setPassword'">
+        <a class="back-to-login" (click)="backToLogin()">
+          <img src="assets/arrow-back.png" alt="Back" class="back-arrow" /> Back to login
+        </a>
+        <h2 class="login-title">Set a new password</h2>
+        <p class="login-title-text">Your previous password has been reset. Please set a new password for your account.</p>
+
+        <form [formGroup]="setPasswordForm" (ngSubmit)="onSetPasswordSubmit()">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>New Password</mat-label>
+            <input matInput formControlName="newPassword" required [type]="hide ? 'password' : 'text'" />
+            <button mat-icon-button matSuffix (click)="hide = !hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput formControlName="confirmPassword" required [type]="hide ? 'password' : 'text'" />
+            <button mat-icon-button matSuffix (click)="hide = !hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <button type="submit" class="login-btn" [disabled]="setPasswordForm.invalid">Set Password</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="login-image-container">
+      <img [src]="currentImage" alt="Login Image" class="login-image" />
+      <div class="image-slider-dots">
+        <span *ngFor="let dot of dots; let i = index" [class.active]="i === currentImageIndex" (click)="changeImage(i)"></span>
+      </div>
+    </div>
+  </div>
+</div>
+

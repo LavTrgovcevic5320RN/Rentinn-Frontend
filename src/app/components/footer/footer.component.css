@@ -1,0 +1,205 @@
+/* Wrapper for all content below the landing page */
+.content-wrapper {
+  width: 90%; /* Central width for all content */
+  max-width: 1200px; /* You can control the maximum width here */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Newsletter Section */
+.newsletter-container {
+  width: 100%;
+  background-color: #CDEAE1;
+  padding: 30px 30px 0 30px;
+  border-radius: 20px;
+  margin-bottom: -190px; /* Negative margin to overlap the footer */
+  z-index: 10;  /* Ensure it stays above the footer */
+  position: relative;
+  box-sizing: border-box; /* Ensure padding is accounted for */
+}
+
+.newsletter-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the top */
+  margin: 0 auto;
+  flex-wrap: wrap; /* Allow content to wrap if necessary */
+}
+
+.newsletter-text {
+  flex-grow: 1;
+  max-width: max-content;
+  /*max-width: 600px; !* Adjust this value based on your layout requirements *!*/
+  margin-right: 20px;
+}
+
+.subscribe-newsletter {
+  font-size: 44px; /* Increased font size */
+  font-weight: bolder; /* Adjust font weight */
+  font-family: 'TradeGothic ST Extended', Arial, sans-serif;
+  line-height: 1.2; /* Space between Subscribe and Newsletter */
+  margin: 0 0 20px 0;
+  color: #112211;
+  /*padding-bottom: -20px;*/
+}
+
+.newsletter-subtitle {
+  font-family: 'TradeGothic ST Extended', Arial, sans-serif;
+  opacity: 80%;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 10px 0;
+  color: #112211;
+}
+
+.get-inspired-text {
+  font-family: 'Montserrat', serif;
+  font-weight: 500;
+  font-size: 16px;
+  opacity: 70%;
+}
+
+.newsletter-form {
+  margin-top: 20px;
+  display: flex;
+  flex-grow: 1;
+}
+
+.newsletter-form input {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  max-width: calc(100% - 120px); /* Adjust for button size */
+}
+
+.newsletter-form button {
+  padding: 10px 20px;
+  background-color: #112211;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.newsletter-image img {
+  width: 350px;
+  height: auto;
+}
+
+
+/* Footer Section */
+.footer-container {
+  background-color: #8DD3BB;
+  padding: 200px 20px 20px 20px; /* Povećan padding za bolji razmak */
+  color: #333;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-logo img {
+  width: 180px; /* Povećana veličina logo-a */
+  margin-bottom: 20px; /* Razmak između logo-a i ikona društvenih mreža */
+  max-width: 100%; /* Da bude responsive */
+}
+
+.social-icons {
+  display: flex;
+  justify-content: space-between; /* Razmakni ikone da zauzmu celu širinu logo-a */
+  width: 100%;
+  gap: 10px; /* Smanjen razmak između ikona */
+}
+
+.social-icons a {
+  flex: 1; /* Svaka ikona zauzima jednak prostor */
+  display: flex;
+  justify-content: center;
+}
+
+.social-icons img.social-icon {
+  width: 32px; /* Ikone su proporcionalne širini logo-a */
+  height: 32px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 100px; /* Smanjen razmak između footer kolona */
+}
+
+.footer-links div {
+  max-width: 200px;
+}
+
+.footer-links h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  /*font-weight: bold;*/
+  font-family: 'TradeGothic ST Extended Bold', Arial, sans-serif;
+  color: #112211;
+}
+
+.footer-links ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 8px;
+  font-size: 14px; /* Veličina fonta */
+  font-weight: 500; /* Medium težina */
+  font-family: 'Montserrat', sans-serif; /* Montserrat font */
+  color: #112211;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dve kolone */
+    gap: 20px;
+    justify-content: center; /* Centriraj kolone */
+    width: 100%;
+  }
+
+  .footer-links div {
+    text-align: center;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-links {
+    grid-template-columns:  repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .footer-links div {
+    text-align: center;
+    max-width: 100%;
+  }
+}

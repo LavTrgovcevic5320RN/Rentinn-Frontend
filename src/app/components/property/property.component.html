@@ -1,0 +1,138 @@
+<div class="property-page">
+<!--  <div class="breadcrumb">-->
+<!--    <span>Turkey</span> &gt;-->
+<!--    <span>Istanbul</span> &gt;-->
+<!--    <span>CVK Park Bosphorus Hotel Istanbul</span>-->
+<!--  </div>-->
+
+  <div class="hotel-card">
+    <div class="hotel-info">
+      <h2>CVK Park Bosphorus Hotel Istanbul</h2>
+    </div>
+
+    <div class="action-section">
+      <div class="price-section">
+        <span class="price">$240</span><span class="per-night">/night</span>
+      </div>
+
+      <div class="action-buttons">
+        <button class="favorite-btn" (click)="onFavoriteClick()">
+          <mat-icon>{{ isFavorited ? 'favorite' : 'favorite_border' }}</mat-icon>
+        </button>
+        <button class="share-btn" (click)="onShareClick()">
+          <mat-icon>share</mat-icon>
+        </button>
+        <button class="book-btn" (click)="onBookClick()">
+          Book now
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="gallery">
+    <div *ngFor="let image of visibleImages; let i = index" class="thumbnail">
+      <!-- When an image is clicked, pass the index of the clicked item -->
+      <img [src]="image.url" [alt]="'Image ' + (i + 1)" (click)="openGalleryFromIndex(i)">
+    </div>
+  </div>
+
+
+  <div class="border"></div>
+
+
+  <div class="overview">
+    <h3>Overview</h3>
+    <p>{{ property.description }}</p>
+    <div class="highlights">
+      <div class="rating-box">
+        <div class="rating-score">{{ property.rating }}</div>
+        <div>
+          <p>Very good</p>
+          <span class="review-count">{{ property.reviews.length }} {{ property.reviews.length ? 'reviews' : 'review' }}</span>
+        </div>
+      </div>
+
+      <div *ngFor="let highlight of property.highlights" class="highlight-box">
+        <img src="/assets/black-stars.png" alt="Sparkle Icon" class="sparkle-icon" />
+        <p>{{ highlight }}</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="border"></div>
+
+
+  <div class="map-container">
+    <h3>Location/Map</h3>
+    <div id="map"></div>
+    <p class="location-text">
+      <mat-icon class="custom-icon">location_on</mat-icon>
+      {{ property.location }}
+    </p>
+  </div>
+
+
+  <div class="border"></div>
+
+
+  <div class="check-in-check-out">
+    <h3>Check-in and Check-out</h3>
+    <p class="check-in">
+      <mat-icon>schedule</mat-icon>
+      <span>Check-in: {{ property.checkIn }}</span>
+    </p>
+    <p class="check-out">
+      <mat-icon>schedule</mat-icon>
+      <span>Check-out: {{ property.checkOut }}</span>
+    </p>
+  </div>
+
+
+  <div class="border"></div>
+
+
+  <div class="amenities">
+    <h3>Amenities</h3>
+    <div class="amenities-list">
+      <div *ngFor="let amenity of visibleAmenities" class="amenity-item">
+        <mat-icon>{{ getAmenityIcon(amenity) }}</mat-icon>
+        <span>{{ amenity }}</span>
+      </div>
+
+      <div *ngIf="!showAllAmenities && remainingAmenitiesCount > 0" class="amenity-item more-amenities">
+        <button (click)="showMoreAmenities()">
+          +{{ remainingAmenitiesCount }} more
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="border"></div>
+
+
+  <div class="reviews">
+    <h3>Reviews</h3>
+    <div class="review-score">
+      <span>4.2</span> <span>Very good</span> <span>371 verified reviews</span>
+    </div>
+    <div class="review">
+      <p><strong>Omar Siphron</strong> - 5.0 Amazing</p>
+      <p>Lorem ipsum dolor sit amet...</p>
+    </div>
+    <div class="review">
+      <p><strong>Cristofer Ekstrom Bothman</strong> - 5.0 Amazing</p>
+      <p>Lorem ipsum dolor sit amet...</p>
+    </div>
+    <div class="review">
+      <p><strong>Kaiya Lubin</strong> - 5.0 Amazing</p>
+      <p>Lorem ipsum dolor sit amet...</p>
+    </div>
+    <div class="review">
+      <p><strong>Erin Septimus</strong> - 5.0 Amazing</p>
+      <p>Lorem ipsum dolor sit amet...</p>
+    </div>
+  </div>
+</div>

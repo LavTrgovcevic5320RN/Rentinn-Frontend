@@ -1,0 +1,186 @@
+<div class="property-list-wrapper">
+  <div class="search-header">
+
+    <form [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()" class="search-fields">
+      <mat-form-field subscriptSizing="dynamic" appearance="outline" class="search-field">
+        <mat-label>Enter Destination</mat-label>
+        <input matInput formControlName="destination" required>
+        <mat-icon matPrefix>hotel</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field subscriptSizing="dynamic" appearance="outline" class="search-field">
+        <mat-label>Check In</mat-label>
+        <input [matDatepicker]="checkInPicker" formControlName="checkIn" matInput required>
+        <mat-datepicker-toggle matSuffix [for]="checkInPicker"></mat-datepicker-toggle>
+        <mat-datepicker #checkInPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field subscriptSizing="dynamic" appearance="outline" class="search-field">
+        <mat-label>Check Out</mat-label>
+        <input [matDatepicker]="checkOutPicker" formControlName="checkOut" matInput required>
+        <mat-datepicker-toggle matSuffix [for]="checkOutPicker"></mat-datepicker-toggle>
+        <mat-datepicker #checkOutPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field subscriptSizing="dynamic" appearance="outline" class="search-field">
+        <mat-label>Rooms & Guests</mat-label>
+        <mat-select formControlName="roomsGuests" required>
+          <mat-option *ngFor="let option of roomGuestOptions" [value]="option">{{ option }}</mat-option>
+        </mat-select>
+        <mat-icon matPrefix>person</mat-icon>
+      </mat-form-field>
+
+      <button [disabled]="searchForm.invalid" type="submit" mat-raised-button class="search-button">
+        <img src="./assets/search-icon.png" alt="Search Icon" class="custom-search-icon" />
+      </button>
+    </form>
+  </div>
+
+  <button mat-raised-button class="filters-toggle-button" (click)="showFilters = !showFilters">
+    Filters
+  </button>
+
+  <div class="content-section">
+
+    <div class="filters"  [ngClass]="{'hidden': !showFilters}">
+      <h3>Filters</h3>
+
+      <form [formGroup]="filtersForm">
+        <mat-accordion multi>
+          <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Price</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="price-slider">
+              <mat-slider
+                [min]="30"
+                [max]="500"
+                step="5"
+                class="use-other-color"
+              >
+                <input formControlName="minValue" (ngModelChange)="filterProperties()" matSliderStartThumb>
+                <input formControlName="maxValue" (ngModelChange)="filterProperties()" matSliderEndThumb>
+              </mat-slider>
+              <div class="price-range">
+                <span>{{ filtersForm.get('minValue')?.value }} €</span>
+                <span>{{ filtersForm.get('maxValue')?.value }} €</span>
+              </div>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Rating</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="rating-filter" >
+              <button mat-button
+                      *ngFor="let rating of ratings"
+                      [ngClass]="{'selected': filtersForm.get('rating')?.value === rating}"
+                      (click)="toggleRating(rating)">
+                {{rating}} +
+              </button>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel class="freebies-filter" expanded>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Freebies</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div formArrayName="freebies">
+              <div *ngFor="let freebieControl of freebiesArray.controls; let i = index">
+                <mat-checkbox (ngModelChange)="filterProperties()" [formControlName]="i">{{ freebies[i] }}</mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel class="amenities-filter" expanded>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Amenities</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div formArrayName="amenities">
+              <div *ngFor="let amenityControl of amenitiesArray.controls | slice:0:4; let i = index">
+                <mat-checkbox (ngModelChange)="filterProperties()" [formControlName]="i">{{ amenities[i] }}</mat-checkbox>
+              </div>
+
+              <div *ngIf="showMoreAmenities">
+                <div *ngFor="let amenityControl of amenitiesArray.controls | slice:4; let i = index">
+                  <mat-checkbox (ngModelChange)="filterProperties()" [formControlName]="i + 4">{{ amenities[i + 4] }}</mat-checkbox>
+                </div>
+              </div>
+            </div>
+
+            <button mat-button (click)="toggleShowMoreAmenities()">
+              {{ showMoreAmenities ? 'Show less' : '+24 more' }}
+            </button>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </form>
+    </div>
+
+    <div class="property-list-section">
+      <div class="property-listings">
+        <div class="property-border">
+          <div class="listing-header">
+            <div class="sort-by">
+              Sort by
+              <mat-select disableOptionCentering class="sort-mat-select" [(ngModel)]="selectedSortOption" (selectionChange)="sortProperties()">
+                <mat-option value="recommended">Recommended</mat-option>
+                <mat-option value="price-low-to-high">Price: Low to High</mat-option>
+                <mat-option value="price-high-to-low">Price: High to Low</mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <div class="property-card" *ngFor="let property of filteredProperties">
+            <div class="property-image">
+              <img [src]="property.images[0]" alt="Property Image" />
+              <div class="image-overlay">
+
+                <span>{{ property.images.length }} {{ property.images.length > 1 ? 'images' : 'image' }}</span>
+              </div>
+            </div>
+
+            <div class="property-content">
+              <div class="property-info-price">
+                <div class="property-info">
+                  <h3>{{ property.name }}</h3>
+                  <p>{{ property.location }}</p>
+                  <div class="property-amenities">
+                    <span>{{ property.amenities.length }} {{ property.amenities.length > 1 ? 'amenities' : 'amenity' }}</span>
+                  </div>
+                  <div class="property-reviews">
+                    <div class="rating-box">
+                      <span class="rating-value"> {{ property.rating }} </span>
+                    </div>
+                    <div class="review-text">
+                      <span class="review-count">{{ property.reviews.length }} {{ property.reviews.length > 1 ? 'reviews' : 'review' }}</span>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="property-price">
+                  <div class="price-label">starting from</div>
+                  <div class="price-value">
+                    <span class="price-amount"> {{ property.price }} </span><span class="price-night">/night</span>
+                  </div>
+                  <div class="price-excl">excl. tax</div>
+                </div>
+
+              </div>
+
+              <hr class="property-divider">
+
+              <div class="property-actions">
+                <button mat-icon-button class="like-button"><mat-icon>favorite</mat-icon></button>
+                <button mat-raised-button color="primary" class="view-place-button">View Place</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
