@@ -1,6 +1,6 @@
 <nav [ngClass]="{'navbar-custom': isHomePage, 'navbar-other': !isHomePage}" class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">Rentinn</a>
 
     <button *ngIf="!isLoggedIn" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -20,7 +20,7 @@
     <div *ngIf="isLoggedIn" class="d-flex align-items-center">
       <div class="dropdown">
         <a
-          class="nav-link dropdown-toggle d-flex align-items-center"
+          class="person nav-link dropdown-toggle d-flex align-items-center"
           href="#"
           id="userDropdown"
           role="button"
@@ -34,7 +34,7 @@
             width="40"
             height="40"
           />
-          <span class="ms-2">{{ username }}</span>
+          <span class="ms-2 me-2">{{ username }}</span>
         </a>
 
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
