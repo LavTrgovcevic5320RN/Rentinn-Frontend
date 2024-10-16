@@ -11,7 +11,7 @@ export class SignUpComponent {
   paymentForm: FormGroup;
 
   hide = true;
-  currentStage = 'signUp'; // Default stage
+  currentStage = 'signUp';
 
   images = ['assets/hotel pool login.png', 'assets/airplane login.png', 'assets/login 3.jpg'];
   currentImage = this.images[0];
@@ -38,7 +38,6 @@ export class SignUpComponent {
       saveInfo: [true]
     });
 
-    // Automatically change image every few seconds
     setInterval(() => {
       this.changeImage((this.currentImageIndex + 1) % this.images.length);
     }, 10000);
@@ -52,7 +51,6 @@ export class SignUpComponent {
   onSubmitSignUp() {
     if (this.signUpForm.valid) {
       console.log(this.signUpForm.value);
-      // Move to payment method stage
       this.currentStage = 'payment';
     }
   }
@@ -60,7 +58,6 @@ export class SignUpComponent {
   onSubmitPayment() {
     if (this.paymentForm.valid) {
       console.log(this.paymentForm.value);
-      // Complete the sign-up process and handle payment information
     }
   }
 

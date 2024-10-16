@@ -1,5 +1,11 @@
 import {Image} from '@failed-successfully/ngx-darkbox-gallery';
 
+export interface Permission {
+  permission_id?: number;
+  name: string;
+  description?: string;
+}
+
 export interface Property {
   id: number;
   name: string;

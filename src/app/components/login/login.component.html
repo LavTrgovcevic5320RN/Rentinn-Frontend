@@ -25,7 +25,10 @@
             <a class="forgot-password" (click)="currentStage = 'forgotPassword'">Forgot Password</a>
           </div>
 
-          <button type="submit" class="login-btn" [disabled]="loginForm.invalid">Login</button>
+          <button type="submit" class="login-btn" [disabled]="loginForm.invalid && loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm center"></span>
+            Login
+          </button>
 
           <div class="sign-up-container">
             <p class="sign-up-text">Don't have an account?<a class="sign-up-link" [routerLink]="'/sign-up'">Sign up</a></p>
