@@ -8,20 +8,31 @@ export interface Permission {
 
 export interface Property {
   id: number;
-  name: string;
-  location: string;
-  rating: number;
-  price: number;
-  images: Image[];
-  freebies: string[];
+  title: string;
+  country: string;
+  city: string;
+  address: string;
+  postalCode: string;
+  latitude: number;
+  longitude: number;
+  imagePaths: string[];
   amenities: string[];
+  freebies: string[];
+  rating: number;
+  averagePrice: number;
+  dailyPrices: DailyPrice[];
   description: string;
   highlights: string[];
   reviews: Review[];
-  longitude: number;
-  latitude: number;
   checkIn: string;
   checkOut: string;
+}
+
+export interface DailyPrice {
+  id: number;
+  date: string;
+  price: number;
+  propertyId: number;
 }
 
 export interface Review {

@@ -31,6 +31,7 @@ import {MatSlider, MatSliderModule} from '@angular/material/slider';
 import {HttpClientModule} from '@angular/common/http';
 import {MatDivider} from '@angular/material/divider';
 import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
+import { ExampleComponent } from './components/example/example.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/mate
     SignUpComponent,
     PropertyListComponent,
     PropertyComponent,
+    ExampleComponent,
   ],
   imports: [
     BrowserModule,

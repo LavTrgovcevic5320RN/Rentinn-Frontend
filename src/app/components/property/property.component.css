@@ -1,4 +1,3 @@
-/*!* Property page styling *!*/
 .property-page {
   font-family: Arial, sans-serif;
   color: #333;
@@ -6,68 +5,6 @@
   width: 70%;
   margin: 0 auto;
 }
-
-/*.breadcrumb {*/
-/*  font-size: 14px;*/
-/*  color: #FF6F61;*/
-/*  margin-bottom: 10px;*/
-/*}*/
-
-
-/*!* Main container for the hotel header *!*/
-/*.hotel-header {*/
-/*  display: flex;*/
-/*  justify-content: space-between;*/
-/*  align-items: flex-start; !* Align items to the top *!*/
-/*  !*padding: 20px;*!*/
-/*  margin-bottom: 20px;*/
-/*  font-family: Arial, sans-serif;*/
-/*}*/
-
-/*!* Left side: title and location *!*/
-/*.hotel-info {*/
-/*  flex-grow: 1;*/
-/*}*/
-
-/*.hotel-title {*/
-/*  font-size: 24px;*/
-/*  font-family: "TradeGothic ST Extended Bold", sans-serif;*/
-/*  margin: 0 0 16px 0;*/
-/*  color: #333;*/
-/*}*/
-
-/*.hotel-location {*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  font-size: 14px;*/
-/*  font-weight: 500;*/
-/*  font-family: Montserrat, sans-serif;*/
-/*  color: #555;*/
-/*}*/
-
-/*.location-icon mat-icon {*/
-/*  font-size: 16px;*/
-/*  margin-right: 5px;*/
-/*}*/
-
-/*!* Rating section next to the title *!*/
-/*.hotel-rating {*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  !*margin-top: 10px;*!*/
-/*}*/
-
-/*.rating-box {*/
-/*  background-color: #64C9A3;*/
-/*  color: white;*/
-/*  padding: 10px;*/
-/*  border-radius: 8px;*/
-/*  font-size: 16px;*/
-/*  margin-right: 10px;*/
-/*  text-align: center;*/
-/*}*/
-
-
 
 .hotel-card {
   display: flex;
@@ -94,7 +31,7 @@
 }
 
 .price-section {
-  margin-bottom: 10px; /* Adjusts spacing between price and buttons */
+  margin-bottom: 10px;
 }
 
 .price {
@@ -155,12 +92,11 @@ button mat-icon {
 
 
 
-/* Gallery */
 .gallery {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr; /* Large image on left, 2 equal columns on the right */
-  grid-template-rows: 1fr 1fr; /* Two rows */
-  gap: 8px; /* Adds space between thumbnails */
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
 }
 
 .thumbnail {
@@ -168,42 +104,42 @@ button mat-icon {
 }
 
 .thumbnail:nth-child(1) {
-  grid-column: 1 / 2; /* First image spans only 1 column (left side) */
-  grid-row: 1 / span 2; /* First image spans 2 rows (full height on the left) */
+  grid-column: 1 / 2;
+  grid-row: 1 / span 2;
 }
 
 .thumbnail:nth-child(2),
 .thumbnail:nth-child(3),
 .thumbnail:nth-child(4),
 .thumbnail:nth-child(5) {
-  grid-column: span 1; /* Each thumbnail in its own column */
-  grid-row: span 1; /* Each thumbnail in its own row */
+  grid-column: span 1;
+  grid-row: span 1;
 }
 
 .thumbnail:nth-child(2) {
-  grid-column: 2 / 3; /* Second image goes in the top right */
+  grid-column: 2 / 3;
   grid-row: 1 / 2;
 }
 
 .thumbnail:nth-child(3) {
-  grid-column: 3 / 4; /* Third image goes in the top right, next to the second */
+  grid-column: 3 / 4;
   grid-row: 1 / 2;
 }
 
 .thumbnail:nth-child(4) {
-  grid-column: 2 / 3; /* Fourth image goes in the bottom right */
+  grid-column: 2 / 3;
   grid-row: 2 / 3;
 }
 
 .thumbnail:nth-child(5) {
-  grid-column: 3 / 4; /* Fifth image goes in the bottom right, next to the fourth */
+  grid-column: 3 / 4;
   grid-row: 2 / 3;
 }
 
 .thumbnail img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures that the image covers the thumbnail without stretching */
+  object-fit: cover;
   position: relative;
 }
 
@@ -220,93 +156,6 @@ button mat-icon {
 }
 
 
-/*.gallery {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr; !* Large image on left, 2 equal columns on the right *!
-  grid-template-rows: 1fr 1fr; !* Two rows *!
-  gap: 8px; !* Adds space between thumbnails *!
-}
-
-.thumbnail {
-  cursor: pointer;
-  position: relative; !* Make it relative so that the button can be absolutely positioned inside *!
-}
-
-.thumbnail:nth-child(1) {
-  grid-column: 1 / 2; !* First image spans only 1 column (left side) *!
-  grid-row: 1 / span 2; !* First image spans 2 rows (full height on the left) *!
-}
-
-.thumbnail:nth-child(2),
-.thumbnail:nth-child(3),
-.thumbnail:nth-child(4),
-.thumbnail:nth-child(5) {
-  grid-column: span 1; !* Each thumbnail in its own column *!
-  grid-row: span 1; !* Each thumbnail in its own row *!
-}
-
-.thumbnail:nth-child(2) {
-  grid-column: 2 / 3; !* Second image goes in the top right *!
-  grid-row: 1 / 2;
-}
-
-.thumbnail:nth-child(3) {
-  grid-column: 3 / 4; !* Third image goes in the top right, next to the second *!
-  grid-row: 1 / 2;
-}
-
-.thumbnail:nth-child(4) {
-  grid-column: 2 / 3; !* Fourth image goes in the bottom right *!
-  grid-row: 2 / 3;
-}
-
-.thumbnail:nth-child(5) {
-  grid-column: 3 / 4; !* Fifth image goes in the bottom right, next to the fourth *!
-  grid-row: 2 / 3;
-  position: relative; !* Enable relative positioning for the button *!
-}
-
-.thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; !* Ensures that the image covers the thumbnail without stretching *!
-}
-
-.thumbnail:nth-child(1) img{
-  border-radius: 12px 0 0 12px;
-}
-
-.thumbnail:nth-child(3) img{
-  border-radius: 0 12px 0 0;
-}
-
-.thumbnail:nth-child(5) img{
-  border-radius: 0 0 12px 0;
-}
-
-.view-photos-btn {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  background-color: #8DD3BB; !* Semi-transparent background *!
-  !*color: white;*!
-  color: #112211;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: Montserrat, sans-serif;
-  cursor: pointer;
-}
-
-.view-photos-btn:hover {
-  background-color: #112211; !* Darker background on hover *!
-  color: #8DD3BB;
-}*/
-
-
-
 
 .border {
   border: 1px solid rgba(17, 34, 17, 0.25);
@@ -315,7 +164,6 @@ button mat-icon {
 
 
 
-/* Overview section */
 .overview {
   height: auto;
 }
@@ -402,7 +250,7 @@ button mat-icon {
 }
 
 
-/* Map section */
+
 .map-container {
   height: auto;
 }
@@ -431,8 +279,8 @@ button mat-icon {
 
 .custom-icon {
   font-family: 'Material Icons', serif;
-  margin-right: 8px; /* Adds some space between the icon and the text */
-  font-size: 20px; /* Adjust this to match the text size */
+  margin-right: 8px;
+  font-size: 20px;
 }
 
 
@@ -457,7 +305,6 @@ button mat-icon {
 
 
 
-/* Amenities section */
 .amenities h3 {
   font-size: 20px;
   font-family: "TradeGothic ST Extended Bold", sans-serif;
@@ -467,7 +314,7 @@ button mat-icon {
 
 .amenities-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 2 columns layout */
+  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   margin-top: 10px;
 }
@@ -484,14 +331,14 @@ button mat-icon {
 .mat-icon {
   font-size: 24px;
   margin-right: 10px;
-  /*color: #4CAF50; !* You can change the color to suit your design *!*/
+  /*color: #4CAF50;*/
   color: #112211;
 }
 
 .more-amenities button {
   background: none;
   border: none;
-  color: #FF6F61; /* Customize the button color */
+  color: #FF6F61;
   font-weight: bold;
   cursor: pointer;
 }

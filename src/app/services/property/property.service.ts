@@ -1,38 +1,46 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Property} from '../../models/model';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PropertyService {
 
-  private apiUrl = 'https://api.example.com/properties';
+  private apiUrl = environment.userService + "/property";
 
   constructor(private httpClient: HttpClient) {}
 
   fetchProperties(values: any): Observable<Property[]> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + (sessionStorage.getItem('jwt') || localStorage.getItem('jwt'))
+    });
+
     console.log('U property-service fetch properties:', values);
 
-    // return this.httpClient.get<Property[]>(this.apiUrl, { params: values });
-    const url = `assets/properties.json`;
-    return this.httpClient.get<Property[]>(url);
-  }
+    const city = values.destination.split(',')[0];
+    const country = values.destination.split(',')[1];
+    const formattedCheckIn = values.checkIn.toISOString().split('T')[0];
+    const formattedCheckOut = values.checkIn.toISOString().split('T')[0];
 
-  // getAllProperties(): Observable<any[]> {
-  //   return this.httpClient.get<any[]>(this.apiUrl);
-  // }
+    // console.log('Check in:', formattedCheckIn);
+    // console.log('Check out:', formattedCheckOut);
+    // console.log('City:', city);
+    // console.log('Country:', country);
 
-  // getAllProperties(): Observable<Property[]> {
-  //   const url = `assets/properties.json`;
-  //   return this.httpClient.get<Property[]>(url);
-  // }
+    const params = new HttpParams()
+      .set('city', city)
+      .set('country', country)
+      .set('checkInDate', formattedCheckIn)
+      .set('checkOutDate', formattedCheckOut)
+      .set('guests', 2)
+      .set('rooms', 3);
 
+    console.log('Params:', params);
 
-  getAllProperties(): Observable<Property[]> {
-    const url = `assets/properties.json`;
-    return this.httpClient.get<Property[]>(url);
+    return this.httpClient.get<Property[]>(`${this.apiUrl}/all`, { headers, params });
   }
 
   fetchAmenities(): Observable<string[]> {
@@ -40,8 +48,11 @@ export class PropertyService {
     return this.httpClient.get<string[]>(url);
   }
 
-  // getAllProperties(): Observable<IProperty[]> {
-  //   const url = `assets/iproperty.json`;
-  //   return this.httpClient.get<IProperty[]>(url);
-  // }
+  public createProperty(formData: FormData): Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + (sessionStorage.getItem('jwt') || localStorage.getItem('jwt'))
+    });
+    return this.httpClient.post<any>(`${this.apiUrl}/add`, formData, { headers });
+  }
+
 }

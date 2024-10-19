@@ -352,7 +352,7 @@ mat-slider {
 
 
 .property-list-section {
-  width: 80%;  /* Mozda i ostaviti 80%, jer ovako zmanji duzinu filtera sa leve strane */
+  width: 80%;  /* Mozda i ostavim 80%, jer ovako smanji duzinu filtera sa leve strane */
   margin-left: auto;
   margin-right: auto;
 }
@@ -428,7 +428,7 @@ mat-slider {
 .mat-select-placeholder {
   font-size: 14px;
   font-family: "Montserrat", sans-serif;
-  font-weight: 600; /* Semibold */
+  font-weight: 600;
 }
 
 .mat-option-text {
@@ -442,18 +442,8 @@ mat-slider {
   margin-left: 10px;
 }
 
-/*::ng-deep .sortmat-select .mat-mdc-option.mdc-list-item--selected:not(.mat-mdc-option-multiple):not(.mdc-list-item-disabled) {*/
-/*  color: #112211;*/
-/*  font-size: 14px; !* Set font size for placeholder text *!*/
-/*  font-family: "Montserrat", sans-serif;*/
-/*  font-weight: 600; !* Semibold *!*/
-/*}*/
-
 ::ng-deep .sort-mat-option .mdc-list-item__primary-text  {
   color: #112211;
-  /*font-size: 14px; !* Set font size for placeholder text *!*/
-  /*font-family: "Montserrat", sans-serif;*/
-  /*font-weight: 600; !* Semibold *!*/
 }
 
 .sort-by mat-select .mat-select-trigger {
@@ -733,11 +723,11 @@ mat-slider {
 
 @media (max-width: 768px) {
   .property-list-section {
-    width: 100%;  /* Use full width on smaller screens */
+    width: 100%;
   }
 
   .property-listings {
-    padding-left: 0;  /* Remove left padding */
+    padding-left: 0;
   }
 
   .property-border {
@@ -747,31 +737,31 @@ mat-slider {
   }
 
   .property-card {
-    flex-direction: column;  /* Stack image and content vertically */
+    flex-direction: column;
   }
 
   .property-image {
-    width: 100%;  /* Make image take full width */
-    height: 200px;  /* Reduce image height on smaller screens */
-    border-radius: 12px 12px 0 0;  /* Adjust border radius for stacked layout */
+    width: 100%;
+    height: 200px;
+    border-radius: 12px 12px 0 0;
   }
 
   .property-content {
-    padding: 16px;  /* Reduce padding */
+    padding: 16px;
   }
 
   .property-info-price {
     flex-direction: column;
-    align-items: flex-start;  /* Stack the property info and price vertically */
+    align-items: flex-start;
   }
 
   .property-info {
-    max-width: 100%;  /* Make property info take full width */
+    max-width: 100%;
   }
 
   .property-price {
-    text-align: left;  /* Align price text to the left */
-    margin-top: 12px;  /* Add some space between info and price */
+    text-align: left;
+    margin-top: 12px;
     margin-bottom: 0;
     /*align-self: end;*/ /* ???????????? */
   }
@@ -781,18 +771,18 @@ mat-slider {
   }
 
   .property-divider {
-    margin: 16px 0;  /* Reduce space between property sections */
+    margin: 16px 0;
   }
 
 }
 
 @media (max-width: 480px) {
   .property-card {
-    padding: 12px;  /* Reduce padding further on very small screens */
+    padding: 12px;
   }
 
   .property-image {
-    height: 150px;  /* Reduce image height for very small screens */
+    height: 150px;
   }
 
   .property-content {
@@ -800,19 +790,19 @@ mat-slider {
   }
 
   .property-info h3 {
-    font-size: 20px;  /* Decrease font size for the property title */
+    font-size: 20px;
   }
 
   .property-info p, .property-amenities, .review-count {
-    font-size: 12px;  /* Decrease font size for smaller texts */
+    font-size: 12px;
   }
 
   .price-value {
-    font-size: 22px;  /* Reduce price text size */
+    font-size: 22px;
   }
 
   .property-actions .view-place-button {
-    height: 40px;  /* Adjust button height */
+    height: 40px;
   }
 
   .like-button {

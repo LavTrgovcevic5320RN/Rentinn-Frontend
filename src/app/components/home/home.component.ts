@@ -21,28 +21,45 @@ export class HomeComponent {
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.searchForm = this.fb.group({
-      destination: ['', Validators.required],
-      checkIn: ['', Validators.required],
-      checkOut: ['', Validators.required],
-      roomsGuests: ['1 room, 2 guests', Validators.required]
-    },
-    {
-      validators: dateRangeValidator()
+        destination: ['', Validators.required],
+        checkIn: ['', Validators.required],
+        checkOut: ['', Validators.required],
+        roomsGuests: ['1 room, 2 guests', Validators.required]
+      },
+      {
+        validators: dateRangeValidator()
+      });
+
+    // const savedForm = localStorage.getItem('searchForm');
+    // if (savedForm) {
+    //   this.searchForm.setValue(JSON.parse(savedForm));
+    // }
+    //
+
+    // this.searchForm.valueChanges.subscribe(formData => {
+    //   localStorage.setItem('searchForm', JSON.stringify(formData));
+    // });
+
+    this.searchForm.valueChanges.subscribe(formData => {
+      const formToSave = {
+        ...formData,
+        checkIn: formData.checkIn ? new Date(formData.checkIn).toString() : '',
+        checkOut: formData.checkOut ? new Date(formData.checkOut).toString() : ''
+      };
+      localStorage.setItem('searchForm', JSON.stringify(formToSave));
     });
+
   }
 
   onSubmit() {
     if (this.searchForm.valid) {
-      this.router.navigate(['/property-list'], {
-        state: {
-          destination: this.searchForm.get('destination')?.value,
-          checkIn: this.searchForm.get('checkIn')?.value,
-          checkOut: this.searchForm.get('checkOut')?.value,
-          roomsGuests: this.searchForm.get('roomsGuests')?.value
-        }
-      }).then(r => console.log('Navigation successful:', r));
+      // this.router.navigate(['/property-list']).then(r => console.log('Navigation successful:', r));
+      console.log('Form is valid');
+      console.log(this.searchForm.value);
+      this.router.navigate(['/property-list'], { state: this.searchForm.value }).then(r => console.log('Navigation successful:', r));
     } else {
       console.log('Form is invalid');
+      // this.searchForm.markAllAsTouched();
     }
   }
 

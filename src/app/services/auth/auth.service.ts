@@ -8,7 +8,7 @@ import {environment} from '../../../environments/environment';
 })
 export class AuthService {
 
-  private jwtSubject = new BehaviorSubject<string | null>(null);  // Ovaj subject prati promene u JWT
+  private jwtSubject = new BehaviorSubject<string | null>(null);
   private apiUrl = environment.userService + "/permissions";
 
   constructor(private http: HttpClient) {

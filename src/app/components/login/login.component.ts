@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {
-      this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/']); // Navigate to the desired route if the user is already logged in
+      this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/']);
     }
   }
 

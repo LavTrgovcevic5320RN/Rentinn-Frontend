@@ -1,4 +1,3 @@
-/* Background image style */
 .landing-page {
   height: 70vh;
   width: 100%;
@@ -11,10 +10,9 @@
   object-fit: cover;
 }
 
-/* Wrapper for all content below the landing page */
 .content-wrapper {
-  width: 90%; /* Central width for all content */
-  /*max-width: 1200px; !* You can control the maximum width here *!*/
+  width: 90%;
+  /*max-width: 1200px;*/
   margin-left: auto;
   margin-right: auto;
   padding: 40px 0;
@@ -23,10 +21,9 @@
   align-items: center;
 }
 
-/* Form container */
 .form-container {
   margin-top: -10%;
-  width: 100%; /* Full width inside the content-wrapper */
+  width: 100%;
   padding-bottom: 40px;
   margin-bottom: 40px;
 }
@@ -35,10 +32,9 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  width: 100%; /* Card will take the full width of the parent container */
+  width: 100%;
 }
 
-/* Button */
 .custom-btn {
   background-color: #8ad0b0;
   border: none;
@@ -65,7 +61,7 @@
   margin-right: 8px;
 }
 
-/* Additional content */
+
 .additional-content {
   width: 100%;
   text-align: center;
@@ -86,7 +82,7 @@
 
 .recent-searches {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive column layout */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   justify-items: center;
   width: 100%;
@@ -123,41 +119,39 @@
 }
 
 @media (max-width: 768px) {
-  /* Form container */
   .form-container {
     margin-top: -50%;
   }
 
   .recent-searches {
-    grid-template-columns: repeat(2, 1fr); /* Dve kolone za tablete */
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
 
   .search-item {
-    flex-direction: column; /* Stack image and text vertically */
+    flex-direction: column;
     text-align: center;
-    max-width: 100%; /* Full width on smaller screens */
+    max-width: 100%;
   }
 
   .search-item img {
-    width: 150px; /* Smanjena slika za tablete */
+    width: 150px;
     height: 150px;
   }
 }
 
-/* Responsive Design for Small Screens */
 @media (max-width: 480px) {
   .recent-searches {
-    grid-template-columns: 1fr; /* Jedna kolona za mobilne uređaje */
+    grid-template-columns: 1fr;
   }
 
   .search-item {
-    flex-direction: row; /* Horizontalno poravnjanje */
-    max-width: 100%; /* Full width na manjim ekranima */
+    flex-direction: row;
+    max-width: 100%;
   }
 
   .search-item img {
-    width: 120px; /* Manja slika za mobilne uređaje */
+    width: 120px;
     height: 120px;
   }
 }
@@ -165,7 +159,6 @@
 
 
 
-/* Travel Section */
 .travel-section {
   width: 100%;
   padding: 40px 0;
@@ -173,13 +166,13 @@
 
 .travel-header {
   display: flex;
-  justify-content: space-between; /* Razmak između naslova i dugmeta */
-  align-items: center; /* Vertikalno centriranje dugmeta */
-  margin-bottom: 20px; /* Razmak između headera i kartica */
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .header-text {
-  max-width: 70%; /* Ograničava širinu teksta */
+  max-width: 70%;
 }
 .header-text h2 {
   font-size: 32px;
@@ -215,10 +208,9 @@
   gap: 20px;
 }
 
-/* Card General Styling */
 .travel-card {
-  background-size: cover; /* Pokriva celu karticu */
-  background-position: top; /* Prikazuje gornji deo slike kako bi vrh bio vidljiv */
+  background-size: cover;
+  background-position: top;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -228,18 +220,18 @@
   justify-content: flex-end;
   position: relative;
   overflow: hidden;
-  color: white; /* Osigurava čitljivost teksta na slici */
+  color: white;
   padding: 20px;
   box-sizing: border-box;
 }
 
 .travel-info h3 {
   font-size: 24px;
-  font-weight: 600; /* Montserrat SemiBold */
+  font-weight: 600;
   font-family: 'Montserrat', serif;
   margin-bottom: -10px;
   /*margin: 0 auto;*/
-  text-align: left; /* Align title to the left */
+  text-align: left;
 }
 
 .card-details {
@@ -250,18 +242,17 @@
 
 .card-details p {
   font-size: 14px;
-  font-weight: 400; /* Montserrat Regular */
+  font-weight: 400;
   margin: 0;
-  color: white; /* Make the description text white */
+  color: white;
 }
 
 .price {
   font-size: 24px;
-  font-weight: 600; /* Montserrat SemiBold */
+  font-weight: 600;
   color: #fff;
 }
 
-/* Button */
 .book-btn {
   margin-top: 10px;
   padding: 10px 20px;
@@ -274,8 +265,8 @@
   font-weight: 500;
   font-family: Montserrat, sans-serif;
   cursor: pointer;
-  width: 100%; /* Make the button as wide as possible */
-  box-sizing: border-box; /* Ensures padding is included within width */
+  width: 100%;
+  box-sizing: border-box;
   transition: background-color 0.3s ease;
 }
 
@@ -283,14 +274,13 @@
   background-color: #76b699;
 }
 
-/* Responsive Design for Smaller Screens */
 @media (max-width: 768px) {
   .travel-cards {
-    flex-direction: column; /* Kartice u koloni na manjim ekranima */
-    gap: 20px; /* Razmak između kartica */
+    flex-direction: column;
+    gap: 20px;
   }
 
   .travel-card {
-    width: 100%; /* Puna širina kartice na manjim ekranima */
+    width: 100%;
   }
 }

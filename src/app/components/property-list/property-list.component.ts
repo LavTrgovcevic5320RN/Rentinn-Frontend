@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Property} from '../../models/model';
 import {PropertyService} from '../../services/property/property.service';
 import {dateRangeValidator} from '../validators/date-range.validator';
+import {ScrollService} from '../../services/scroll/scroll.service';
+import {NavigationEnd, Router} from '@angular/router';
+import {filter} from 'rxjs';
 
 @Component({
   selector: 'app-property-list',
@@ -21,20 +24,14 @@ export class PropertyListComponent implements OnInit {
   searchForm!: FormGroup;
   filtersForm!: FormGroup;
 
-  properties: Property[] = [];
-  filteredProperties: Property[] = [];
+  properties!: Property[];
+  filteredProperties!: Property[];
 
-  constructor(private fb: FormBuilder, private propertyService: PropertyService) {
-    // this.searchForm = this.fb.group({
-    //     destination: ['', Validators.required],
-    //     checkIn: ['', Validators.required],
-    //     checkOut: ['', Validators.required],
-    //     roomsGuests: ['', Validators.required]
-    //   },
-    //   {
-    //     validators: dateRangeValidator()
-    //   });
-
+  constructor(private fb: FormBuilder,
+              private propertyService: PropertyService,
+              private scrollService: ScrollService,
+              private router: Router
+  ) {
     this.filtersForm = this.fb.group({
       minValue: new FormControl(30),
       maxValue: new FormControl(500),
@@ -48,18 +45,37 @@ export class PropertyListComponent implements OnInit {
     this.loadSearchForm();
     this.fetchProperties();
     this.fetchAmenities();
+    this.initScrollPosition();
+  }
+
+  initPropertyPrice() {
+    this.filteredProperties.forEach(property => {
+      const averagePrice = this.calculateAveragePriceForDates(property, this.searchForm.get('checkIn')?.value, this.searchForm.get('checkOut')?.value);
+      property.averagePrice = averagePrice;
+    });
   }
 
   loadSearchForm() {
     this.searchForm = this.fb.group({
-      destination: [history.state.destination, Validators.required],
-      checkIn: [history.state.checkIn, Validators.required],
-      checkOut: [history.state.checkOut, Validators.required],
-      roomsGuests: [history.state.roomsGuests, Validators.required]
-    },
-    {
-      validators: dateRangeValidator()
-    });
+        destination: ['', Validators.required],
+        checkIn: ['', Validators.required],
+        checkOut: ['', Validators.required],
+        roomsGuests: ['1 room, 2 guests', Validators.required]
+      },
+      {
+        validators: dateRangeValidator()
+      });
+
+    const savedForm = localStorage.getItem('searchForm');
+    if (savedForm) {
+      const parsedForm = JSON.parse(savedForm);
+      this.searchForm.setValue({
+        ...parsedForm,
+        checkIn: parsedForm.checkIn ? new Date(parsedForm.checkIn) : '',
+        checkOut: parsedForm.checkOut ? new Date(parsedForm.checkOut) : ''
+      });
+    }
+
   }
 
   fetchProperties() {
@@ -67,58 +83,23 @@ export class PropertyListComponent implements OnInit {
       this.properties = data;
       this.filteredProperties = data;
       console.log('Fetched Properties are:', this.properties);
+
+      this.filteredProperties.forEach(property => {
+        property.averagePrice = this.calculateAveragePriceForDates(property, this.searchForm.get('checkIn')?.value, this.searchForm.get('checkOut')?.value);
+      });
+
       this.filterProperties();
       this.sortProperties();
     });
-  }
-
-  fetchAmenities() {
-    this.propertyService.fetchAmenities().subscribe((data) => {
-      this.amenities = data;
-      // console.log('Fetched Amenities are:', data);
-      this.initAmenitiesFiltersForm();
-    });
-  }
-
-  initAmenitiesFiltersForm() {
-    this.amenities.forEach(() => {
-      this.amenitiesArray.push(new FormControl(false));
-    });
-  }
-
-  sortProperties() {
-    switch (this.selectedSortOption) {
-      case 'price-low-to-high':
-        this.filteredProperties.sort((a, b) => a.price - b.price);
-        break;
-      case 'price-high-to-low':
-        this.filteredProperties.sort((a, b) => b.price - a.price);
-        break;
-      case 'recommended':
-        this.filteredProperties.sort((a, b) => b.rating - a.rating);
-        break;
-      default:
-        this.filteredProperties.sort((a, b) => b.rating - a.rating);
-        break;
-    }
-  }
-
-  onSearchSubmit() {
-    if (this.searchForm.valid) {
-      console.log('Form Submitted', this.searchForm.value);
-      this.fetchProperties();
-    }
   }
 
   filterProperties() {
     const { minValue, maxValue, rating, freebies, amenities } = this.filtersForm.value;
 
     this.filteredProperties = this.properties.filter(property => {
-
-      const matchesPrice = property.price >= minValue && property.price <= maxValue;
+      const matchesPrice = property.averagePrice >= minValue && property.averagePrice <= maxValue;
 
       const matchesRating = rating === null || property.rating >= rating;
-      console.log('Rating:', rating, 'Property rating:', property.rating, 'Matches:', matchesRating);
 
       const selectedFreebies = freebies
         .map((checked: boolean, i: number) => (checked ? this.freebies[i] : null))
@@ -132,6 +113,42 @@ export class PropertyListComponent implements OnInit {
 
       return matchesPrice && matchesRating && matchesFreebies && matchesAmenities;
     });
+  }
+
+  sortProperties() {
+    switch (this.selectedSortOption) {
+      case 'price-low-to-high':
+        this.filteredProperties.sort((a, b) => a.averagePrice - b.averagePrice);
+        break;
+      case 'price-high-to-low':
+        this.filteredProperties.sort((a, b) => b.averagePrice - a.averagePrice);
+        break;
+      case 'recommended':
+        this.filteredProperties.sort((a, b) => b.rating - a.rating);
+        break;
+      default:
+        this.filteredProperties.sort((a, b) => b.rating - a.rating);
+        break;
+    }
+  }
+
+  fetchAmenities() {
+    this.propertyService.fetchAmenities().subscribe((data) => {
+      this.amenities = data;
+      this.initAmenitiesFiltersForm();
+    });
+  }
+
+  initAmenitiesFiltersForm() {
+    this.amenities.forEach(() => {
+      this.amenitiesArray.push(new FormControl(false));
+    });
+  }
+
+  onSearchSubmit() {
+    if (this.searchForm.valid) {
+      this.fetchProperties();
+    }
   }
 
   toggleRating(rating: number) {
@@ -156,6 +173,68 @@ export class PropertyListComponent implements OnInit {
 
   get amenitiesArray(): FormArray {
     return this.filtersForm.controls['amenities'] as FormArray;
+  }
+
+  calculateAveragePriceForDates(property: Property, checkIn: string, checkOut: string): number {
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+
+    const relevantPrices = property.dailyPrices.filter(dailyPrice => {
+      const priceDate = new Date(dailyPrice.date);
+      return priceDate >= checkInDate && priceDate <= checkOutDate;
+    });
+
+    if (relevantPrices.length === 0) {
+      return 0;
+    }
+
+    const total = relevantPrices.reduce((acc, dailyPrice) => acc + dailyPrice.price, 0);
+    return total / relevantPrices.length;
+  }
+
+  initScrollPosition() {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        const scrollPosition = this.scrollService.getScrollPosition();
+        if (scrollPosition) {
+          this.smoothScrollTo(scrollPosition, 1000);
+        }
+      });
+  }
+
+  smoothScrollTo(targetPosition: number, duration: number): void {
+    const startPosition = window.scrollY;
+    const distance = targetPosition - startPosition;
+    const startTime = performance.now();
+
+    const scrollStep = (currentTime: number) => {
+      const elapsedTime = currentTime - startTime;
+      const progress = Math.min(elapsedTime / duration, 1);
+      const easeInOutQuad = progress < 0.5
+        ? 2 * progress * progress
+        : -1 + (4 - 2 * progress) * progress;
+
+      window.scrollTo(0, startPosition + distance * easeInOutQuad);
+
+      if (elapsedTime < duration) {
+        requestAnimationFrame(scrollStep);
+      }
+    };
+
+    requestAnimationFrame(scrollStep);
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    this.scrollService.setScrollPosition(window.scrollY);
+  }
+
+  viewProperty(property: Property) {
+    console.log('Viewing property:', property);
+    this.scrollService.setScrollPosition(window.scrollY);
+    this.router.navigate(['/login'], { state: property }); // TEST
+    // this.router.navigate(['/property', property.id], { state: { property } });
   }
 
 }

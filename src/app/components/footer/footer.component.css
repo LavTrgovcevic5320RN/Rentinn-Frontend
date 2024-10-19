@@ -1,7 +1,6 @@
-/* Wrapper for all content below the landing page */
 .content-wrapper {
-  width: 90%; /* Central width for all content */
-  max-width: 1200px; /* You can control the maximum width here */
+  width: 90%;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding: 40px 0;
@@ -10,38 +9,37 @@
   align-items: center;
 }
 
-/* Newsletter Section */
 .newsletter-container {
   width: 100%;
   background-color: #CDEAE1;
   padding: 30px 30px 0 30px;
   border-radius: 20px;
-  margin-bottom: -190px; /* Negative margin to overlap the footer */
-  z-index: 10;  /* Ensure it stays above the footer */
+  margin-bottom: -190px;
+  z-index: 10;
   position: relative;
-  box-sizing: border-box; /* Ensure padding is accounted for */
+  box-sizing: border-box;
 }
 
 .newsletter-content {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* Align items to the top */
+  align-items: flex-start;
   margin: 0 auto;
-  flex-wrap: wrap; /* Allow content to wrap if necessary */
+  flex-wrap: wrap;
 }
 
 .newsletter-text {
   flex-grow: 1;
   max-width: max-content;
-  /*max-width: 600px; !* Adjust this value based on your layout requirements *!*/
+  /*max-width: 600px;*/
   margin-right: 20px;
 }
 
 .subscribe-newsletter {
-  font-size: 44px; /* Increased font size */
-  font-weight: bolder; /* Adjust font weight */
+  font-size: 44px;
+  font-weight: bolder;
   font-family: 'TradeGothic ST Extended', Arial, sans-serif;
-  line-height: 1.2; /* Space between Subscribe and Newsletter */
+  line-height: 1.2;
   margin: 0 0 20px 0;
   color: #112211;
   /*padding-bottom: -20px;*/
@@ -76,7 +74,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-right: 10px;
-  max-width: calc(100% - 120px); /* Adjust for button size */
+  max-width: calc(100% - 120px);
 }
 
 .newsletter-form button {
@@ -94,10 +92,10 @@
 }
 
 
-/* Footer Section */
+
 .footer-container {
   background-color: #8DD3BB;
-  padding: 200px 20px 20px 20px; /* Povećan padding za bolji razmak */
+  padding: 200px 20px 20px 20px;
   color: #333;
 }
 
@@ -116,33 +114,33 @@
 }
 
 .footer-logo img {
-  width: 180px; /* Povećana veličina logo-a */
-  margin-bottom: 20px; /* Razmak između logo-a i ikona društvenih mreža */
-  max-width: 100%; /* Da bude responsive */
+  width: 180px;
+  margin-bottom: 20px;
+  max-width: 100%;
 }
 
 .social-icons {
   display: flex;
-  justify-content: space-between; /* Razmakni ikone da zauzmu celu širinu logo-a */
+  justify-content: space-between;
   width: 100%;
-  gap: 10px; /* Smanjen razmak između ikona */
+  gap: 10px;
 }
 
 .social-icons a {
-  flex: 1; /* Svaka ikona zauzima jednak prostor */
+  flex: 1;
   display: flex;
   justify-content: center;
 }
 
 .social-icons img.social-icon {
-  width: 32px; /* Ikone su proporcionalne širini logo-a */
+  width: 32px;
   height: 32px;
 }
 
 .footer-links {
   display: flex;
   justify-content: space-between;
-  gap: 100px; /* Smanjen razmak između footer kolona */
+  gap: 100px;
 }
 
 .footer-links div {
@@ -164,13 +162,12 @@
 
 .footer-links ul li {
   margin-bottom: 8px;
-  font-size: 14px; /* Veličina fonta */
-  font-weight: 500; /* Medium težina */
-  font-family: 'Montserrat', sans-serif; /* Montserrat font */
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
   color: #112211;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .footer-content {
     flex-direction: column;
@@ -180,9 +177,9 @@
 
   .footer-links {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dve kolone */
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    justify-content: center; /* Centriraj kolone */
+    justify-content: center;
     width: 100%;
   }
 

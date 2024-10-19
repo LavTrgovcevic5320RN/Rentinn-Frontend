@@ -5,23 +5,24 @@ import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import {Property} from '../../models/model';
 import * as L from 'leaflet';
 
-const property: Property = {
-  id: 1,
-  name: 'Hotel Jugoslavija',
-  location: 'Serbia, Belgrade, Balkanska 1',
-  rating: 4.5,
-  price: 200,
-  images: [{ url: 'https://picsum.photos/seed/3000/2000', thumbnailUrl: 'https://picsum.photos/300/200' }, { url: 'https://picsum.photos/seed/3001/2000', thumbnailUrl: 'https://picsum.photos/301/200' }, { url: 'https://picsum.photos/seed/3002/2000', thumbnailUrl: 'https://picsum.photos/302/200' }, { url: 'https://picsum.photos/seed/3003/2000', thumbnailUrl: 'https://picsum.photos/303/200' }, { url: 'https://picsum.photos/seed/3004/2000', thumbnailUrl: 'https://picsum.photos/304/200' },],
-  freebies: ['Free breakfast', 'Free WiFi'],
-  amenities: ['24hr front desk', 'air-conditioned', 'fitness', 'pool', 'sauna', 'spa', 'bar', 'restaurant', 'wi-fi', 'pet-friendly', 'family rooms', 'room service', 'concierge service', 'laundry service', 'fitness center', 'non-smoking rooms', 'outdoor pool', 'indoor pool', 'business center', 'conference rooms', 'meeting facilities', 'breakfast buffet', 'private beach', 'hot tub', 'massage', 'all-inclusive', 'casino', 'airport transfer', 'elevator', 'balcony/terrace', 'kitchenette'],
-  description: 'Hotel Jugoslavija is a luxurious hotel located in the heart of Belgrade. It offers a wide range of amenities and services to make your stay as comfortable as possible. The hotel is located in a prime location, close to many attractions and landmarks. The hotel offers luxurious rooms, a fitness center, a pool, a spa, a restaurant, and much more. The hotel is pet-friendly and offers free WiFi to all guests. The hotel is perfect for business travelers, families, and couples looking for a relaxing getaway.',
-  highlights: ['Luxurious rooms', 'Great location', 'Friendly staff'],
-  reviews: [{ id: 1, rating: 4.5, comment: 'Great hotel', name: 'John Doe' }, { id: 2, rating: 5, comment: 'Amazing experience', name: 'Jane Doe' }, { id: 3, rating: 4, comment: 'Highly recommended', name: 'Alice Smith' },],
-  longitude: 20.460419872916667,
-  latitude: 44.812875950000006,
-  checkIn: '14:00',
-  checkOut: '12:00',
-};
+// const property: Property = {
+//   id: 1,
+//   title: 'Hotel Jugoslavija',
+//   // location: 'Serbia, Belgrade, Balkanska 1',
+//   // location: { id: 1, country: 'Serbia', city: 'Belgrade', address: 'Balkanska 1', postalCode: '11000', longitude: 20.460419872916667, latitude: 44.812875950000006 },
+//   // rating: 4.5,
+//   // price: 200,
+//   // images: [{ url: 'https://picsum.photos/seed/3000/2000', thumbnailUrl: 'https://picsum.photos/300/200' }, { url: 'https://picsum.photos/seed/3001/2000', thumbnailUrl: 'https://picsum.photos/301/200' }, { url: 'https://picsum.photos/seed/3002/2000', thumbnailUrl: 'https://picsum.photos/302/200' }, { url: 'https://picsum.photos/seed/3003/2000', thumbnailUrl: 'https://picsum.photos/303/200' }, { url: 'https://picsum.photos/seed/3004/2000', thumbnailUrl: 'https://picsum.photos/304/200' },],
+//   freebies: ['Free breakfast', 'Free WiFi'],
+//   amenities: ['24hr front desk', 'air-conditioned', 'fitness', 'pool', 'sauna', 'spa', 'bar', 'restaurant', 'wi-fi', 'pet-friendly', 'family rooms', 'room service', 'concierge service', 'laundry service', 'fitness center', 'non-smoking rooms', 'outdoor pool', 'indoor pool', 'business center', 'conference rooms', 'meeting facilities', 'breakfast buffet', 'private beach', 'hot tub', 'massage', 'all-inclusive', 'casino', 'airport transfer', 'elevator', 'balcony/terrace', 'kitchenette'],
+//   description: 'Hotel Jugoslavija is a luxurious hotel located in the heart of Belgrade. It offers a wide range of amenities and services to make your stay as comfortable as possible. The hotel is located in a prime location, close to many attractions and landmarks. The hotel offers luxurious rooms, a fitness center, a pool, a spa, a restaurant, and much more. The hotel is pet-friendly and offers free WiFi to all guests. The hotel is perfect for business travelers, families, and couples looking for a relaxing getaway.',
+//   highlights: ['Luxurious rooms', 'Great location', 'Friendly staff'],
+//   reviews: [{ id: 1, rating: 4.5, comment: 'Great hotel', name: 'John Doe' }, { id: 2, rating: 5, comment: 'Amazing experience', name: 'Jane Doe' }, { id: 3, rating: 4, comment: 'Highly recommended', name: 'Alice Smith' },],
+//   longitude: 20.460419872916667,
+//   latitude: 44.812875950000006,
+//   checkIn: '14:00',
+//   checkOut: '12:00',
+// };
 
 @Component({
   selector: 'app-property',
@@ -30,7 +31,8 @@ const property: Property = {
 })
 export class PropertyComponent implements OnInit {
   private lightbox: PhotoSwipeLightbox | undefined;
-
+  visibleImages: Image[] = [];
+  initialVisibleCount = 5; // Number of thumbnails to show initially
   images: Image[] = [
     { url: 'https://picsum.photos/seed/3000/2000', thumbnailUrl: 'https://picsum.photos/300/200' },
     { url: 'https://picsum.photos/seed/3001/2000', thumbnailUrl: 'https://picsum.photos/301/200' },
@@ -40,11 +42,11 @@ export class PropertyComponent implements OnInit {
     { url: 'https://picsum.photos/seed/3005/2000', thumbnailUrl: 'https://picsum.photos/305/200' },
     { url: 'https://picsum.photos/seed/3006/2000', thumbnailUrl: 'https://picsum.photos/306/200' },
   ];
-
-  visibleImages: Image[] = [];
-  initialVisibleCount = 5; // Number of thumbnails to show initially
+  property!: Property;
 
   ngOnInit(): void {
+    this.property = history.state.property;
+
     this.initializeVisibleImages();
     this.initPhotoSwipe();
     this.configMap();
@@ -94,7 +96,7 @@ export class PropertyComponent implements OnInit {
   }
 
 
-  protected readonly property = property;
+  // protected readonly property = property;
 
   visibleAmenitiesCount = 8; // Number of amenities to show initially
   showAllAmenities = false; // Flag to show all amenities
@@ -163,7 +165,7 @@ export class PropertyComponent implements OnInit {
 
   configMap() {
     this.map = L.map('map', {
-      center: [property.latitude, property.longitude],
+      center: [this.property.latitude, this.property.longitude],
       zoom: 15,
     });
 
@@ -198,7 +200,7 @@ export class PropertyComponent implements OnInit {
       iconAnchor: [15, 42]
     });
 
-    L.marker([property.latitude, property.longitude], { icon: materialIcon }).addTo(this.map)
+    L.marker([this.property.latitude, this.property.longitude], { icon: materialIcon }).addTo(this.map)
       // .bindPopup(`<b>${property.name}</b><br>${property.location}`)
       .openPopup();
   }
