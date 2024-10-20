@@ -5,6 +5,7 @@ import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import {Property} from '../../models/model';
 import * as L from 'leaflet';
 import {PropertyService} from '../../services/property/property.service';
+import {auto} from '@popperjs/core';
 
 @Component({
   selector: 'app-property',
@@ -22,23 +23,19 @@ export class PropertyComponent implements OnInit {
 
   ngOnInit(): void {
     const propertyId = localStorage.getItem('selectedProperty') ? JSON.parse(localStorage.getItem('selectedProperty') || '{}') : {};
-    console.log('Property ID:', propertyId);
+    // console.log('Property ID:', propertyId);
     this.fetchProperty(propertyId);
   }
 
   fetchProperty(propertyId: any) {
     this.propertyService.fetchProperty(propertyId).subscribe(property => {
       this.property = property;
-      console.log('Property:', this.property);
+      // console.log('Property:', this.property);
       this.initializeVisibleImages();
       this.initPhotoSwipe();
       this.configMap();
     });
   }
-
-  // initializeVisibleImages(): void {
-  //   this.visibleImages = this.images.slice(0, this.initialVisibleCount);
-  // }
 
   initializeVisibleImages(): void {
     this.images = this.property.imagePaths.map(imagePath => ({
@@ -63,36 +60,31 @@ export class PropertyComponent implements OnInit {
       errorMsg: 'The photo cannot be loaded',
     });
 
-    // Add filter for total number of items (all images)
     this.lightbox.addFilter('numItems', () => {
-      return this.images.length; // Use the total number of images in the gallery
+      return this.images.length;
     });
 
-    // Add filter to provide item data for PhotoSwipe
     this.lightbox.addFilter('itemData', (itemData, index) => {
       const image = this.images[index];
       return {
-        src: image.url, // Full image URL when opened in the gallery
-        width: 2000, // Adjust the width to match the full-size image
-        height: 2000 // Adjust the height to match the full-size image
+        src: image.url,
+        // width: 2000,
+        width: 2500,
+        height: 2000
       };
     });
 
     this.lightbox.init();
   }
 
-  // Open the gallery starting from the clicked image's index
   openGalleryFromIndex(index: number): void {
     if (this.lightbox) {
-      this.lightbox.loadAndOpen(index); // Open the gallery at the clicked item's index
+      this.lightbox.loadAndOpen(index);
     }
   }
 
-
-  // protected readonly property = property;
-
-  visibleAmenitiesCount = 8; // Number of amenities to show initially
-  showAllAmenities = false; // Flag to show all amenities
+  visibleAmenitiesCount = 8;
+  showAllAmenities = false;
 
   amenitiesIcons: { [key: string]: string } = {
     '24hr front desk': 'support_agent',
@@ -128,12 +120,10 @@ export class PropertyComponent implements OnInit {
     'kitchenette': 'kitchen'
   };
 
-  // To dynamically get the icon for an amenity
   getAmenityIcon(amenity: string): string {
     return this.amenitiesIcons[amenity as keyof typeof this.amenitiesIcons] || 'help_outline';
   }
 
-  // // Get visible amenities based on the flag
   // get visibleAmenities(): string[] {
   //   if (this.showAllAmenities) {
   //     return this.property.amenities;
@@ -141,17 +131,13 @@ export class PropertyComponent implements OnInit {
   //   return this.property.amenities.slice(0, this.visibleAmenitiesCount);
   // }
 
-  // // Calculate how many amenities are hidden
   // get remainingAmenitiesCount(): number {
   //   return this.property.amenities.length - this.visibleAmenitiesCount;
   // }
   //
-  // // Toggle the visibility of all amenities
   // showMoreAmenities(): void {
   //   this.showAllAmenities = true;
   // }
-
-
 
 
   map: any;
@@ -162,7 +148,6 @@ export class PropertyComponent implements OnInit {
       zoom: 15,
     });
 
-    // // Add OpenStreetMap tiles
     // L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     //   // attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     // }).addTo(this.map);
@@ -185,7 +170,6 @@ export class PropertyComponent implements OnInit {
       subdomains: 'abcd',
     }).addTo(this.map);
 
-    // Create a custom icon using a Material Icon inside a div
     const materialIcon = L.divIcon({
       className: 'custom-div-icon',
       html: '<i class="material-icons">location_on</i>',
@@ -201,29 +185,66 @@ export class PropertyComponent implements OnInit {
 
   isFavorited = false;
 
-  // Favorite button click handler
   onFavoriteClick() {
     this.isFavorited = !this.isFavorited;
     if (this.isFavorited) {
       console.log('Hotel added to favorites!');
-      // alert('Hotel added to favorites!');
     } else {
       console.log('Hotel removed from favorites!');
-      // alert('Hotel removed from favorites!');
     }
   }
 
-  // Share button click handler
   onShareClick() {
-    const shareUrl = window.location.href; // Share the current page URL
+    const shareUrl = window.location.href;
     console.log('Sharing hotel:', shareUrl);
-    // alert(`Sharing hotel: ${shareUrl}`);
   }
 
-  // Book now button click handler
   onBookClick() {
     console.log('Proceed to booking!');
-    // alert('Proceed to booking!');
+  }
+
+
+
+
+  reviewsPerPage = 2;
+  currentPage = 1;
+
+  pagedReviews() {
+    const start = (this.currentPage - 1) * this.reviewsPerPage;
+    const end = start + this.reviewsPerPage;
+    return this.property.reviews.slice(start, end);
+  }
+
+  totalPages() {
+    return Math.ceil(this.property.reviews.length / this.reviewsPerPage);
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages()) {
+      this.currentPage++;
+    }
+  }
+
+  getRatingLabel(rating: number): string {
+    if (rating >= 4.5) {
+      return 'Amazing';
+    } else if (rating >= 4.0) {
+      return 'Very Good';
+    } else if (rating >= 3.5) {
+      return 'Good';
+    } else if (rating >= 3.0) {
+      return 'Fair';
+    } else if (rating >= 2.0) {
+      return 'Poor';
+    } else {
+      return 'Very Poor';
+    }
   }
 
 }

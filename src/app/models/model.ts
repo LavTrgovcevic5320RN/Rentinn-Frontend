@@ -37,9 +37,9 @@ export interface DailyPrice {
 
 export interface Review {
   id: number;
+  name: string;
   rating: number;
   comment: string;
-  name: string;
 }
 
 export interface Customer {

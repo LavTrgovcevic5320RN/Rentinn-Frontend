@@ -350,10 +350,10 @@
                     </div>
                     <div class="property-reviews">
                       <div class="rating-box">
-                        <span class="rating-value"> {{ property.rating }} </span>
+                        <span class="rating-value"> {{ property.rating | number:'1.0-1' }} </span>
                       </div>
                       <div class="review-text">
-                        <!--                      <span class="review-count">{{ property.reviews.length }} {{ property.reviews.length > 1 ? 'reviews' : 'review' }}</span>-->
+                        <span class="review-count">{{ property.reviews.length }} {{ property.reviews.length > 1 ? 'reviews' : 'review' }}</span>
                       </div>
                     </div>
 
