@@ -559,16 +559,44 @@ button mat-icon {
   padding: 20px 0;
 }
 
+/*.review-header {*/
+/*  display: flex;*/
+/*  justify-content: space-between;*/
+/*  align-items: center;*/
+/*}*/
+
+/*.review-header .review-rating {*/
+/*  font-size: 14px;*/
+/*  font-weight: 600;*/
+/*  font-family: Montserrat, sans-serif;*/
+/*  color: #112211;*/
+/*}*/
+
+/*.review-header .reviewer-name {*/
+/*  font-size: 14px;*/
+/*  font-weight: 400;*/
+/*  font-family: Montserrat, sans-serif;*/
+/*  color: #112211;*/
+/*}*/
+
+
 .review-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 .review-header .review-rating {
   font-size: 14px;
   font-weight: 600;
   font-family: Montserrat, sans-serif;
+  margin: 0;
+  color: #112211;
+}
+
+.review-header .separator {
+  display: inline-block;
+  margin: 0 10px;
   color: #112211;
 }
 
@@ -576,6 +604,7 @@ button mat-icon {
   font-size: 14px;
   font-weight: 400;
   font-family: Montserrat, sans-serif;
+  margin: 0;
   color: #112211;
 }
 

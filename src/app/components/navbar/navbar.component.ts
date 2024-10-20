@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       if(this.isLoggedIn) {
         this.userService.fetchLoggedInUser().subscribe(customer => {
           this.customer = customer;
-          console.log(this.customer);
+          // console.log(this.customer);
         });
       }
     });

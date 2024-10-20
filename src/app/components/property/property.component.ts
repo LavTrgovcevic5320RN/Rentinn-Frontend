@@ -30,7 +30,7 @@ export class PropertyComponent implements OnInit {
   fetchProperty(propertyId: any) {
     this.propertyService.fetchProperty(propertyId).subscribe(property => {
       this.property = property;
-      // console.log('Property:', this.property);
+      console.log('Property:', this.property);
       this.initializeVisibleImages();
       this.initPhotoSwipe();
       this.configMap();

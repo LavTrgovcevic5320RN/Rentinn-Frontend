@@ -45,10 +45,10 @@
 <!--    <p>{{ property.description }}</p>-->
     <div class="highlights">
       <div class="rating-box">
-<!--        <div class="rating-score">{{ property.rating }}</div>-->
+        <div class="rating-score">{{ property.rating | number:'1.0-1' }}</div>
         <div>
           <p>Very good</p>
-<!--          <span class="review-count">{{ property.reviews.length }} {{ property.reviews.length ? 'reviews' : 'review' }}</span>-->
+          <span class="review-count">{{ property.reviews.length }} {{ property.reviews.length ? 'reviews' : 'review' }}</span>
         </div>
       </div>
 
@@ -112,59 +112,9 @@
   <div class="border"></div>
 
 
-<!--  <div class="reviews">-->
-<!--    <h3>Reviews</h3>-->
-<!--    <div class="review-score">-->
-<!--      <span>{{ property.rating | number:'1.0-2' }}</span>-->
-<!--      <span>{{ property.reviews.length }} {{ property.reviews.length > 1 ? 'reviews' : 'review' }}</span>-->
-<!--    </div>-->
-<!--    <div *ngFor="let review of property.reviews">-->
-<!--      <div class="review">-->
-<!--        <p><strong>{{ review.name }}</strong> - {{ review.rating | number:'1.0-2' }}</p>-->
-<!--        <p>{{ review.comment }}</p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-
-
-
-<!--  <div class="reviews">-->
-<!--    <h3>Reviews</h3>-->
-<!--    <div class="review-score">-->
-<!--      <div class="rating-number">{{ property.rating | number:'1.0-1' }}</div>-->
-<!--      <div class="rating-label">-->
-<!--        <p>{{ getRatingLabel(property.rating) }}</p>-->
-<!--        <span class="review-count">{{ property.reviews.length }} verified reviews</span>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div class="review-list">-->
-<!--      <div *ngFor="let review of pagedReviews()">-->
-<!--        <div class="review-item">-->
-<!--          <div class="review-header">-->
-<!--            <p class="review-rating">{{ review.rating }} Amazing</p>-->
-<!--            <p class="reviewer-name">{{ review.name }}</p>-->
-<!--          </div>-->
-<!--          <p class="review-comment">{{ review.comment }}</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash; Pagination with arrows &ndash;&gt;-->
-<!--    <div class="pagination">-->
-<!--      <mat-icon (click)="previousPage()" [class.disabled]="currentPage === 1">chevron_left</mat-icon>-->
-<!--      <span>{{ currentPage }} of {{ totalPages() }}</span>-->
-<!--      <mat-icon (click)="nextPage()" [class.disabled]="currentPage === totalPages()">chevron_right</mat-icon>-->
-<!--    </div>-->
-<!--  </div>-->
-
-
-
   <div class="reviews">
     <div class="reviews-header">
       <h3>Reviews</h3>
-      <!-- Right-aligned button -->
       <button class="write-review-btn">Give your review</button>
     </div>
 
@@ -181,6 +131,7 @@
         <div class="review-item">
           <div class="review-header">
             <p class="review-rating">{{ review.rating }} Amazing</p>
+            <span class="separator">|</span>
             <p class="reviewer-name">{{ review.name }}</p>
           </div>
           <p class="review-comment">{{ review.comment }}</p>
@@ -188,16 +139,11 @@
       </div>
     </div>
 
-    <!-- Pagination with arrows -->
     <div class="pagination">
       <mat-icon (click)="previousPage()" [class.disabled]="currentPage === 1">chevron_left</mat-icon>
       <span>{{ currentPage }} of {{ totalPages() }}</span>
       <mat-icon (click)="nextPage()" [class.disabled]="currentPage === totalPages()">chevron_right</mat-icon>
     </div>
   </div>
-
-
-
-
 
 </div>
