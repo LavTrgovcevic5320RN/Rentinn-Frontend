@@ -4,25 +4,7 @@ import PhotoSwipe from 'photoswipe';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import {Property} from '../../models/model';
 import * as L from 'leaflet';
-
-// const property: Property = {
-//   id: 1,
-//   title: 'Hotel Jugoslavija',
-//   // location: 'Serbia, Belgrade, Balkanska 1',
-//   // location: { id: 1, country: 'Serbia', city: 'Belgrade', address: 'Balkanska 1', postalCode: '11000', longitude: 20.460419872916667, latitude: 44.812875950000006 },
-//   // rating: 4.5,
-//   // price: 200,
-//   // images: [{ url: 'https://picsum.photos/seed/3000/2000', thumbnailUrl: 'https://picsum.photos/300/200' }, { url: 'https://picsum.photos/seed/3001/2000', thumbnailUrl: 'https://picsum.photos/301/200' }, { url: 'https://picsum.photos/seed/3002/2000', thumbnailUrl: 'https://picsum.photos/302/200' }, { url: 'https://picsum.photos/seed/3003/2000', thumbnailUrl: 'https://picsum.photos/303/200' }, { url: 'https://picsum.photos/seed/3004/2000', thumbnailUrl: 'https://picsum.photos/304/200' },],
-//   freebies: ['Free breakfast', 'Free WiFi'],
-//   amenities: ['24hr front desk', 'air-conditioned', 'fitness', 'pool', 'sauna', 'spa', 'bar', 'restaurant', 'wi-fi', 'pet-friendly', 'family rooms', 'room service', 'concierge service', 'laundry service', 'fitness center', 'non-smoking rooms', 'outdoor pool', 'indoor pool', 'business center', 'conference rooms', 'meeting facilities', 'breakfast buffet', 'private beach', 'hot tub', 'massage', 'all-inclusive', 'casino', 'airport transfer', 'elevator', 'balcony/terrace', 'kitchenette'],
-//   description: 'Hotel Jugoslavija is a luxurious hotel located in the heart of Belgrade. It offers a wide range of amenities and services to make your stay as comfortable as possible. The hotel is located in a prime location, close to many attractions and landmarks. The hotel offers luxurious rooms, a fitness center, a pool, a spa, a restaurant, and much more. The hotel is pet-friendly and offers free WiFi to all guests. The hotel is perfect for business travelers, families, and couples looking for a relaxing getaway.',
-//   highlights: ['Luxurious rooms', 'Great location', 'Friendly staff'],
-//   reviews: [{ id: 1, rating: 4.5, comment: 'Great hotel', name: 'John Doe' }, { id: 2, rating: 5, comment: 'Amazing experience', name: 'Jane Doe' }, { id: 3, rating: 4, comment: 'Highly recommended', name: 'Alice Smith' },],
-//   longitude: 20.460419872916667,
-//   latitude: 44.812875950000006,
-//   checkIn: '14:00',
-//   checkOut: '12:00',
-// };
+import {PropertyService} from '../../services/property/property.service';
 
 @Component({
   selector: 'app-property',
@@ -30,29 +12,40 @@ import * as L from 'leaflet';
   styleUrl: './property.component.css'
 })
 export class PropertyComponent implements OnInit {
-  private lightbox: PhotoSwipeLightbox | undefined;
-  visibleImages: Image[] = [];
-  initialVisibleCount = 5; // Number of thumbnails to show initially
-  images: Image[] = [
-    { url: 'https://picsum.photos/seed/3000/2000', thumbnailUrl: 'https://picsum.photos/300/200' },
-    { url: 'https://picsum.photos/seed/3001/2000', thumbnailUrl: 'https://picsum.photos/301/200' },
-    { url: 'https://picsum.photos/seed/3002/2000', thumbnailUrl: 'https://picsum.photos/302/200' },
-    { url: 'https://picsum.photos/seed/3003/2000', thumbnailUrl: 'https://picsum.photos/303/200' },
-    { url: 'https://picsum.photos/seed/3004/2000', thumbnailUrl: 'https://picsum.photos/304/200' },
-    { url: 'https://picsum.photos/seed/3005/2000', thumbnailUrl: 'https://picsum.photos/305/200' },
-    { url: 'https://picsum.photos/seed/3006/2000', thumbnailUrl: 'https://picsum.photos/306/200' },
-  ];
   property!: Property;
+  visibleImages: Image[] = [];
+  initialVisibleCount = 5;
+  images: Image[] = [];
+  private lightbox: PhotoSwipeLightbox | undefined;
+
+  constructor(private propertyService: PropertyService) { }
 
   ngOnInit(): void {
-    this.property = history.state.property;
-
-    this.initializeVisibleImages();
-    this.initPhotoSwipe();
-    this.configMap();
+    const propertyId = localStorage.getItem('selectedProperty') ? JSON.parse(localStorage.getItem('selectedProperty') || '{}') : {};
+    console.log('Property ID:', propertyId);
+    this.fetchProperty(propertyId);
   }
 
+  fetchProperty(propertyId: any) {
+    this.propertyService.fetchProperty(propertyId).subscribe(property => {
+      this.property = property;
+      console.log('Property:', this.property);
+      this.initializeVisibleImages();
+      this.initPhotoSwipe();
+      this.configMap();
+    });
+  }
+
+  // initializeVisibleImages(): void {
+  //   this.visibleImages = this.images.slice(0, this.initialVisibleCount);
+  // }
+
   initializeVisibleImages(): void {
+    this.images = this.property.imagePaths.map(imagePath => ({
+      url: imagePath,
+      thumbnailUrl: imagePath
+    }));
+
     this.visibleImages = this.images.slice(0, this.initialVisibleCount);
   }
 
@@ -140,23 +133,23 @@ export class PropertyComponent implements OnInit {
     return this.amenitiesIcons[amenity as keyof typeof this.amenitiesIcons] || 'help_outline';
   }
 
-  // Get visible amenities based on the flag
-  get visibleAmenities(): string[] {
-    if (this.showAllAmenities) {
-      return this.property.amenities;
-    }
-    return this.property.amenities.slice(0, this.visibleAmenitiesCount);
-  }
+  // // Get visible amenities based on the flag
+  // get visibleAmenities(): string[] {
+  //   if (this.showAllAmenities) {
+  //     return this.property.amenities;
+  //   }
+  //   return this.property.amenities.slice(0, this.visibleAmenitiesCount);
+  // }
 
-  // Calculate how many amenities are hidden
-  get remainingAmenitiesCount(): number {
-    return this.property.amenities.length - this.visibleAmenitiesCount;
-  }
-
-  // Toggle the visibility of all amenities
-  showMoreAmenities(): void {
-    this.showAllAmenities = true;
-  }
+  // // Calculate how many amenities are hidden
+  // get remainingAmenitiesCount(): number {
+  //   return this.property.amenities.length - this.visibleAmenitiesCount;
+  // }
+  //
+  // // Toggle the visibility of all amenities
+  // showMoreAmenities(): void {
+  //   this.showAllAmenities = true;
+  // }
 
 
 

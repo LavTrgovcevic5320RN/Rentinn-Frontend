@@ -6,7 +6,7 @@
 <div class="content-wrapper">
   <div class="form-container">
     <div class="card p-4">
-      <h3 class="mb-4">Where are you flying?</h3>
+      <h3 class="mb-4">Where are you going?</h3>
 
       <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
         <div class="row">
@@ -100,12 +100,12 @@
         [ngStyle]="{'background-image': 'url(' + card.imageUrl + ')'}"
       >
         <div class="travel-info">
-          <h3>{{ card.title }}</h3>
+          <h3>{{ card.city }}</h3>
           <div class="card-details">
             <p>{{ card.description }}</p>
             <div class="price">$ {{ card.price }}</div>
           </div>
-          <button class="book-btn">Book a Hotel</button>
+          <button (click)="shortcutToPropertyList(card)" class="book-btn">Book an Apartment</button>
         </div>
       </div>
     </div>

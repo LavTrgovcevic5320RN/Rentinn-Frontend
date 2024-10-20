@@ -41,3 +41,12 @@ export interface Review {
   comment: string;
   name: string;
 }
+
+export interface Customer {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  permissions: Permission[];
+  properties: Property[];
+}

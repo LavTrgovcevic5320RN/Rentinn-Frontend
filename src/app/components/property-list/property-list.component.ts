@@ -3,7 +3,6 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {Property} from '../../models/model';
 import {PropertyService} from '../../services/property/property.service';
 import {dateRangeValidator} from '../validators/date-range.validator';
-import {ScrollService} from '../../services/scroll/scroll.service';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs';
 
@@ -20,16 +19,13 @@ export class PropertyListComponent implements OnInit {
   showMoreAmenities: boolean = false;
   selectedSortOption = 'recommended';
   showFilters: boolean = false;
-
   searchForm!: FormGroup;
   filtersForm!: FormGroup;
-
   properties!: Property[];
   filteredProperties!: Property[];
 
   constructor(private fb: FormBuilder,
               private propertyService: PropertyService,
-              private scrollService: ScrollService,
               private router: Router
   ) {
     this.filtersForm = this.fb.group({
@@ -45,14 +41,7 @@ export class PropertyListComponent implements OnInit {
     this.loadSearchForm();
     this.fetchProperties();
     this.fetchAmenities();
-    this.initScrollPosition();
-  }
-
-  initPropertyPrice() {
-    this.filteredProperties.forEach(property => {
-      const averagePrice = this.calculateAveragePriceForDates(property, this.searchForm.get('checkIn')?.value, this.searchForm.get('checkOut')?.value);
-      property.averagePrice = averagePrice;
-    });
+    // this.initScrollPosition();
   }
 
   loadSearchForm() {
@@ -192,16 +181,16 @@ export class PropertyListComponent implements OnInit {
     return total / relevantPrices.length;
   }
 
-  initScrollPosition() {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        const scrollPosition = this.scrollService.getScrollPosition();
-        if (scrollPosition) {
-          this.smoothScrollTo(scrollPosition, 1000);
-        }
-      });
-  }
+  // initScrollPosition() {
+  //   this.router.events
+  //     .pipe(filter(event => event instanceof NavigationEnd))
+  //     .subscribe(() => {
+  //       const scrollPosition = Number(localStorage.getItem('scrollPosition'));
+  //       if (scrollPosition) {
+  //         this.smoothScrollTo(scrollPosition, 1000);
+  //       }
+  //     });
+  // }
 
   smoothScrollTo(targetPosition: number, duration: number): void {
     const startPosition = window.scrollY;
@@ -227,14 +216,16 @@ export class PropertyListComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    this.scrollService.setScrollPosition(window.scrollY);
+    localStorage.setItem('scrollPosition', window.scrollY.toString());
   }
 
   viewProperty(property: Property) {
-    console.log('Viewing property:', property);
-    this.scrollService.setScrollPosition(window.scrollY);
-    this.router.navigate(['/login'], { state: property }); // TEST
-    // this.router.navigate(['/property', property.id], { state: { property } });
+    // console.log('Viewing property:', property);
+    // this.propertyService.setProperty(property);
+    localStorage.setItem('selectedProperty', property.id.toString());
+    // this.scrollService.setScrollPosition(window.scrollY);
+    localStorage.setItem('scrollPosition', window.scrollY.toString());
+    this.router.navigate(['/property']);
   }
 
 }

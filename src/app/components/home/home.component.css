@@ -31,7 +31,7 @@
 .card {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color: white;
   width: 100%;
 }
 
@@ -91,7 +91,7 @@
 .search-item {
   display: flex;
   align-items: center;
-  background-color: #fff;
+  background-color: white;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -199,7 +199,7 @@
 }
 .see-all-btn:hover {
   background-color: #8DD3BB;
-  color: #fff;
+  color: white;
 }
 
 .travel-cards {
@@ -243,6 +243,7 @@
 .card-details p {
   font-size: 14px;
   font-weight: 400;
+  font-family: 'Montserrat', serif;
   margin: 0;
   color: white;
 }
@@ -250,7 +251,8 @@
 .price {
   font-size: 24px;
   font-weight: 600;
-  color: #fff;
+  font-family: 'Montserrat', serif;
+  color: white;
 }
 
 .book-btn {

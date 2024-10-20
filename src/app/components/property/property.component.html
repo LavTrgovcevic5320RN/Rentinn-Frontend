@@ -32,8 +32,7 @@
 
   <div class="gallery">
     <div *ngFor="let image of visibleImages; let i = index" class="thumbnail">
-      <!-- When an image is clicked, pass the index of the clicked item -->
-      <img [src]="image.url" [alt]="'Image ' + (i + 1)" (click)="openGalleryFromIndex(i)">
+      <img [src]="image.thumbnailUrl" [alt]="'Image ' + (i + 1)" (click)="openGalleryFromIndex(i)">
     </div>
   </div>
 
@@ -43,19 +42,19 @@
 
   <div class="overview">
     <h3>Overview</h3>
-    <p>{{ property.description }}</p>
+<!--    <p>{{ property.description }}</p>-->
     <div class="highlights">
       <div class="rating-box">
-        <div class="rating-score">{{ property.rating }}</div>
+<!--        <div class="rating-score">{{ property.rating }}</div>-->
         <div>
           <p>Very good</p>
-          <span class="review-count">{{ property.reviews.length }} {{ property.reviews.length ? 'reviews' : 'review' }}</span>
+<!--          <span class="review-count">{{ property.reviews.length }} {{ property.reviews.length ? 'reviews' : 'review' }}</span>-->
         </div>
       </div>
 
       <div *ngFor="let highlight of property.highlights" class="highlight-box">
         <img src="/assets/black-stars.png" alt="Sparkle Icon" class="sparkle-icon" />
-        <p>{{ highlight }}</p>
+<!--        <p>{{ highlight }}</p>-->
       </div>
     </div>
   </div>
@@ -69,7 +68,7 @@
     <div id="map"></div>
     <p class="location-text">
       <mat-icon class="custom-icon">location_on</mat-icon>
-      {{ property.address }} , {{ property.city }} , {{ property.country }}
+      {{ property.address }}, {{ property.city }}, {{ property.country }}
     </p>
   </div>
 
@@ -81,11 +80,11 @@
     <h3>Check-in and Check-out</h3>
     <p class="check-in">
       <mat-icon>schedule</mat-icon>
-      <span>Check-in: {{ property.checkIn }}</span>
+<!--      <span>Check-in: {{ property.checkIn }}</span>-->
     </p>
     <p class="check-out">
       <mat-icon>schedule</mat-icon>
-      <span>Check-out: {{ property.checkOut }}</span>
+<!--      <span>Check-out: {{ property.checkOut }}</span>-->
     </p>
   </div>
 
@@ -96,16 +95,16 @@
   <div class="amenities">
     <h3>Amenities</h3>
     <div class="amenities-list">
-      <div *ngFor="let amenity of visibleAmenities" class="amenity-item">
-        <mat-icon>{{ getAmenityIcon(amenity) }}</mat-icon>
-        <span>{{ amenity }}</span>
-      </div>
+<!--      <div *ngFor="let amenity of visibleAmenities" class="amenity-item">-->
+<!--        <mat-icon>{{ getAmenityIcon(amenity) }}</mat-icon>-->
+<!--        <span>{{ amenity }}</span>-->
+<!--      </div>-->
 
-      <div *ngIf="!showAllAmenities && remainingAmenitiesCount > 0" class="amenity-item more-amenities">
-        <button (click)="showMoreAmenities()">
-          +{{ remainingAmenitiesCount }} more
-        </button>
-      </div>
+<!--      <div *ngIf="!showAllAmenities && remainingAmenitiesCount > 0" class="amenity-item more-amenities">-->
+<!--        <button (click)="showMoreAmenities()">-->
+<!--          +{{ remainingAmenitiesCount }} more-->
+<!--        </button>-->
+<!--      </div>-->
     </div>
   </div>
 

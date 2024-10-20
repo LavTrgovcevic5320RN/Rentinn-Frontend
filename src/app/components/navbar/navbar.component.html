@@ -34,20 +34,21 @@
             width="40"
             height="40"
           />
-          <span class="ms-2 me-2">{{ username }}</span>
+<!--          <span class="ms-2 me-2">{{ customer?.firstName }} {{ customer?.lastName }}</span>-->
+
         </a>
 
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-          <li class="dropdown-item">
-            <div class="d-flex">
-              <img src="https://via.placeholder.com/40" alt="User Profile" class="rounded-circle me-2">
-              <span class="fw-bold">John Doe.</span>
-            </div>
-          </li>
-          <li><hr class="dropdown-divider"></li>
+<!--          <li class="dropdown-item">-->
+<!--            <div class="d-flex">-->
+<!--              <img src="https://via.placeholder.com/40" alt="User Profile" class="rounded-circle me-2">-->
+<!--              <span class="fw-bold">{{ customer?.firstName }} {{ customer?.lastName }}</span>-->
+<!--            </div>-->
+<!--          </li>-->
+<!--          <li><hr class="dropdown-divider"></li>-->
 
           <li class="dropdown-item d-flex justify-content-between align-items-center">
-            <div class="d-flex ">
+            <div class="d-flex">
               <mat-icon class="me-2">person</mat-icon>
               <a class="text-decoration-none" href="#">My Account</a>
             </div>
@@ -55,7 +56,7 @@
           </li>
 
           <li class="dropdown-item d-flex justify-content-between align-items-center">
-            <div class="d-flex ">
+            <div class="d-flex">
               <mat-icon class="me-2">payment</mat-icon>
               <a class="text-decoration-none" href="#">Payments</a>
             </div>
@@ -63,7 +64,7 @@
           </li>
 
           <li class="dropdown-item d-flex justify-content-between align-items-center">
-            <div class="d-flex ">
+            <div class="d-flex">
               <mat-icon class="me-2">settings</mat-icon>
               <a class="text-decoration-none" href="#">Settings</a>
             </div>
@@ -73,7 +74,7 @@
           <li><hr class="dropdown-divider"></li>
 
           <li class="dropdown-item d-flex justify-content-between align-items-center">
-            <div class="d-flex ">
+            <div class="d-flex">
               <mat-icon class="me-2">support</mat-icon>
               <a class="text-decoration-none" href="#">Support</a>
             </div>
@@ -81,7 +82,7 @@
           </li>
 
           <li class="dropdown-item d-flex justify-content-between align-items-center">
-            <div class="d-flex ">
+            <div class="d-flex">
               <mat-icon class="me-2">logout</mat-icon>
               <a class="text-decoration-none" href="#" (click)="logout()">Logout</a>
             </div>

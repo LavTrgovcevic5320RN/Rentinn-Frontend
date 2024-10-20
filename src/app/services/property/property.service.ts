@@ -18,23 +18,25 @@ export class PropertyService {
       'Authorization': 'Bearer ' + (sessionStorage.getItem('jwt') || localStorage.getItem('jwt'))
     });
 
-    console.log('U property-service fetch properties:', values);
+    const city = values.destination.split(',')[0].trim();
+    const country = values.destination.split(',')[1].trim();
+    const checkIn = new Date(values.checkIn);
+    const checkOut = new Date(values.checkOut);
 
-    const city = values.destination.split(',')[0];
-    const country = values.destination.split(',')[1];
-    const formattedCheckIn = values.checkIn.toISOString().split('T')[0];
-    const formattedCheckOut = values.checkIn.toISOString().split('T')[0];
-
-    // console.log('Check in:', formattedCheckIn);
-    // console.log('Check out:', formattedCheckOut);
-    // console.log('City:', city);
-    // console.log('Country:', country);
+    const formatDateWithoutOffset = (date: Date): string => {
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const day = date.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+    const checkInFormatted = formatDateWithoutOffset(checkIn);
+    const checkOutFormatted = formatDateWithoutOffset(checkOut);
 
     const params = new HttpParams()
       .set('city', city)
       .set('country', country)
-      .set('checkInDate', formattedCheckIn)
-      .set('checkOutDate', formattedCheckOut)
+      .set('checkInDate', checkInFormatted)
+      .set('checkOutDate', checkOutFormatted)
       .set('guests', 2)
       .set('rooms', 3);
 
@@ -43,10 +45,20 @@ export class PropertyService {
     return this.httpClient.get<Property[]>(`${this.apiUrl}/all`, { headers, params });
   }
 
+  fetchProperty(propertyId: any): Observable<Property> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + (sessionStorage.getItem('jwt') || localStorage.getItem('jwt'))
+    });
+
+    return this.httpClient.get<Property>(`${this.apiUrl}/${propertyId}`, { headers });
+  }
+
   fetchAmenities(): Observable<string[]> {
     const url = `assets/amenities.json`;
     return this.httpClient.get<string[]>(url);
   }
+
+
 
   public createProperty(formData: FormData): Observable<any>{
     const headers = new HttpHeaders({
