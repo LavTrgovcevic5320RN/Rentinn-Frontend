@@ -35,14 +35,17 @@
 }
 
 .price {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: bold;
-  color: #ff6b6b;
+  font-family: Montserrat, sans-serif;
+  color: #FF8682;
 }
 
 .per-night {
-  font-size: 16px;
-  color: #ff6b6b;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+  color: #FF8682;
   margin-left: 4px;
 }
 
@@ -51,12 +54,14 @@
   gap: 10px;
 }
 
-button {
+.favorite-btn, .share-btn {
   background-color: transparent;
   border: #8DD3BB 1px solid;
   border-radius: 8px;
   padding: 10px;
   cursor: pointer;
+  width: 48px;
+  height: 48px;
 }
 
 button mat-icon {
@@ -78,12 +83,6 @@ button mat-icon {
   font-family: Montserrat, sans-serif;
   transition: background-color 0.3s ease;
 }
-
-/*.book-btn:hover {*/
-/*  background-color: #112211;*/
-/*  color: #8DD3BB;*/
-/*}*/
-
 
 .book-btn:hover {
   background-color: #76b699;
@@ -343,7 +342,7 @@ button mat-icon {
 .more-amenities button {
   background: none;
   border: none;
-  color: #FF6F61;
+  color: #FF8682;
   font-weight: bold;
   cursor: pointer;
 }
@@ -554,31 +553,15 @@ button mat-icon {
   margin-top: 20px;
 }
 
+/*.review-list {*/
+/*  margin-top: 20px;*/
+/*  min-height: 350px;*/
+/*}*/
+
 .review-item {
   border-top: 1px solid #ddd;
   padding: 20px 0;
 }
-
-/*.review-header {*/
-/*  display: flex;*/
-/*  justify-content: space-between;*/
-/*  align-items: center;*/
-/*}*/
-
-/*.review-header .review-rating {*/
-/*  font-size: 14px;*/
-/*  font-weight: 600;*/
-/*  font-family: Montserrat, sans-serif;*/
-/*  color: #112211;*/
-/*}*/
-
-/*.review-header .reviewer-name {*/
-/*  font-size: 14px;*/
-/*  font-weight: 400;*/
-/*  font-family: Montserrat, sans-serif;*/
-/*  color: #112211;*/
-/*}*/
-
 
 .review-header {
   display: flex;

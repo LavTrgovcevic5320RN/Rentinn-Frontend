@@ -17,6 +17,7 @@ export class PropertyComponent implements OnInit {
   visibleImages: Image[] = [];
   initialVisibleCount = 5;
   images: Image[] = [];
+  parsedForm: any;
   private lightbox: PhotoSwipeLightbox | undefined;
 
   constructor(private propertyService: PropertyService) { }
@@ -25,6 +26,11 @@ export class PropertyComponent implements OnInit {
     const propertyId = localStorage.getItem('selectedProperty') ? JSON.parse(localStorage.getItem('selectedProperty') || '{}') : {};
     // console.log('Property ID:', propertyId);
     this.fetchProperty(propertyId);
+
+    const savedForm = localStorage.getItem('searchForm');
+    if (savedForm) {
+       this.parsedForm = JSON.parse(savedForm);
+    }
   }
 
   fetchProperty(propertyId: any) {
@@ -34,6 +40,7 @@ export class PropertyComponent implements OnInit {
       this.initializeVisibleImages();
       this.initPhotoSwipe();
       this.configMap();
+      this.property.averagePrice = this.calculateAveragePriceForDates(property, this.parsedForm.checkIn, this.parsedForm.checkOut);
     });
   }
 
@@ -83,6 +90,23 @@ export class PropertyComponent implements OnInit {
     }
   }
 
+  calculateAveragePriceForDates(property: Property, checkIn: string, checkOut: string): number {
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+
+    const relevantPrices = property.dailyPrices.filter(dailyPrice => {
+      const priceDate = new Date(dailyPrice.date);
+      return priceDate >= checkInDate && priceDate <= checkOutDate;
+    });
+
+    if (relevantPrices.length === 0) {
+      return 0;
+    }
+
+    const total = relevantPrices.reduce((acc, dailyPrice) => acc + dailyPrice.price, 0);
+    return total / relevantPrices.length;
+  }
+
   visibleAmenitiesCount = 8;
   showAllAmenities = false;
 
@@ -124,20 +148,20 @@ export class PropertyComponent implements OnInit {
     return this.amenitiesIcons[amenity as keyof typeof this.amenitiesIcons] || 'help_outline';
   }
 
-  // get visibleAmenities(): string[] {
-  //   if (this.showAllAmenities) {
-  //     return this.property.amenities;
-  //   }
-  //   return this.property.amenities.slice(0, this.visibleAmenitiesCount);
-  // }
+  get visibleAmenities(): string[] {
+    if (this.showAllAmenities) {
+      return this.property.amenities;
+    }
+    return this.property.amenities.slice(0, this.visibleAmenitiesCount);
+  }
 
-  // get remainingAmenitiesCount(): number {
-  //   return this.property.amenities.length - this.visibleAmenitiesCount;
-  // }
-  //
-  // showMoreAmenities(): void {
-  //   this.showAllAmenities = true;
-  // }
+  get remainingAmenitiesCount(): number {
+    return this.property.amenities.length - this.visibleAmenitiesCount;
+  }
+
+  showMoreAmenities(): void {
+    this.showAllAmenities = true;
+  }
 
 
   map: any;
