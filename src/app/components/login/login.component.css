@@ -14,15 +14,26 @@
 /*}*/
 
 
+/*.content-wrapper {*/
+/*  !*width: 65%;*!*/
+/*  width: 60%;*/
+/*  margin-left: auto;*/
+/*  margin-right: auto;*/
+/*  padding: 80px 0;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  align-items: center;*/
+/*}*/
+
 .content-wrapper {
-  /*width: 65%;*/
-  width: 60%;
+  width: 65%;
+  padding: 20px 0;
   margin-left: auto;
   margin-right: auto;
-  padding: 80px 0;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .login-container {
