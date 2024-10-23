@@ -30,16 +30,6 @@ export class HomeComponent {
         validators: dateRangeValidator()
       });
 
-    // const savedForm = localStorage.getItem('searchForm');
-    // if (savedForm) {
-    //   this.searchForm.setValue(JSON.parse(savedForm));
-    // }
-    //
-
-    // this.searchForm.valueChanges.subscribe(formData => {
-    //   localStorage.setItem('searchForm', JSON.stringify(formData));
-    // });
-
     this.searchForm.valueChanges.subscribe(formData => {
       const formToSave = {
         ...formData,
@@ -48,7 +38,16 @@ export class HomeComponent {
       };
       localStorage.setItem('searchForm', JSON.stringify(formToSave));
     });
+  }
 
+  // Filter to block all dates before today
+  myFilter = (d: Date | null): boolean => {
+    const today = new Date();  // Get the current date
+    if (!d) {
+      return false; // If no date is provided, disable the date
+    }
+    // Only allow dates from today onwards
+    return d >= new Date(today.getFullYear(), today.getMonth(), today.getDate());
   }
 
   onSubmit() {
@@ -78,8 +77,6 @@ export class HomeComponent {
     this.router.navigate(['/property-list'])
       .then(r => console.log('Navigation successful:', r));
   }
-
-
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {

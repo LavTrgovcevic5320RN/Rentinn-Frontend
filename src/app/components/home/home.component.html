@@ -21,7 +21,7 @@
           <div class="col-md-3 col-sm-12 mb-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Check In</mat-label>
-              <input matInput [matDatepicker]="checkInPicker" placeholder="Fri 12/2" formControlName="checkIn" required>
+              <input matInput [matDatepicker]="checkInPicker" [matDatepickerFilter]="myFilter" placeholder="Fri 12/2" formControlName="checkIn" required>
               <mat-datepicker-toggle matSuffix [for]="checkInPicker"></mat-datepicker-toggle>
               <mat-datepicker #checkInPicker></mat-datepicker>
             </mat-form-field>
@@ -30,7 +30,7 @@
           <div class="col-md-3 col-sm-12 mb-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Check Out</mat-label>
-              <input matInput [matDatepicker]="checkOutPicker" placeholder="Sun 12/4" formControlName="checkOut" required>
+              <input matInput [matDatepicker]="checkOutPicker" [matDatepickerFilter]="myFilter" placeholder="Sun 12/4" formControlName="checkOut" required>
               <mat-datepicker-toggle matSuffix [for]="checkOutPicker"></mat-datepicker-toggle>
               <mat-datepicker #checkOutPicker></mat-datepicker>
             </mat-form-field>

@@ -13,8 +13,7 @@ export class SignUpComponent {
   hide = true;
   currentStage = 'signUp';
 
-  images = ['assets/login-sign-up-4.jpg', 'assets/login-sign-up-1.jpg', 'assets/login-sign-up-2.jpg', "assets/login-sign-up-5.jpg"
-  ];
+  images = ['assets/login-sign-up-4.jpg', 'assets/login-sign-up-1.jpg', 'assets/login-sign-up-2.jpg', "assets/login-sign-up-5.jpg"];
   currentImage = this.images[0];
   currentImageIndex = 0;
   dots = Array(this.images.length).fill(null);

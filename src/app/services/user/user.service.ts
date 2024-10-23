@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Customer, Property} from '../../models/model';
+import {Customer, EditCustomerRequest, Property} from '../../models/model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,26 @@ export class UserService {
     });
 
     return this.httpClient.get<Customer>(`${this.apiUrl}/get`, { headers });
+  }
+
+  updateCustomer(values: any): Observable<boolean> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + (sessionStorage.getItem('jwt') || localStorage.getItem('jwt'))
+    });
+
+    const editCustomerRequest: EditCustomerRequest = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      password: values.password,
+      phoneNumber: values.phoneNumber,
+      address: values.address,
+      dateOfBirth: new Date(values.dateOfBirth)
+    };
+
+    console.log('Body:', editCustomerRequest);
+
+    return this.httpClient.put<boolean>(`${this.apiUrl}/edit`, editCustomerRequest, { headers });
   }
 
 

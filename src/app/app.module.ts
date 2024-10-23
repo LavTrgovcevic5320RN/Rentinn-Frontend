@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -31,6 +30,11 @@ import {MatSlider, MatSliderModule} from '@angular/material/slider';
 import {HttpClientModule} from '@angular/common/http';
 import {MatDivider} from '@angular/material/divider';
 import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
+import { ProfileComponent } from './components/profile/profile.component';
+import {ExampleComponent} from './components/example/example.component';
+import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
+import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from '@angular/material/dialog';
+import { RentingComponent } from './components/renting/renting.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/mate
     SignUpComponent,
     PropertyListComponent,
     PropertyComponent,
+    ProfileComponent,
+    ExampleComponent,
+    EditDialogComponent,
+    RentingComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +84,11 @@ import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/mate
     MatMenuTrigger,
     MatMenuModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogClose,
+    MatDialogActions,
+    MatDialogContent,
+    MatDialogTitle
   ],
   providers: [
     provideAnimationsAsync()

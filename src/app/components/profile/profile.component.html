@@ -1,0 +1,161 @@
+<div class="content-wrapper">
+
+  <div class="tabs">
+    <div class="tab" [class.active]="activeTab === 'account'" (click)="selectTab('account')">Account</div>
+    <div class="separator"></div>
+    <div class="tab" [class.active]="activeTab === 'history'" (click)="selectTab('history')">History</div>
+    <div class="separator"></div>
+    <div class="tab" [class.active]="activeTab === 'paymentMethods'" (click)="selectTab('paymentMethods')">Payment methods</div>
+    <div class="underline" [ngClass]="{'account': activeTab === 'account', 'history': activeTab === 'history', 'paymentMethods': activeTab === 'paymentMethods'}"></div>
+  </div>
+
+
+
+<!--  <div *ngIf="activeTab === 'account'">-->
+<!--    <h3 class="title">Account</h3>-->
+<!--    <div class="profile-container">-->
+<!--      <div class="profile-field" *ngFor="let field of fields">-->
+<!--        <div class="column">-->
+<!--          <label>{{ getFieldLabel(field) }}</label>-->
+<!--          <span>{{ user[field] }}</span>-->
+<!--        </div>-->
+<!--        <button (click)="openEditDialog(field, user[field])" class="change-button">-->
+<!--          <mat-icon>edit</mat-icon> Change-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+  <div *ngIf="activeTab === 'account'">
+    <h3 class="title">Account</h3>
+    <div class="profile-container">
+
+      <div class="profile-field">
+        <div class="column">
+          <label>Name</label>
+          <span>{{ customer?.firstName }} {{ customer?.lastName }}</span>
+        </div>
+        <button (click)="openEditDialog('name', customer?.firstName + ' ' + customer?.lastName)" class="change-button">
+          <mat-icon>edit</mat-icon> Change
+        </button>
+      </div>
+
+      <div class="profile-field">
+        <div class="column">
+          <label>Email</label>
+          <span>{{ customer?.email }}</span>
+        </div>
+        <button (click)="openEditDialog('email', customer!.email)" class="change-button">
+          <mat-icon>edit</mat-icon> Change
+        </button>
+      </div>
+
+      <div class="profile-field">
+        <div class="column">
+          <label>Password</label>
+          <span>{{ customer?.password || '***********'}}</span>
+        </div>
+        <button (click)="openEditDialog('password', customer!.password)" class="change-button">
+          <mat-icon>edit</mat-icon> Change
+        </button>
+      </div>
+
+      <div class="profile-field">
+        <div class="column">
+          <label>Phone</label>
+          <span>{{ customer?.phoneNumber }}</span>
+        </div>
+        <button (click)="openEditDialog('phone', customer!.phoneNumber)" class="change-button">
+          <mat-icon>edit</mat-icon> Change
+        </button>
+      </div>
+
+      <div class="profile-field">
+        <div class="column">
+          <label>Address</label>
+          <span>{{ customer?.address }}</span>
+        </div>
+        <button (click)="openEditDialog('address', customer!.address)" class="change-button">
+          <mat-icon>edit</mat-icon> Change
+        </button>
+      </div>
+
+      <div class="profile-field">
+        <div class="column">
+          <label>Date of Birth</label>
+          <span>{{ customer?.dateOfBirth | date: 'EEE, MMM d, y' }}</span>
+        </div>
+        <button (click)="openEditDialog('dateOfBirth', customer!.dateOfBirth.toISOString())" class="change-button">
+          <mat-icon>edit</mat-icon> Change
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  <div *ngIf="activeTab === 'history'">
+    <div class="listing-header">
+      <h3 class="title-bookings">Bookings</h3>
+      <div class="sort-by">
+        <mat-select disableOptionCentering class="sort-mat-select" [(ngModel)]="selectedSortOption" (selectionChange)="sortProperties()">
+          <mat-option value="upcoming">Latest date/upcoming</mat-option>
+          <mat-option value="price-low-to-high">Price: Low to High</mat-option>
+          <mat-option value="price-high-to-low">Price: High to Low</mat-option>
+        </mat-select>
+      </div>
+    </div>
+
+
+
+
+    <div class="booking-card" *ngFor="let booking of bookings">
+      <div class="booking-card-content">
+        <!-- Property name instead of the icon -->
+        <div class="property-name">
+          {{ booking.propertyName }}
+        </div>
+
+<!--        <div class="separator"></div>-->
+
+        <div class="booking-dates">
+          <div class="check-in">
+            <span class="label">Check-In</span>
+            <span class="date">{{ booking.checkInDate | date: 'EEE, MMM d, y' }}</span> <!-- Added year formatting -->
+          </div>
+          <div class="separator-booking">–</div>
+          <div class="check-out">
+            <span class="label">Check-Out</span>
+            <span class="date">{{ booking.checkOutDate | date: 'EEE, MMM d, y' }}</span> <!-- Added year formatting -->
+          </div>
+        </div>
+
+<!--        <div class="separator"></div>-->
+
+        <div class="booking-info">
+          <!-- Display total price instead of check-in/out times -->
+          <div class="total-price">
+            <span>Total Price:</span>
+            <span>${{ booking.totalPrice | number: '1.0-0' }}</span> <!-- Displaying price -->
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn-download">Download Ticket</button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div *ngIf="activeTab === 'paymentMethods'">Payment Methods Content</div>
+
+
+</div>
+
+
+

@@ -1,0 +1,56 @@
+.title {
+  font-size: 24px;
+  font-family: 'TradeGothic ST Extended Bold', sans-serif;
+  margin-bottom: 20px;
+  color: #112211; /* Dodajte boju teksta */
+  text-align: center; /* Centrirajte naslov */
+}
+
+.content {
+  margin-bottom: 20px;
+  font-family: 'Montserrat', serif; /* Dodajte prilagođeni font */
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px; /* Dodajte razmak ispod polja */
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button {
+  margin-left: 10px;
+  padding: 10px 20px; /* Dodajte padding za dugmad */
+  border-radius: 5px; /* Zaobljeni uglovi za dugmad */
+  font-family: 'Montserrat', serif; /* Dodajte prilagođeni font */
+}
+
+.cancel-button {
+  border: 1px solid #8DD3BB;
+  color: #112211;
+  background-color: transparent; /* Transparentna pozadina */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Dodajte tranziciju */
+}
+
+.cancel-button:hover {
+  background-color: #f4f4f4;
+  color: white;
+}
+
+.save-button {
+  background-color: #2f5349;
+  color: white;
+  transition: background-color 0.3s ease, opacity 0.3s ease; /* Dodajte tranziciju */
+}
+
+.save-button:hover {
+  background-color: #1e3a31;
+  opacity: 0.8;
+}

@@ -28,11 +28,17 @@ export interface Property {
   checkOut: string;
 }
 
+// export interface DailyPrice {
+//   id: number;
+//   date: string;
+//   price: number;
+//   propertyId: number;
+// }
+
 export interface DailyPrice {
   id: number;
-  date: string;
+  date: Date;
   price: number;
-  propertyId: number;
 }
 
 export interface Review {
@@ -45,8 +51,35 @@ export interface Review {
 export interface Customer {
   id: number;
   email: string;
+  password: string;
   firstName: string;
   lastName: string;
+  phoneNumber: string;
+  address: string;
+  dateOfBirth: Date;
   permissions: Permission[];
   properties: Property[];
+}
+
+export interface EditCustomerRequest {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  address: string;
+  dateOfBirth: Date;
+}
+
+export interface Booking {
+  id: number;
+  checkInDate: Date;
+  checkOutDate: Date;
+  totalPrice: number;
+  propertyName: string;
+  propertyId: number;
+  customerId: number;
+  review: Review;
+  // property: Property;
+  // customer: Customer;
 }

@@ -1,0 +1,341 @@
+.content-wrapper {
+  width: 80%;
+  margin: 100px auto;
+  background-color: #ffffff;
+}
+
+.tabs {
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 12px;
+  padding: 10px;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Montserrat, sans-serif;
+  cursor: pointer;
+  padding: 10px;
+  color: #112211;
+  position: relative;
+}
+
+/*.tab.active {*/
+/*  color: #8DD3BB;*/
+/*}*/
+
+.separator {
+  width: 1px;
+  background-color: #e0e0e0;
+  height: 40px;
+  margin: 0 10px;
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  background-color: #8DD3BB;
+  width: calc(25%); /* Reduced underline width with margin on both sides */
+  transition: all 0.3s ease;
+}
+
+.underline.account {
+  left: 4.17%; /* (16.67% - 12.5%) for centering under Account tab */
+}
+
+.underline.history {
+  left: 37.5%; /* (50% - 12.5%) for centering under History tab */
+}
+
+.underline.paymentMethods {
+  left: 70.83%; /* (83.33% - 12.5%) for centering under Payment Methods tab */
+}
+
+.tab-content {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  margin-top: 20px;
+}
+
+
+
+
+.title {
+  font-size: 32px;
+  font-family: "TradeGothic ST Extended Bold", sans-serif;
+  color: #112211;
+  margin: 40px 0 20px;
+}
+
+.profile-container {
+  /*max-width: 600px;*/
+  padding: 32px 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: white;
+  font-family: Arial, sans-serif;
+}
+
+.profile-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+}
+
+.profile-field:first-child {
+  padding: 0;
+}
+
+.profile-field label {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: Montserrat, sans-serif;
+  color: rgba(17, 34, 17, 0.75);
+  margin-bottom: 5px;
+}
+
+.profile-field span {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: Montserrat, sans-serif;
+  color: #112211;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-title {
+  font-size: 14px;
+  color: #4a4a4a;
+  font-weight: bold;
+}
+
+.field-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.value-display {
+  font-size: 16px;
+}
+
+.change-button {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: white;
+  border: 1px solid #8DD3BB;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.change-button mat-icon {
+  font-size: 18px;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.change-button:hover {
+  background-color: #ddd;
+}
+
+.change-button:focus {
+  outline: none;
+}
+
+
+
+
+
+
+.listing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px 0 20px;
+}
+
+.title-bookings {
+  font-size: 32px;
+  font-family: "TradeGothic ST Extended Bold", sans-serif;
+  color: #112211;
+  margin: 0;
+}
+
+.sort-by {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.sort-by mat-select {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  margin-left: 5px;
+  color: #112211;
+}
+
+.mat-select-trigger {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #1b2b1b;
+}
+
+.mat-select-placeholder {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+.mat-option-text {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+::ng-deep .sort-mat-select .mat-mdc-select-arrow  {
+  color: #112211;
+  margin-left: 10px;
+}
+
+::ng-deep .sort-mat-option .mdc-list-item__primary-text  {
+  color: #112211;
+}
+
+.sort-by mat-select .mat-select-trigger {
+  padding: 0;
+  margin-left: 5px;
+}
+
+.sort-mat-select mat-select {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #1b2b1b;
+}
+
+
+
+
+
+
+.booking-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #d3d3d3;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.booking-card-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.property-name {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Montserrat, sans-serif;
+  color: #8DD3BB;
+  width: 300px; /* Set the fixed width here */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for longer names */
+}
+
+.booking-dates {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for longer names */
+}
+
+.check-in, .check-out {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Montserrat, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px; /* Dodajte fiksnu širinu */
+  margin: 0 10px;
+}
+
+.separator-booking {
+  font-size: 24px;
+  margin: 0 10px;
+}
+
+.booking-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.check-in-time, .check-out-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon {
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.btn-download {
+  background-color: #8DD3BB;
+  color: #112211;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-download:hover {
+  background-color: #76b699;
+}
+
+.total-price {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Montserrat, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
