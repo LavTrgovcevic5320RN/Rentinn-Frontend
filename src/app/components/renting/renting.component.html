@@ -1,0 +1,105 @@
+<div class="content-wrapper">
+  <div class="left-column">
+    <!-- Booking Details -->
+    <div class="booking-details">
+      <!-- Property name as the title -->
+      <div class="property-header">
+        <div class="property-info">
+          <h2>{{ property.title }}</h2>
+          <div class="address">
+            <mat-icon>location_on</mat-icon>
+            {{ property.address }} , {{ property.city }} , {{ property.country }}
+          </div>
+        </div>
+        <div class="price-per-night">
+          <span>{{ property.averagePrice | number:'1.0-0' }}</span>/night
+        </div>
+      </div>
+
+      <div class="checkin-checkout-wrapper">
+        <div class="checkin">
+          <span>{{ parsedForm.checkIn | date:'EEEE, MMM d, yyyy' }}</span>          <p>Check-In</p>
+        </div>
+        <div class="custom-separator">
+          <div class="line"></div>
+          <img src="assets/building-icon.png" alt="Building Icon" class="icon" />
+          <div class="line"></div>
+        </div>
+        <div class="checkout">
+          <span>{{ parsedForm.checkOut | date:'EEEE, MMM d, yyyy' }}</span>          <p>Check-Out</p>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div class="payment-section">
+      <mat-radio-group [(ngModel)]="selectedOption" (change)="toggleCreditCard($event.value === 'credit')">
+        <div *ngFor="let option of paymentOptions; let i = index" class="payment-options" [ngClass]="{'selected': selectedOption === option.title}">
+          <div class="option-header">
+            <h4>{{ option.title }}</h4>
+            <p>{{ option.description }}</p>
+          </div>
+          <mat-radio-button [value]="option.title"></mat-radio-button>
+        </div>
+      </mat-radio-group>
+
+      <!-- Credit Card Details Section (visible when selected) -->
+      <div *ngIf="selectedOption === 'Pay with credit card'" class="credit-card-section">
+        <!-- Existing Card -->
+        <div class="existing-card selected-card">
+          <div class="card-info">
+            <div class="card-type">
+              <img src="path_to_visa_logo" alt="Visa" />
+            </div>
+            <div class="card-details">
+              <span>**** 4321</span>
+              <span>02/27</span>
+            </div>
+          </div>
+          <mat-radio-button></mat-radio-button>
+        </div>
+
+        <!-- Add New Card -->
+        <div class="add-new-card">
+          <button class="add-card-button">
+            <mat-icon>add_circle_outline</mat-icon>
+            Add a new card
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+    <!-- Login Section (Moved Below Payment) -->
+    <div *ngIf="!isLoggedIn" class="login-section">
+      <h4>Login or Sign up to book</h4>
+
+      <button (click)="redirectToLogin()" class="email-login-button">
+        <mat-icon>mail_outline</mat-icon> Continue with email
+      </button>
+    </div>
+
+  </div>
+
+  <div class="right-column">
+    <!-- Summary Section -->
+    <div class="summary-section">
+      <img src="path_to_image" alt="Hotel Image" />
+      <h4>Your booking is protected by Rentinn</h4>
+      <div class="price-details">
+        <p>Base Fare <span>$ {{ property.averagePrice | number:'1.0-0' }}</span></p>
+        <p>Discount <span>$0</span></p>
+        <p>Taxes <span>$20</span></p>
+        <p>Service Fee <span>$5</span></p>
+        <p>Total <span>${{ property.totalPrice | number:'1.0-0' }}</span></p>
+      </div>
+      <button class="confirm-button" (click)="handleConfirmBooking()">Confirm</button>
+    </div>
+  </div>
+</div>

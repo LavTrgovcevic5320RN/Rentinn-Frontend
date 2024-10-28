@@ -1,11 +1,14 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Image} from '@failed-successfully/ngx-darkbox-gallery';
 import PhotoSwipe from 'photoswipe';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
-import {Property} from '../../models/model';
+import {Booking, Property} from '../../models/model';
 import * as L from 'leaflet';
 import {PropertyService} from '../../services/property/property.service';
-import {auto} from '@popperjs/core';
+import {Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {dateRangeValidator} from '../validators/date-range.validator';
+import {BookingService} from '../../services/booking/booking.service';
 
 @Component({
   selector: 'app-property',
@@ -13,34 +16,102 @@ import {auto} from '@popperjs/core';
   styleUrl: './property.component.css'
 })
 export class PropertyComponent implements OnInit {
-  property!: Property;
+  property: Property = { id: 0, title: '', country: '', city: '', address: '', postalCode: '', latitude: 0, longitude: 0, imagePaths: [], amenities: [], freebies: [], rating: 0, averagePrice: 0, dailyPrices: [], description: '', highlights: [], reviews: [], checkIn: '', checkOut: '', totalPrice: 0 };
+  amenitiesIcons: { [key: string]: string } = {
+    '24hr front desk': 'support_agent',
+    'air-conditioned': 'ac_unit',
+    'fitness': 'fitness_center',
+    'pool': 'pool',
+    'sauna': 'spa',
+    'spa': 'spa',
+    'bar': 'local_bar',
+    'restaurant': 'restaurant',
+    'wi-fi': 'wifi',
+    'pet-friendly': 'pets',
+    'family rooms': 'family_restroom',
+    'room service': 'room_service',
+    'concierge service': 'support_agent',
+    'laundry service': 'local_laundry_service',
+    'fitness center': 'fitness_center',
+    'non-smoking rooms': 'smoke_free',
+    'outdoor pool': 'pool',
+    'indoor pool': 'pool',
+    'business center': 'business',
+    'conference rooms': 'meeting_room',
+    'meeting facilities': 'meeting_room',
+    'breakfast buffet': 'free_breakfast',
+    'private beach': 'beach_access',
+    'hot tub': 'hot_tub',
+    'massage': 'self_improvement',
+    'all-inclusive': 'all_inclusive',
+    'casino': 'casino',
+    'airport transfer': 'airport_shuttle',
+    'elevator': 'elevator',
+    'balcony/terrace': 'balcony',
+    'kitchenette': 'kitchen'
+  };
+  lightbox: PhotoSwipeLightbox | undefined;
   visibleImages: Image[] = [];
-  initialVisibleCount = 5;
   images: Image[] = [];
+  visibleAmenitiesCount = 8;
+  initialVisibleCount = 5;
+  reviewsPerPage = 2;
+  currentPage = 1;
+  showAllAmenities = false;
+  isFavorited = false;
   parsedForm: any;
-  private lightbox: PhotoSwipeLightbox | undefined;
+  map: any;
+  searchForm: FormGroup;
+  unavailableDates: Set<string> = new Set();
 
-  constructor(private propertyService: PropertyService) { }
+  constructor(private fb: FormBuilder, private propertyService: PropertyService, private bookingService: BookingService, private router: Router) {
+    this.searchForm = this.fb.group({
+        checkIn: ['', Validators.required],
+        checkOut: ['', Validators.required],
+      },
+      {
+        validators: dateRangeValidator()
+      });
+
+    const searchForm = localStorage.getItem('searchForm');
+    if (searchForm) {
+      this.parsedForm = JSON.parse(searchForm);
+      this.searchForm.patchValue({
+        checkIn: new Date(this.parsedForm.checkIn),
+        checkOut: new Date(this.parsedForm.checkOut)
+      });
+    }
+
+    this.searchForm.valueChanges.subscribe(formData => {
+      const formToSave = {
+        checkIn: formData.checkIn ? new Date(formData.checkIn).toString() : '',
+        checkOut: formData.checkOut ? new Date(formData.checkOut).toString() : ''
+      };
+      localStorage.setItem('dateForm', JSON.stringify(formToSave));
+    });
+  }
 
   ngOnInit(): void {
     const propertyId = localStorage.getItem('selectedProperty') ? JSON.parse(localStorage.getItem('selectedProperty') || '{}') : {};
-    // console.log('Property ID:', propertyId);
     this.fetchProperty(propertyId);
+  }
 
-    const savedForm = localStorage.getItem('searchForm');
-    if (savedForm) {
-       this.parsedForm = JSON.parse(savedForm);
-    }
+  onBookClick() {
+    console.log('Proceed to renting!');
+    localStorage.setItem('searchForm', JSON.stringify(this.parsedForm));
+    this.router.navigate(['/renting'], { state: { property: this.property } });
   }
 
   fetchProperty(propertyId: any) {
     this.propertyService.fetchProperty(propertyId).subscribe(property => {
       this.property = property;
-      console.log('Property:', this.property);
+      this.property.averagePrice = this.calculateAveragePriceForDates(property, this.parsedForm.checkIn, this.parsedForm.checkOut);
+      this.property.totalPrice = this.calculateTotalPriceForDates(property, this.parsedForm.checkIn, this.parsedForm.checkOut);
       this.initializeVisibleImages();
       this.initPhotoSwipe();
       this.configMap();
-      this.property.averagePrice = this.calculateAveragePriceForDates(property, this.parsedForm.checkIn, this.parsedForm.checkOut);
+      this.loadBookedDates();
+      console.log('Property:', this.property);
     });
   }
 
@@ -107,45 +178,28 @@ export class PropertyComponent implements OnInit {
     return total / relevantPrices.length;
   }
 
-  visibleAmenitiesCount = 8;
-  showAllAmenities = false;
+  calculateTotalPriceForDates(property: Property, checkIn: string, checkOut: string): number {
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
 
-  amenitiesIcons: { [key: string]: string } = {
-    '24hr front desk': 'support_agent',
-    'air-conditioned': 'ac_unit',
-    'fitness': 'fitness_center',
-    'pool': 'pool',
-    'sauna': 'spa',
-    'spa': 'spa',
-    'bar': 'local_bar',
-    'restaurant': 'restaurant',
-    'wi-fi': 'wifi',
-    'pet-friendly': 'pets',
-    'family rooms': 'family_restroom',
-    'room service': 'room_service',
-    'concierge service': 'support_agent',
-    'laundry service': 'local_laundry_service',
-    'fitness center': 'fitness_center',
-    'non-smoking rooms': 'smoke_free',
-    'outdoor pool': 'pool',
-    'indoor pool': 'pool',
-    'business center': 'business',
-    'conference rooms': 'meeting_room',
-    'meeting facilities': 'meeting_room',
-    'breakfast buffet': 'free_breakfast',
-    'private beach': 'beach_access',
-    'hot tub': 'hot_tub',
-    'massage': 'self_improvement',
-    'all-inclusive': 'all_inclusive',
-    'casino': 'casino',
-    'airport transfer': 'airport_shuttle',
-    'elevator': 'elevator',
-    'balcony/terrace': 'balcony',
-    'kitchenette': 'kitchen'
-  };
+    const relevantPrices = property.dailyPrices.filter(dailyPrice => {
+      const priceDate = new Date(dailyPrice.date);
+      return priceDate >= checkInDate && priceDate <= checkOutDate;
+    });
+
+    if (relevantPrices.length === 0) {
+      return 0;
+    }
+
+    return relevantPrices.reduce((acc, dailyPrice) => acc + dailyPrice.price, 0);
+  }
 
   getAmenityIcon(amenity: string): string {
     return this.amenitiesIcons[amenity as keyof typeof this.amenitiesIcons] || 'help_outline';
+  }
+
+  showMoreAmenities(): void {
+    this.showAllAmenities = true;
   }
 
   get visibleAmenities(): string[] {
@@ -158,13 +212,6 @@ export class PropertyComponent implements OnInit {
   get remainingAmenitiesCount(): number {
     return this.property.amenities.length - this.visibleAmenitiesCount;
   }
-
-  showMoreAmenities(): void {
-    this.showAllAmenities = true;
-  }
-
-
-  map: any;
 
   configMap() {
     this.map = L.map('map', {
@@ -206,9 +253,6 @@ export class PropertyComponent implements OnInit {
       .openPopup();
   }
 
-
-  isFavorited = false;
-
   onFavoriteClick() {
     this.isFavorited = !this.isFavorited;
     if (this.isFavorited) {
@@ -222,16 +266,6 @@ export class PropertyComponent implements OnInit {
     const shareUrl = window.location.href;
     console.log('Sharing hotel:', shareUrl);
   }
-
-  onBookClick() {
-    console.log('Proceed to booking!');
-  }
-
-
-
-
-  reviewsPerPage = 2;
-  currentPage = 1;
 
   pagedReviews() {
     const start = (this.currentPage - 1) * this.reviewsPerPage;
@@ -269,6 +303,44 @@ export class PropertyComponent implements OnInit {
     } else {
       return 'Very Poor';
     }
+  }
+
+
+  loadBookedDates(): void {
+    this.bookingService.getBookedDates(this.property.id).subscribe(dates => {
+      dates.forEach((booking) => {
+        let tempDate = new Date(booking.checkInDate);
+        const checkOutDate = new Date(booking.checkOutDate);
+
+        while (tempDate < checkOutDate) {
+          this.unavailableDates.add(this.formatDate(tempDate));
+          // tempDate.setUTCDate(tempDate.getUTCDate() + 1);
+          tempDate.setDate(tempDate.getDate() + 1);
+        }
+      });
+      console.log('Unavailable dates:', this.unavailableDates);
+    });
+  }
+
+
+  filterAvailableDates = (date: Date | null): boolean => {
+    const today = new Date();
+
+    if (!date) return false;
+    const dateString = this.formatDate(date);
+    return !this.unavailableDates.has(dateString) && date >= new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  };
+
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
+
+
+  onSearchSubmit() {
+    console.log('Check-in and check-out submitted!');
   }
 
 }

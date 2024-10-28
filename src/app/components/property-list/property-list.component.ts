@@ -1,9 +1,11 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Property} from '../../models/model';
+import {Customer, Property} from '../../models/model';
 import {PropertyService} from '../../services/property/property.service';
 import {dateRangeValidator} from '../validators/date-range.validator';
 import {NavigationEnd, Router} from '@angular/router';
+import {UserService} from '../../services/user/user.service';
+import {AuthService} from '../../services/auth/auth.service';
 import {filter} from 'rxjs';
 
 @Component({
@@ -12,21 +14,23 @@ import {filter} from 'rxjs';
   styleUrls: ['./property-list.component.css']
 })
 export class PropertyListComponent implements OnInit {
+  customer: Customer = { id: 1, email: '', password: '', firstName: '', lastName: '', phoneNumber: '', address: '', dateOfBirth: new Date(), favoriteProperties: [], permissions: [], properties: [] };
   roomGuestOptions = ['1 room, 1 guest', '1 room, 2 guests', '2 rooms, 3 guests', '2 rooms, 4 guests'];
   freebies = ['Free Breakfast', 'Free Parking', 'Free Internet', 'Free Shuttle', 'Free Cancellation'];
+  favoriteProperties: { [id: number]: boolean } = {};
+  properties!: Property[];
+  filteredProperties!: Property[];
+  searchForm!: FormGroup;
+  filtersForm!: FormGroup;
   ratings = [0, 1, 2, 3, 4];
   amenities: any[] = [];
   showMoreAmenities: boolean = false;
-  selectedSortOption = 'recommended';
   showFilters: boolean = false;
-  searchForm!: FormGroup;
-  filtersForm!: FormGroup;
-  properties!: Property[];
-  filteredProperties!: Property[];
+  isLoggedIn: boolean = false;
+  selectedSortOption = 'recommended';
 
-  constructor(private fb: FormBuilder,
-              private propertyService: PropertyService,
-              private router: Router
+  constructor(private fb: FormBuilder, private propertyService: PropertyService, private userService: UserService,
+              private authService: AuthService, private router: Router
   ) {
     this.filtersForm = this.fb.group({
       minValue: new FormControl(30),
@@ -38,10 +42,26 @@ export class PropertyListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fetchLoggedInUser();
     this.loadSearchForm();
     this.fetchProperties();
     this.fetchAmenities();
     // this.initScrollPosition();
+  }
+
+  fetchLoggedInUser() {
+    this.authService.getLoggedInStatus().subscribe(token => {
+      this.isLoggedIn = !!token;
+      if(this.isLoggedIn) {
+        this.userService.fetchLoggedInUser().subscribe(customer => {
+          this.customer = customer;
+          this.favoriteProperties = customer.favoriteProperties.reduce((acc, id) => {
+            acc[id] = true;
+            return acc;
+          }, {} as { [id: number]: boolean });
+        });
+      }
+    });
   }
 
   loadSearchForm() {
@@ -56,15 +76,29 @@ export class PropertyListComponent implements OnInit {
       });
 
     const savedForm = localStorage.getItem('searchForm');
-    if (savedForm) {
-      const parsedForm = JSON.parse(savedForm);
-      this.searchForm.setValue({
-        ...parsedForm,
-        checkIn: parsedForm.checkIn ? new Date(parsedForm.checkIn) : '',
-        checkOut: parsedForm.checkOut ? new Date(parsedForm.checkOut) : ''
+    const dateForm = localStorage.getItem('dateForm');
+    if (savedForm && dateForm) {
+      const parsedSearchForm = JSON.parse(savedForm);
+      const parsedDateForm = JSON.parse(dateForm);
+      console.log('Parsed Form:', parsedSearchForm.roomGuests);
+
+      this.searchForm.patchValue({
+        destination: parsedSearchForm.destination,
+        checkIn: parsedDateForm.checkIn ? new Date(parsedDateForm.checkIn) : '',
+        checkOut: parsedDateForm.checkOut ? new Date(parsedDateForm.checkOut) : '',
+        roomsGuests: parsedSearchForm.roomsGuests
       });
     }
 
+    this.searchForm.valueChanges.subscribe(formData => {
+      const formToSave = {
+        destination: formData.destination.trim(),
+        checkIn: formData.checkIn ? new Date(formData.checkIn).toISOString() : '',
+        checkOut: formData.checkOut ? new Date(formData.checkOut).toISOString() : '',
+        roomGuests: formData.roomsGuests
+      };
+      localStorage.setItem('searchForm', JSON.stringify(formToSave));
+    });
   }
 
   fetchProperties() {
@@ -74,6 +108,7 @@ export class PropertyListComponent implements OnInit {
       console.log('Fetched Properties are:', this.properties);
 
       this.filteredProperties.forEach(property => {
+        console.log('Property:', property);
         property.averagePrice = this.calculateAveragePriceForDates(property, this.searchForm.get('checkIn')?.value, this.searchForm.get('checkOut')?.value);
       });
 
@@ -181,16 +216,16 @@ export class PropertyListComponent implements OnInit {
     return total / relevantPrices.length;
   }
 
-  // initScrollPosition() {
-  //   this.router.events
-  //     .pipe(filter(event => event instanceof NavigationEnd))
-  //     .subscribe(() => {
-  //       const scrollPosition = Number(localStorage.getItem('scrollPosition'));
-  //       if (scrollPosition) {
-  //         this.smoothScrollTo(scrollPosition, 1000);
-  //       }
-  //     });
-  // }
+  initScrollPosition() {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        const scrollPosition = Number(localStorage.getItem('scrollPosition'));
+        if (scrollPosition) {
+          this.smoothScrollTo(scrollPosition, 1000);
+        }
+      });
+  }
 
   smoothScrollTo(targetPosition: number, duration: number): void {
     const startPosition = window.scrollY;
@@ -216,16 +251,28 @@ export class PropertyListComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    localStorage.setItem('scrollPosition', window.scrollY.toString());
+    // localStorage.setItem('scrollPosition', window.scrollY.toString());
+  }
+
+  myFilter = (d: Date | null): boolean => {
+    const today = new Date();
+    if (!d) {
+      return false;
+    }
+    return d >= new Date(today.getFullYear(), today.getMonth(), today.getDate());
   }
 
   viewProperty(property: Property) {
     // console.log('Viewing property:', property);
-    // this.propertyService.setProperty(property);
     localStorage.setItem('selectedProperty', property.id.toString());
-    // this.scrollService.setScrollPosition(window.scrollY);
-    localStorage.setItem('scrollPosition', window.scrollY.toString());
+    // localStorage.setItem('scrollPosition', window.scrollY.toString());
     this.router.navigate(['/property']);
   }
 
+  onFavoriteClick(propertyId: number) {
+    this.favoriteProperties[propertyId] = !this.favoriteProperties[propertyId];
+    this.userService.editFavoriteProperties(this.customer.id, propertyId, this.favoriteProperties[propertyId]).subscribe(() => {
+      console.log('Customer edited his favorite properties!');
+    });
+  }
 }

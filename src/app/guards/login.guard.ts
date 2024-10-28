@@ -5,7 +5,7 @@ import {JwtService} from '../services/jwt/jwt.service';
 export const loginGuard: CanActivateFn = (route, state) => {
   const jwtService = inject(JwtService);
   const router = inject(Router);
-  const token = localStorage.getItem("jwt") || sessionStorage.getItem("jwt");
+  const token = localStorage.getItem("jwt");
 
   if (!token || !jwtService.isTokenFormatValid(token)) {
     router.navigate(['/login']);

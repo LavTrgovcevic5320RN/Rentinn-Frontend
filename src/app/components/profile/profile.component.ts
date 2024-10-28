@@ -1,9 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
-import {Booking, Customer} from '../../models/model';
+import {Booking, Customer, Property} from '../../models/model';
 import {BookingService} from '../../services/booking/booking.service';
 import {UserService} from '../../services/user/user.service';
+import {PropertyService} from '../../services/property/property.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {dateRangeValidator} from '../validators/date-range.validator';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -11,14 +15,6 @@ import {UserService} from '../../services/user/user.service';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit {
-  activeTab = 'account';
-  // activeTab = 'history';
-  selectedSortOption = 'upcoming';
-
-  selectTab(tab: string) {
-    this.activeTab = tab;
-  }
-
   fields = [
     { fieldName: 'name', label: 'Name' },
     { fieldName: 'email', label: 'Email' },
@@ -27,10 +23,86 @@ export class ProfileComponent implements OnInit {
     { fieldName: 'address', label: 'Address' },
     { fieldName: 'dateOfBirth', label: 'Date of Birth' }
   ];
+  favoriteProperties: { [id: number]: boolean } = {};
+  customer: Customer = { id: 1, email: '', password: '', firstName: '', lastName: '', phoneNumber: '', address: '', dateOfBirth: new Date(), permissions: [], properties: [], favoriteProperties: [] };
+  bookings: Booking[] = [];
+  properties!: Property[];
+  filteredProperties!: Property[];
+  activeTab = 'account';
+  // activeTab = 'history';
+  selectedSortOption = 'upcoming';
 
-  constructor(public dialog: MatDialog,
-              private bookingService: BookingService,
-              private userService: UserService) {}
+  constructor(public dialog: MatDialog, private router: Router, private bookingService: BookingService,
+              private userService: UserService, private propertyService: PropertyService) {}
+
+  ngOnInit() {
+    this.fetchUser();
+    this.fetchProperties();
+  }
+
+  fetchUser() {
+    this.userService.fetchLoggedInUser().subscribe(customer => {
+      this.customer = customer;
+      console.log(this.customer);
+      this.favoriteProperties = customer.favoriteProperties.reduce((acc, id) => {
+        acc[id] = true;
+        return acc;
+      }, {} as { [id: number]: boolean });
+      this.fetchBookings();
+    });
+  }
+
+  fetchBookings() {
+    this.bookingService.fetchBookings(this.customer!.id).subscribe((data) => {
+      this.bookings = data;
+      console.log('Fetched Bookings are:', this.bookings);
+      this.sortProperties();
+    });
+  }
+
+  fetchProperties() {
+    // this.propertyService.fetchAllProperties().subscribe((data) => {
+    //   this.properties = data;
+    //   this.filteredProperties = data;
+    //
+    //   // this.filteredProperties.forEach(property => {
+    //   //   property.averagePrice = this.calculateAveragePriceForDates(property, this.searchForm.get('checkIn')?.value, this.searchForm.get('checkOut')?.value);
+    //   // });
+    //
+    // });
+  }
+
+  calculateAveragePriceForDates(property: Property, checkIn: string, checkOut: string): number {
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+
+    const relevantPrices = property.dailyPrices.filter(dailyPrice => {
+      const priceDate = new Date(dailyPrice.date);
+      return priceDate >= checkInDate && priceDate <= checkOutDate;
+    });
+
+    if (relevantPrices.length === 0) {
+      return 0;
+    }
+
+    const total = relevantPrices.reduce((acc, dailyPrice) => acc + dailyPrice.price, 0);
+    return total / relevantPrices.length;
+  }
+
+  viewProperty(property: Property) {
+    // console.log('Viewing property:', property);
+    localStorage.setItem('selectedProperty', property.id.toString());
+    this.router.navigate(['/property']);
+  }
+
+  onFavoriteClick(propertyId: number) {
+    this.favoriteProperties[propertyId] = !this.favoriteProperties[propertyId];
+    this.userService.editFavoriteProperties(this.customer.id, propertyId, this.favoriteProperties[propertyId]).subscribe(() => {
+      console.log('Customer edited his favorite properties!');
+    });
+  }
+
+
 
   openEditDialog(field: string, value: string): void {
     const dialogRef = this.dialog.open(EditDialogComponent, {
@@ -89,27 +161,9 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  customer: Customer | undefined
-  bookings: Booking[] = [];
-
-  ngOnInit() {
-    this.fetchUser();
+  selectTab(tab: string) {
+    this.activeTab = tab;
   }
 
-  fetchUser() {
-    this.userService.fetchLoggedInUser().subscribe(customer => {
-      this.customer = customer;
-      // console.log(this.customer);
-      this.fetchBookings();
-    });
-  }
-
-  fetchBookings() {
-    this.bookingService.fetchBookings(this.customer!.id).subscribe((data) => {
-      this.bookings = data;
-      console.log('Fetched Bookings are:', this.bookings);
-      this.sortProperties();
-    });
-  }
 
 }

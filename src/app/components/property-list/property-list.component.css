@@ -716,6 +716,20 @@ mat-slider {
   border-radius: 8px;
 }
 
+.favorite-btn {
+  background-color: transparent;
+  border: #8DD3BB 1px solid;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+}
+
+.favorite-btn mat-icon {
+  color: #FF8682;
+}
+
 .mat-mdc-icon-button ::ng-deep .mat-mdc-button-persistent-ripple {
   display: none;
 }
@@ -845,6 +859,11 @@ mat-slider {
   }
 
   .like-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .favorite-btn {
     width: 40px;
     height: 40px;
   }

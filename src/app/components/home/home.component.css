@@ -37,33 +37,39 @@
 }
 
 .custom-btn {
-  background-color: #8ad0b0;
+  background-color: #8ad0b0 !important; /* Ensure background color is applied */
   border: none;
-  color: #333;
+  color: #333 !important; /* Force custom text color */
   padding: 8px 16px;
   font-size: 14px;
-  /*font-size: 16px;*/
   font-weight: 500;
   font-family: Montserrat, sans-serif;
   display: flex;
   align-items: center;
   border-radius: 4px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .custom-btn:hover {
-  background-color: #76b699;
+  background-color: #76b699 !important; /* Ensure hover background is applied */
+  color: #222 !important; /* Hover text color */
 }
 
 .custom-btn:disabled {
-  background-color: #d3d3d3;
+  background-color: #d3d3d3 !important; /* Disabled state background */
   cursor: not-allowed;
+  color: #999 !important; /* Text color when disabled */
+}
+
+/* Disable the image within a disabled button */
+.custom-btn:disabled .button-icon {
+  opacity: 0.5;
 }
 
 .button-icon {
   margin-right: 8px;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
 }
 
 

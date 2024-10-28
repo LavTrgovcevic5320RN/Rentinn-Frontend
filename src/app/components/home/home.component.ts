@@ -19,7 +19,7 @@ export class HomeComponent {
     { city: 'Columbia', country: 'Columbia', description: 'Amazing streets', price: 700, imageUrl: './assets/columbia.png'}
   ];
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder,  private router: Router) {
     this.searchForm = this.fb.group({
         destination: ['', Validators.required],
         checkIn: ['', Validators.required],
@@ -40,24 +40,22 @@ export class HomeComponent {
     });
   }
 
-  // Filter to block all dates before today
   myFilter = (d: Date | null): boolean => {
-    const today = new Date();  // Get the current date
+    const today = new Date();
     if (!d) {
-      return false; // If no date is provided, disable the date
+      return false;
     }
-    // Only allow dates from today onwards
     return d >= new Date(today.getFullYear(), today.getMonth(), today.getDate());
   }
 
   onSubmit() {
     if (this.searchForm.valid) {
-      console.log('Form is valid');
-      console.log(this.searchForm.value);
-      this.router.navigate(['/property-list'])
-        .then(r => console.log('Navigation successful:', r));
+      // console.log('Form is valid');
+      // console.log(this.searchForm.value);
+      this.router.navigate(['/property-list']);
+        // .then(r => console.log('Navigation successful:', r));
     } else {
-      console.log('Form is invalid');
+      // console.log('Form is invalid');
     }
   }
 

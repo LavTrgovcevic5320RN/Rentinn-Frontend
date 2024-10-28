@@ -55,21 +55,39 @@
             <mat-icon>keyboard_arrow_right</mat-icon>
           </li>
 
-          <li class="dropdown-item d-flex justify-content-between align-items-center">
+<!--          <li class="dropdown-item d-flex justify-content-between align-items-center">-->
+<!--            <div class="d-flex">-->
+<!--              <mat-icon class="me-2">payment</mat-icon>-->
+<!--              <a class="text-decoration-none" href="#">Payments</a>-->
+<!--            </div>-->
+<!--            <mat-icon>keyboard_arrow_right</mat-icon>-->
+<!--          </li>-->
+
+          <li *ngIf="customer.properties.length < 1" class="dropdown-item d-flex justify-content-between align-items-center">
             <div class="d-flex">
-              <mat-icon class="me-2">payment</mat-icon>
-              <a class="text-decoration-none" href="#">Payments</a>
+              <mat-icon class="me-2">add_home</mat-icon>
+              <a class="text-decoration-none" [routerLink]="'/add-property'">Add Property</a>
             </div>
             <mat-icon>keyboard_arrow_right</mat-icon>
           </li>
 
-          <li class="dropdown-item d-flex justify-content-between align-items-center">
+          <li *ngIf="customer.properties.length >= 1" class="dropdown-item d-flex justify-content-between align-items-center">
             <div class="d-flex">
-              <mat-icon class="me-2">settings</mat-icon>
-              <a class="text-decoration-none" href="#">Settings</a>
+<!--              <mat-icon class="me-2">apartment</mat-icon>-->
+              <mat-icon class="me-2">holiday_village</mat-icon>
+              <a class="text-decoration-none" href="#">My Properties</a>
             </div>
             <mat-icon>keyboard_arrow_right</mat-icon>
           </li>
+
+
+<!--          <li class="dropdown-item d-flex justify-content-between align-items-center">-->
+<!--            <div class="d-flex">-->
+<!--              <mat-icon class="me-2">settings</mat-icon>-->
+<!--              <a class="text-decoration-none" href="#">Settings</a>-->
+<!--            </div>-->
+<!--            <mat-icon>keyboard_arrow_right</mat-icon>-->
+<!--          </li>-->
 
           <li><hr class="dropdown-divider"></li>
 

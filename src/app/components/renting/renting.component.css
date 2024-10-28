@@ -1,0 +1,382 @@
+.content-wrapper {
+  width: 80%;
+  margin: 50px auto;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px 40px 40px;
+}
+
+.left-column {
+  width: 63%; /* Two-thirds of the width */
+}
+
+.right-column {
+  width: 33%; /* One-third of the width */
+}
+
+
+.booking-details, .summary-section, .payment-section, .login-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px; /* Space between sections */
+}
+
+/* Booking Details Section */
+.booking-details {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.property-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.property-info h2 {
+  font-size: 24px;
+  font-family: "TradeGothic ST Extended Bold", serif;
+  color: #112211;
+}
+
+.property-info .address {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  color: rgba(17, 34, 17, 0.75);
+}
+
+.property-info .address mat-icon {
+  color: #112211;
+  margin-right: 5px;
+}
+
+.price-per-night {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+  color: #FF8682;
+}
+
+.price-per-night span {
+  font-size: 32px;
+  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+}
+
+.checkin-checkout-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 64px;
+  color: #112211;
+}
+
+.checkin, .checkout {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.checkout {
+  align-items: end;
+}
+
+.checkin span, .checkout span {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: Montserrat, sans-serif;
+}
+
+.checkin p, .checkout p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  color: rgba(17, 34, 17, 0.6);
+}
+
+/* Custom Separator */
+.custom-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-separator .line {
+  width: 50px;
+  height: 1px;
+  background-color: #112211;
+  position: relative;
+}
+
+.custom-separator .line::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #000;
+  position: absolute;
+  top: -4px;
+  left: -4px; /* Moves the circle to the outer left */
+}
+
+.custom-separator .line:last-child::before {
+  left: auto;
+  right: -4px; /* Moves the circle to the outer right */
+}
+
+.custom-separator .icon {
+  width: 40px;
+  margin: 0 10px;
+}
+
+
+
+
+
+/* Payment Section */
+.payment-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.payment-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /*padding: 20px;*/
+  padding: 16px;
+  border: 1px solid #eee;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.payment-options h4 {
+  font-size: 16px;
+  font-family: "TradeGothic ST Extended Bold", serif;
+}
+
+.payment-options p {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Montserrat, sans-serif;
+  color: rgba(17, 34, 17, 0.6);
+}
+
+.payment-options mat-radio-button {
+  margin-left: auto;
+}
+
+::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color:white !important
+}
+
+::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: white !important
+}
+
+.payment-options.selected {
+  background-color: #8DD3BB; /* Light green background for selected option */
+  border-color: #A9DFBF; /* Green border for selected option */
+}
+
+
+.credit-card-section {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.credit-card-section h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.credit-card-section input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.credit-card-section .card-info {
+  display: flex;
+  gap: 10px;
+}
+
+.credit-card-section .card-info input {
+  width: calc(50% - 5px);
+}
+
+
+
+
+.login-section {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.login-section h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #112211;
+}
+
+.login-section input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.privacy-policy {
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.privacy-policy a {
+  color: #32cd32;
+  text-decoration: none;
+}
+
+.continue-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #32cd32;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.divider hr {
+  flex-grow: 1;
+  height: 1px;
+  background-color: #ddd;
+  border: none;
+}
+
+.divider span {
+  font-size: 14px;
+  color: #666;
+}
+
+.social-login {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.social-button {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.social-button.facebook {
+  background-color: #3b5998;
+  color: white;
+}
+
+.social-button.google {
+  background-color: #db4437;
+  color: white;
+}
+
+.social-button.apple {
+  background-color: black;
+  color: white;
+}
+
+.email-login-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #8DD3BB;
+  color: #112211;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  cursor: pointer;
+}
+
+.email-login-button mat-icon {
+  margin-right: 8px;
+}
+
+
+.summary-section img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.summary-section h4 {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.price-details p {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.confirm-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #FF8682;
+  color: white;
+  border: none;
+  margin-top: 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Montserrat, sans-serif;
+}

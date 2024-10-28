@@ -11,12 +11,14 @@ import {Customer} from '../../models/model';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+  customer: Customer = { id: 1, email: '', password: '', firstName: '', lastName: '', phoneNumber: '', address: '', dateOfBirth: new Date(), permissions: [], properties: [], favoriteProperties: [] };
+  private authSubscription: Subscription | undefined;
   isHomePage: boolean = false;
   isLoggedIn: boolean = false;
-  customer!: Customer;
-  private authSubscription: Subscription | undefined;
 
-  constructor(private router: Router, private authService: AuthService, private userService: UserService) {}
+  constructor(private router: Router,
+              private authService: AuthService,
+              private userService: UserService) {}
 
   ngOnInit(): void {
     this.router.events.pipe(

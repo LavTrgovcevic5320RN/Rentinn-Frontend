@@ -1,0 +1,110 @@
+.content-wrapper {
+  width: 80%;
+  margin: 100px auto;
+  background-color: #ffffff;
+}
+
+
+
+/* General Form Styling */
+.property-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Section Styling */
+.form-section {
+  margin-bottom: 50px;
+}
+
+.form-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Row Styling */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input,
+textarea {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Button Styling */
+.btn,
+.btn-submit {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-small {
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  margin-left: 5px;
+}
+
+.btn:hover,
+.btn-submit:hover {
+  background-color: #0056b3;
+}
+
+.btn-small:hover {
+  background-color: #0056b3;
+}
+
+/* Form Array Styling */
+.form-array {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input[type="file"] {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+input[type="file"]::file-selector-button {
+  padding: 8px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #0056b3;
+}
+

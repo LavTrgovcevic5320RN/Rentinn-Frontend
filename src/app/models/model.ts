@@ -26,6 +26,7 @@ export interface Property {
   reviews: Review[];
   checkIn: string;
   checkOut: string;
+  totalPrice: number;
 }
 
 // export interface DailyPrice {
@@ -57,6 +58,8 @@ export interface Customer {
   phoneNumber: string;
   address: string;
   dateOfBirth: Date;
+  // favoriteProperties: { [id: number]: boolean };
+  favoriteProperties: number[];
   permissions: Permission[];
   properties: Property[];
 }

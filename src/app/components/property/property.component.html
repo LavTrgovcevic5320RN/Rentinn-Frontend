@@ -147,4 +147,19 @@
     </div>
   </div>
 
+  <div class="border"></div>
+
+  <form [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()" class="calendar">
+    <mat-form-field subscriptSizing="dynamic" appearance="outline">
+      <mat-label>Choose a new range</mat-label>
+      <mat-date-range-input [rangePicker]="picker" [dateFilter]="filterAvailableDates">
+        <input matStartDate formControlName="checkIn">
+        <input matEndDate formControlName="checkOut">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </form>
+
+
 </div>

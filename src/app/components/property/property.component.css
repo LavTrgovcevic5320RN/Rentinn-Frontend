@@ -625,3 +625,164 @@ button mat-icon {
   font-weight: bold;
 }
 
+
+
+
+/*::ng-deep .mat-calendar-body-disabled {*/
+/*  color: #d32f2f !important; !* Bright red for disabled dates *!*/
+/*  background-color: rgba(211, 47, 47, 0.1) !important; !* Light red background *!*/
+/*  border-radius: 50%; !* Make the dates rounded *!*/
+/*  opacity: 1 !important; !* Ensure they are fully visible *!*/
+/*}*/
+
+/*::ng-deep .mat-calendar-body-cell-content {*/
+/*  transition: all 0.2s ease-in-out;*/
+/*}*/
+
+/*::ng-deep .mat-calendar-body-disabled:hover {*/
+/*  background-color: rgba(211, 47, 47, 0.2) !important; !* Darker shade on hover *!*/
+/*  cursor: not-allowed;*/
+/*}*/
+
+
+
+/*::ng-deep .mat-calendar-body-disabled {*/
+/*  color: #d32f2f !important; !* Bright red for disabled dates *!*/
+/*  background-color: rgba(211, 47, 47, 0.1) !important; !* Light red background *!*/
+/*  border-radius: 50%; !* Make the dates rounded *!*/
+/*  opacity: 1 !important; !* Ensure they are fully visible *!*/
+/*}*/
+
+/*::ng-deep .mat-calendar-body-cell-content {*/
+/*  transition: all 0.2s ease-in-out;*/
+/*}*/
+
+/*::ng-deep .mat-calendar-body-disabled:hover {*/
+/*  background-color: rgba(211, 47, 47, 0.2) !important; !* Darker shade on hover *!*/
+/*  cursor: not-allowed;*/
+/*}*/
+
+/* Make unavailable dates (disabled) more visible */
+::ng-deep .mat-calendar-body-disabled {
+  color: #d32f2f !important; /* Bright red for disabled dates */
+  background-color: rgba(211, 47, 47, 0.1) !important; /* Light red background */
+  border-radius: 50%; /* Make the dates rounded */
+  opacity: 1 !important; /* Ensure they are fully visible */
+}
+
+::ng-deep .mat-calendar-body-disabled:hover {
+  background-color: rgba(211, 47, 47, 0.2) !important; /* Darker shade on hover */
+  cursor: not-allowed;
+}
+
+/*!* Customize the selected dates *!*/
+/*::ng-deep .mat-calendar-body-selected {*/
+/*  background-color: #CDEAE1 !important; !* Bright blue background *!*/
+/*  color: white !important; !* White text for contrast *!*/
+/*  border-radius: 50%; !* Make the selected date rounded *!*/
+/*  box-shadow: 0 0 5px rgba(205, 234, 225, 0.6) !* Add a subtle shadow for emphasis *!*/
+/*}*/
+
+/*::ng-deep .mat-calendar-body-active {*/
+/*  background-color: rgba(141, 211, 187, 0.2) !important; !* Light blue when hovering or focusing *!*/
+/*  color: #CDEAE1 !important;*/
+/*  border-radius: 50%;*/
+/*}*/
+
+/*!* Hover effect for selectable dates *!*/
+/*::ng-deep .mat-calendar-body-cell-content:hover {*/
+/*  background-color: rgba(205, 234, 225, 0.1) !important; !* Light blue on hover *!*/
+/*  transition: background-color 0.2s ease-in-out;*/
+/*}*/
+
+/*::ng-deep .mat-calendar-body-in-range {*/
+/*  background-color: rgba(205, 234, 225, 0.1) !important; !* Light blue on hover *!*/
+/*  transition: background-color 0.2s ease-in-out;*/
+/*}*/
+
+
+.calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+
+/* Style unavailable dates (disabled) with red */
+::ng-deep .mat-calendar-body-disabled {
+  color: #d32f2f !important; /* Bright red for disabled dates */
+  background-color: rgba(211, 47, 47, 0.1) !important; /* Light red background */
+  border-radius: 50%; /* Make the dates rounded */
+  opacity: 1 !important; /* Ensure they are fully visible */
+}
+
+::ng-deep .mat-calendar-body-disabled:hover {
+  background-color: rgba(211, 47, 47, 0.2) !important; /* Darker shade on hover */
+  cursor: not-allowed;
+}
+
+/*!* Style selected dates with green *!*/
+/*::ng-deep .mat-calendar-body-selected {*/
+/*  background-color: #388e3c !important; !* Dark green background *!*/
+/*  color: white !important; !* White text for contrast *!*/
+/*  border-radius: 50%; !* Make the selected date rounded *!*/
+/*  box-shadow: 0 0 5px rgba(56, 142, 60, 0.6); !* Add a subtle shadow for emphasis *!*/
+/*}*/
+
+/*!* Style the active (hover or focused) dates with light green *!*/
+/*::ng-deep .mat-calendar-body-active:after {*/
+/*  background-color: rgba(56, 142, 60, 0.2) !important; !* Light green when hovering or focusing *!*/
+/*  color: #388e3c !important;*/
+/*  border-radius: 50%;*/
+/*}*/
+
+/*!* Hover effect for selectable dates *!*/
+/*::ng-deep .mat-calendar-body-cell-content:hover {*/
+/*  background-color: rgba(56, 142, 60, 0.1) !important; !* Light green on hover *!*/
+/*  transition: background-color 0.2s ease-in-out;*/
+/*}*/
+
+/*!* Style the date range with a green background *!*/
+/*::ng-deep .mat-calendar-body-in-range:after {*/
+/*  background-color: rgba(76, 175, 80, 0.3) !important; !* Light green for dates in the range *!*/
+/*  color: black !important; !* Black text for contrast *!*/
+/*}*/
+
+/*!* Style the start and end dates of the range *!*/
+/*::ng-deep .mat-calendar-body-range-start,*/
+/*::ng-deep .mat-calendar-body-range-end {*/
+/*  background-color: #388e3c !important; !* Dark green for start and end dates *!*/
+/*  color: white !important; !* White text for contrast *!*/
+/*  border-radius: 50%; !* Make the start and end date rounded *!*/
+/*  box-shadow: 0 0 5px rgba(56, 142, 60, 0.6); !* Add shadow for emphasis *!*/
+/*}*/
+
+/*.demo-inline-calendar-card {*/
+/*  width: 300px;*/
+/*  margin: 20px;*/
+/*  padding: 10px;*/
+/*}*/
+
+
+
+
+
+::ng-deep .mat-calendar {
+  width: 700px; /* Adjust as needed to fit the design */
+}
+
+::ng-deep .mat-calendar-table {
+  table-layout: fixed;
+}
+
+::ng-deep .mat-date-range-picker-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+::ng-deep .mat-date-range-picker-content .mat-calendar {
+  margin: 0 10px;
+}
+
+

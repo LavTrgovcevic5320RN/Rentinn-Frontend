@@ -83,7 +83,6 @@ export class LoginComponent implements OnInit {
       console.log("Employee login");
       this.authService.loginEmployee(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value).subscribe(
         (token) => {
-          // this.authService.setJwt(token.jwt, token.permissions, this.loginForm.controls['rememberMe'].value);
           this.router.navigate([this.returnUrl]);
           this.loading = false;
         },
@@ -95,9 +94,8 @@ export class LoginComponent implements OnInit {
 
     } else {
       console.log("Customer login");
-      this.authService.loginCustomer(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value).subscribe(
+      this.authService.loginCustomer(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value, this.loginForm.controls['rememberMe'].value).subscribe(
         (token) => {
-          // this.authService.setJwt(token.jwt, token.permissions, this.loginForm.controls['rememberMe'].value);
           this.router.navigate([this.returnUrl]);
           this.loading = false;
         },
@@ -107,8 +105,6 @@ export class LoginComponent implements OnInit {
           this.loading = false;
         });
     }
-
-
   }
 
   onForgotPasswordSubmit() {

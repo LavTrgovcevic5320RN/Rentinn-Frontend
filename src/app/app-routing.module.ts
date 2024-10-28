@@ -8,6 +8,8 @@ import { PropertyComponent } from './components/property/property.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {ExampleComponent} from './components/example/example.component';
 import {loginGuard} from './guards/login.guard';
+import {RentingComponent} from './components/renting/renting.component';
+import {AddAndEditPropertyComponent} from './components/add-and-edit-property/add-and-edit-property.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,13 +19,16 @@ const routes: Routes = [
   { path: 'property-list', component: PropertyListComponent },
   { path: 'property', component: PropertyComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [loginGuard] },
+  { path: 'renting', component: RentingComponent },
+  { path: 'add-property', component: AddAndEditPropertyComponent },
+
   { path: 'example', component: ExampleComponent }
 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes
-  // , { scrollPositionRestoration: 'enabled' }
+  , { scrollPositionRestoration: 'enabled' }
   )],
   exports: [RouterModule]
 })

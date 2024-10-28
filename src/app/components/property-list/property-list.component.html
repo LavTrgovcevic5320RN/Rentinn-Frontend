@@ -10,14 +10,14 @@
 
       <mat-form-field subscriptSizing="dynamic" appearance="outline" class="search-field">
         <mat-label>Check In</mat-label>
-        <input matInput [matDatepicker]="checkInPicker" placeholder="Fri 12/2" formControlName="checkIn" required>
+        <input matInput [matDatepicker]="checkInPicker" [matDatepickerFilter]="myFilter" placeholder="Fri 12/2" formControlName="checkIn" required>
         <mat-datepicker-toggle matSuffix [for]="checkInPicker"></mat-datepicker-toggle>
         <mat-datepicker #checkInPicker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field subscriptSizing="dynamic" appearance="outline" class="search-field">
         <mat-label>Check Out</mat-label>
-        <input matInput [matDatepicker]="checkOutPicker" placeholder="Sun 12/4" formControlName="checkOut" required>
+        <input matInput [matDatepicker]="checkOutPicker" [matDatepickerFilter]="myFilter" placeholder="Sun 12/4" formControlName="checkOut" required>
         <mat-datepicker-toggle matSuffix [for]="checkOutPicker"></mat-datepicker-toggle>
         <mat-datepicker #checkOutPicker></mat-datepicker>
       </mat-form-field>
@@ -135,26 +135,26 @@
 
           <div class="property-card" *ngFor="let property of filteredProperties">
             <div class="property-image">
-              <img [src]="property.imagePaths[0]" alt="Property Image" />
+              <img [src]="property.imagePaths[0] || 'No image available'" alt="Property Image" />
               <div class="image-overlay">
-                <span>{{ property.imagePaths.length }} {{ property.imagePaths.length > 1 ? 'images' : 'image' }}</span>
+                <span>{{ property.imagePaths.length || 'No images length available' }} {{ property.imagePaths.length > 1 ? 'images' : 'image' }}</span>
               </div>
             </div>
 
             <div class="property-content">
               <div class="property-info-price">
                 <div class="property-info">
-                  <h3>{{ property.title }}</h3>
-                  <p>{{ property.address }} , {{ property.city }} , {{ property.country }}</p>
+                  <h3>{{ property.title || 'No title available' }}</h3>
+                  <p>{{ property.address || 'No address available' }} , {{ property.city || 'No city available' }} , {{ property.country || 'No country available' }}</p>
                   <div class="property-amenities">
-                    <!--                    <span>{{ property.amenities.length }} {{ property.amenities.length > 1 ? 'amenities' : 'amenity' }}</span>-->
+                    <span>{{ property.amenities.length || 'No images length available' }} {{ property.amenities.length > 1 ? 'amenities' : 'amenity' || 'No amenities available' }}</span>
                   </div>
                   <div class="property-reviews">
                     <div class="rating-box">
-                      <span class="rating-value"> {{ property.rating | number:'1.0-1' }} </span>
+                      <span class="rating-value"> {{ property.rating || 'No rating available' | number:'1.0-1' }} </span>
                     </div>
                     <div class="review-text">
-                      <span class="review-count">{{ property.reviews.length }} {{ property.reviews.length > 1 ? 'reviews' : 'review' }}</span>
+                      <span class="review-count">{{ property.reviews.length || 'No review length available' }} {{ property.reviews.length > 1 ? 'reviews' : 'review' || 'No reviews available' }}</span>
                     </div>
                   </div>
 
@@ -164,7 +164,7 @@
                   <div class="price-label">starting from</div>
                   <div class="price-value">
                   <span class="price-amount">
-                      {{ property.averagePrice | number:'1.0-0' }}
+                      {{ property.averagePrice || 'No average price available' | number:'1.0-0' }}
                   </span><span class="price-night">/night</span>
                   </div>
                   <div class="price-excl">excl. tax</div>
@@ -175,7 +175,9 @@
               <hr class="property-divider">
 
               <div class="property-actions">
-                <button mat-icon-button class="like-button"><mat-icon>favorite</mat-icon></button>
+                <button (click)="onFavoriteClick(property.id)" mat-icon-button class="favorite-btn">
+                  <mat-icon>{{ favoriteProperties[property.id] ? 'favorite' : 'favorite_border' || 'No favorites available' }}</mat-icon>
+                </button>
                 <button (click)="viewProperty(property)" mat-raised-button color="primary" class="view-place-button">View Place</button>
               </div>
             </div>

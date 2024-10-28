@@ -138,6 +138,11 @@
   margin: 10px 0;
 }
 
+.button-icon {
+  width: 24px;
+  height: 24px;
+}
+
 .person {
   color: #ffffff;
 }

@@ -15,7 +15,7 @@ export class UserService {
 
   fetchLoggedInUser(): Observable<Customer> {
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + (sessionStorage.getItem('jwt') || localStorage.getItem('jwt'))
+      'Authorization': 'Bearer ' + localStorage.getItem('jwt')
     });
 
     return this.httpClient.get<Customer>(`${this.apiUrl}/get`, { headers });
@@ -23,7 +23,7 @@ export class UserService {
 
   updateCustomer(values: any): Observable<boolean> {
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + (sessionStorage.getItem('jwt') || localStorage.getItem('jwt'))
+      'Authorization': 'Bearer ' + localStorage.getItem('jwt')
     });
 
     const editCustomerRequest: EditCustomerRequest = {
@@ -41,5 +41,21 @@ export class UserService {
     return this.httpClient.put<boolean>(`${this.apiUrl}/edit`, editCustomerRequest, { headers });
   }
 
+
+  editFavoriteProperties(customerId: number, propertyId: number, favorite: boolean): Observable<boolean> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+    });
+
+    const body = {
+      customerId,
+      propertyId,
+      favorite
+    };
+
+    console.log('Body:', body);
+
+    return this.httpClient.put<boolean>(`${this.apiUrl}/favorites`, body, { headers });
+  }
 
 }

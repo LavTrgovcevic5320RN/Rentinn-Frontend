@@ -1,30 +1,47 @@
 <div class="content-wrapper">
 
+<!--  <div class="tabs">-->
+<!--    <div class="tab" [class.active]="activeTab === 'account'" (click)="selectTab('account')">Account</div>-->
+<!--    <div class="separator"></div>-->
+<!--    <div class="tab" [class.active]="activeTab === 'history'" (click)="selectTab('history')">History</div>-->
+<!--    <div class="separator"></div>-->
+<!--    <div class="tab" [class.active]="activeTab === 'paymentMethods'" (click)="selectTab('paymentMethods')">Payment methods</div>-->
+<!--    <div class="underline" [ngClass]="{'account': activeTab === 'account', 'history': activeTab === 'history', 'paymentMethods': activeTab === 'paymentMethods'}"></div>-->
+<!--  </div>-->
+
+<!--  <div class="tabs">-->
+<!--    <div class="tab" [class.active]="activeTab === 'account'" (click)="selectTab('account')">Account</div>-->
+<!--    <div class="separator"></div>-->
+<!--    <div class="tab" [class.active]="activeTab === 'history'" (click)="selectTab('history')">History</div>-->
+<!--    <div class="separator"></div>-->
+<!--    <div class="tab" [class.active]="activeTab === 'paymentMethods'" (click)="selectTab('paymentMethods')">Payment methods</div>-->
+<!--    <div class="separator"></div>-->
+<!--    <div class="tab" [class.active]="activeTab === 'favorites'" (click)="selectTab('favorites')">Favorites</div>-->
+<!--    <div class="underline" [ngClass]="{-->
+<!--    'account': activeTab === 'account',-->
+<!--     'history': activeTab === 'history',-->
+<!--      'paymentMethods': activeTab === 'paymentMethods',-->
+<!--       'favorites': activeTab === 'favorites'-->
+<!--       }"-->
+<!--    ></div>-->
+<!--  </div>-->
+
   <div class="tabs">
     <div class="tab" [class.active]="activeTab === 'account'" (click)="selectTab('account')">Account</div>
     <div class="separator"></div>
     <div class="tab" [class.active]="activeTab === 'history'" (click)="selectTab('history')">History</div>
     <div class="separator"></div>
+    <div class="tab" [class.active]="activeTab === 'favorites'" (click)="selectTab('favorites')">Favorites</div>
+    <div class="separator"></div>
     <div class="tab" [class.active]="activeTab === 'paymentMethods'" (click)="selectTab('paymentMethods')">Payment methods</div>
-    <div class="underline" [ngClass]="{'account': activeTab === 'account', 'history': activeTab === 'history', 'paymentMethods': activeTab === 'paymentMethods'}"></div>
+    <div class="underline" [ngClass]="{
+      'account': activeTab === 'account',
+      'history': activeTab === 'history',
+      'favorites': activeTab === 'favorites',
+      'paymentMethods': activeTab === 'paymentMethods'
+      }"
+    ></div>
   </div>
-
-
-
-<!--  <div *ngIf="activeTab === 'account'">-->
-<!--    <h3 class="title">Account</h3>-->
-<!--    <div class="profile-container">-->
-<!--      <div class="profile-field" *ngFor="let field of fields">-->
-<!--        <div class="column">-->
-<!--          <label>{{ getFieldLabel(field) }}</label>-->
-<!--          <span>{{ user[field] }}</span>-->
-<!--        </div>-->
-<!--        <button (click)="openEditDialog(field, user[field])" class="change-button">-->
-<!--          <mat-icon>edit</mat-icon> Change-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
 
 
   <div *ngIf="activeTab === 'account'">
@@ -34,9 +51,9 @@
       <div class="profile-field">
         <div class="column">
           <label>Name</label>
-          <span>{{ customer?.firstName }} {{ customer?.lastName }}</span>
+          <span>{{ customer.firstName }} {{ customer.lastName }}</span>
         </div>
-        <button (click)="openEditDialog('name', customer?.firstName + ' ' + customer?.lastName)" class="change-button">
+        <button (click)="openEditDialog('name', customer.firstName + ' ' + customer.lastName)" class="change-button">
           <mat-icon>edit</mat-icon> Change
         </button>
       </div>
@@ -44,7 +61,7 @@
       <div class="profile-field">
         <div class="column">
           <label>Email</label>
-          <span>{{ customer?.email }}</span>
+          <span>{{ customer.email }}</span>
         </div>
         <button (click)="openEditDialog('email', customer!.email)" class="change-button">
           <mat-icon>edit</mat-icon> Change
@@ -54,7 +71,7 @@
       <div class="profile-field">
         <div class="column">
           <label>Password</label>
-          <span>{{ customer?.password || '***********'}}</span>
+          <span>{{ customer.password || '***********'}}</span>
         </div>
         <button (click)="openEditDialog('password', customer!.password)" class="change-button">
           <mat-icon>edit</mat-icon> Change
@@ -64,7 +81,7 @@
       <div class="profile-field">
         <div class="column">
           <label>Phone</label>
-          <span>{{ customer?.phoneNumber }}</span>
+          <span>{{ customer.phoneNumber }}</span>
         </div>
         <button (click)="openEditDialog('phone', customer!.phoneNumber)" class="change-button">
           <mat-icon>edit</mat-icon> Change
@@ -74,7 +91,7 @@
       <div class="profile-field">
         <div class="column">
           <label>Address</label>
-          <span>{{ customer?.address }}</span>
+          <span>{{ customer.address }}</span>
         </div>
         <button (click)="openEditDialog('address', customer!.address)" class="change-button">
           <mat-icon>edit</mat-icon> Change
@@ -84,22 +101,19 @@
       <div class="profile-field">
         <div class="column">
           <label>Date of Birth</label>
-          <span>{{ customer?.dateOfBirth | date: 'EEE, MMM d, y' }}</span>
+          <span>{{ customer.dateOfBirth | date: 'EEE, MMM d, y' }}</span>
         </div>
         <button (click)="openEditDialog('dateOfBirth', customer!.dateOfBirth.toISOString())" class="change-button">
           <mat-icon>edit</mat-icon> Change
         </button>
       </div>
-
     </div>
   </div>
 
 
-
-
   <div *ngIf="activeTab === 'history'">
     <div class="listing-header">
-      <h3 class="title-bookings">Bookings</h3>
+      <h3 class="title-bookings">History</h3>
       <div class="sort-by">
         <mat-select disableOptionCentering class="sort-mat-select" [(ngModel)]="selectedSortOption" (selectionChange)="sortProperties()">
           <mat-option value="upcoming">Latest date/upcoming</mat-option>
@@ -109,18 +123,12 @@
       </div>
     </div>
 
-
-
-
     <div class="booking-card" *ngFor="let booking of bookings">
       <div class="booking-card-content">
-        <!-- Property name instead of the icon -->
         <div class="property-name">
           {{ booking.propertyName }}
         </div>
-
 <!--        <div class="separator"></div>-->
-
         <div class="booking-dates">
           <div class="check-in">
             <span class="label">Check-In</span>
@@ -132,11 +140,8 @@
             <span class="date">{{ booking.checkOutDate | date: 'EEE, MMM d, y' }}</span> <!-- Added year formatting -->
           </div>
         </div>
-
 <!--        <div class="separator"></div>-->
-
         <div class="booking-info">
-          <!-- Display total price instead of check-in/out times -->
           <div class="total-price">
             <span>Total Price:</span>
             <span>${{ booking.totalPrice | number: '1.0-0' }}</span> <!-- Displaying price -->
@@ -148,11 +153,72 @@
         </div>
       </div>
     </div>
+  </div>
+
+
+
+  <div *ngIf="activeTab === 'favorites'">
+    <h3 class="title">Favorites</h3>
+
+
+    <div class="property-card" *ngFor="let property of filteredProperties">
+      <div class="property-image">
+        <img [src]="property.imagePaths[0]" alt="Property Image" />
+        <div class="image-overlay">
+          <span>{{ property.imagePaths.length }} {{ property.imagePaths.length > 1 ? 'images' : 'image' }}</span>
+        </div>
+      </div>
+
+      <div class="property-content">
+        <div class="property-info-price">
+          <div class="property-info">
+            <h3>{{ property.title }}</h3>
+            <p>{{ property.address }} , {{ property.city }} , {{ property.country }}</p>
+            <div class="property-amenities">
+              <span>{{ property.amenities.length }} {{ property.amenities.length > 1 ? 'amenities' : 'amenity' }}</span>
+            </div>
+            <div class="property-reviews">
+              <div class="rating-box">
+                <span class="rating-value"> {{ property.rating | number:'1.0-1' }} </span>
+              </div>
+              <div class="review-text">
+                <span class="review-count">{{ property.reviews.length }} {{ property.reviews.length > 1 ? 'reviews' : 'review' }}</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="property-price">
+            <div class="price-label">starting from</div>
+            <div class="price-value">
+                  <span class="price-amount">
+                      {{ property.averagePrice | number:'1.0-0' }}
+                  </span><span class="price-night">/night</span>
+            </div>
+            <div class="price-excl">excl. tax</div>
+          </div>
+
+        </div>
+
+        <hr class="property-divider">
+
+        <div class="property-actions">
+          <button (click)="onFavoriteClick(property.id)" mat-icon-button class="favorite-btn">
+            <mat-icon>{{ favoriteProperties[property.id] ? 'favorite' : 'favorite_border' }}</mat-icon>
+          </button>
+          <button (click)="viewProperty(property)" mat-raised-button color="primary" class="view-place-button">View Place</button>
+        </div>
+      </div>
+    </div>
+
 
 
   </div>
 
-  <div *ngIf="activeTab === 'paymentMethods'">Payment Methods Content</div>
+
+  <div *ngIf="activeTab === 'paymentMethods'">
+    <h3 class="title">Favorites</h3>
+  </div>
 
 
 </div>

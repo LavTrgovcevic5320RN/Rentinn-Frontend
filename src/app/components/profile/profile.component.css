@@ -38,26 +38,55 @@
   margin: 0 10px;
 }
 
+/*.underline {*/
+/*  position: absolute;*/
+/*  bottom: 0;*/
+/*  height: 4px;*/
+/*  background-color: #8DD3BB;*/
+/*  width: calc(25%); !* Reduced underline width with margin on both sides *!*/
+/*  transition: all 0.3s ease;*/
+/*}*/
+
+/*.underline.account {*/
+/*  left: 4.17%; !* (16.67% - 12.5%) for centering under Account tab *!*/
+/*}*/
+
+/*.underline.history {*/
+/*  left: 37.5%; !* (50% - 12.5%) for centering under History tab *!*/
+/*}*/
+
+/*.underline.paymentMethods {*/
+/*  left: 70.83%; !* (83.33% - 12.5%) for centering under Payment Methods tab *!*/
+/*}*/
+
 .underline {
   position: absolute;
   bottom: 0;
   height: 4px;
   background-color: #8DD3BB;
-  width: calc(25%); /* Reduced underline width with margin on both sides */
+  width: calc(20%); /* Reduced underline width with margin on both sides */
   transition: all 0.3s ease;
 }
 
+/* Position for each underline */
 .underline.account {
-  left: 4.17%; /* (16.67% - 12.5%) for centering under Account tab */
+  left: 2.5%; /* (12.5% - 10%) for centering under Account tab */
 }
 
 .underline.history {
-  left: 37.5%; /* (50% - 12.5%) for centering under History tab */
+  left: 27.5%; /* (37.5% - 10%) for centering under History tab */
+}
+
+.underline.favorites {
+  left: 52.5%; /* (87.5% - 10%) for centering under the 4th tab */
 }
 
 .underline.paymentMethods {
-  left: 70.83%; /* (83.33% - 12.5%) for centering under Payment Methods tab */
+  left: 77.5%; /* (62.5% - 10%) for centering under Payment Methods tab */
 }
+
+
+
 
 .tab-content {
   padding: 20px;
@@ -66,8 +95,6 @@
   background-color: #f9f9f9;
   margin-top: 20px;
 }
-
-
 
 
 .title {
@@ -338,4 +365,394 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.property-card {
+  display: flex;
+  /*padding: 24px;*/
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+  /*align-items: flex-start;*/
+}
+
+.property-card:last-child {
+  margin-bottom: 0;
+}
+
+.property-image {
+  display: flex;
+  position: relative;
+  width: 40%;
+  /*max-width: 320px;*/
+  height: 360px;
+  flex-shrink: 0;
+  border-radius: 12px 0 0 12px;
+  overflow: hidden;
+}
+
+.property-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px 0 0 12px;
+}
+
+/*.image-overlay {*/
+/*  position: absolute;*/
+/*  top: 10px;*/
+/*  right: 10px;*/
+/*  background-color: rgba(0, 0, 0, 0.6);*/
+/*  color: white;*/
+/*  padding: 5px 10px;*/
+/*  border-radius: 5px;*/
+/*  font-size: 12px;*/
+/*}*/
+
+.image-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #112211;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+
+.property-content {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.property-info-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.property-info {
+  max-width: 70%;
+}
+
+.property-info h3 {
+  font-size: 24px;
+  font-family: "TradeGothic ST Extended Bold", sans-serif;
+  margin: 0 0 16px 0;
+}
+
+.property-info p {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Montserrat', serif;
+  color: rgba(17, 34, 17, 0.75);
+  margin: 0;
+}
+
+.property-amenities {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Montserrat', serif;
+  color: rgba(17, 34, 17, 0.75);
+}
+
+.property-reviews {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.rating-box {
+  border: 1px solid #8DD3BB;
+  border-radius: 4px;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: center;
+  width: 45px;
+  height: 35px;
+}
+
+.rating-value {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Montserrat', serif;
+  color: #112211;
+}
+
+.review-text {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.bold-text {
+  /*font-size: 14px;*/
+  font-size: 14px;
+  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+  color: #112211;
+}
+
+.review-count {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  color: #112211;
+}
+
+.property-price {
+  text-align: right;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 5px;
+}
+
+.property-price .price-label {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  color: rgba(17, 34, 17, 0.75);
+  align-self: start;
+}
+
+.price-value {
+  display: flex;
+  align-items: baseline;
+  font-size: 26px;
+  font-weight: bold;
+  color: #FF8682;
+  line-height: 1.2;
+}
+
+.price-amount {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+  color: #FF8682;
+}
+
+.price-night {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+  color: #FF8682;
+  margin-left: 4px;
+}
+
+.price-excl {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+  color: rgba(17, 34, 17, 0.75);
+}
+
+.property-divider {
+  margin: 24px 0;
+  border: none;
+  border-top: 2px solid #ccc;
+  align-self: auto;
+}
+
+.property-actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+}
+
+.like-button {
+  width: 48px;
+  height: 48px;
+  border: 1px solid #8DD3BB;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #333;
+}
+
+.like-button mat-icon {
+  /*color: black;*/
+  color: #112211;
+}
+
+.like-button:hover {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+.favorite-btn {
+  background-color: transparent;
+  border: #8DD3BB 1px solid;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+}
+
+.favorite-btn mat-icon {
+  color: #FF8682;
+}
+
+.mat-mdc-icon-button ::ng-deep .mat-mdc-button-persistent-ripple {
+  display: none;
+}
+
+
+.property-actions .view-place-button {
+  flex-grow: 1;
+  background-color: #8DD3BB;
+  color: #112211;
+  border-radius: 8px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.view-place-button:hover {
+  background-color: #76b699;
+}
+
+.property-listings .show-more-button {
+  height: auto;
+  width: 50%;
+  align-self: center;
+  background-color: #112211;
+  color: #fff;
+  /*margin-top: 20px;*/
+  /*margin-bottom: 10px;*/
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.show-more-button:hover {
+  background-color: #555;
+}
+
+@media (max-width: 768px) {
+  .property-list-section {
+    width: 100%;
+  }
+
+  .property-listings {
+    padding-left: 0;
+  }
+
+  .property-border {
+    border-left: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .property-card {
+    flex-direction: column;
+  }
+
+  .property-image {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .property-content {
+    padding: 16px;
+  }
+
+  .property-info-price {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .property-info {
+    max-width: 100%;
+  }
+
+  .property-price {
+    text-align: left;
+    margin-top: 12px;
+    margin-bottom: 0;
+    /*align-self: end;*/ /* ???????????? */
+  }
+
+  .property-actions {
+    justify-content: space-between;
+  }
+
+  .property-divider {
+    margin: 16px 0;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .property-card {
+    padding: 12px;
+  }
+
+  .property-image {
+    height: 150px;
+  }
+
+  .property-content {
+    padding: 12px;
+  }
+
+  .property-info h3 {
+    font-size: 20px;
+  }
+
+  .property-info p, .property-amenities, .review-count {
+    font-size: 12px;
+  }
+
+  .price-value {
+    font-size: 22px;
+  }
+
+  .property-actions .view-place-button {
+    height: 40px;
+  }
+
+  .like-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .favorite-btn {
+    width: 40px;
+    height: 40px;
+  }
 }
