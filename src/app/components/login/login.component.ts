@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
   hide = true;
   loading = false;
   currentStage = 'login';
-  returnUrl: string = '';
 
   images = ['assets/login-sign-up-4.jpg', 'assets/login-sign-up-1.jpg', 'assets/login-sign-up-2.jpg', "assets/login-sign-up-5.jpg"];
   currentImage = this.images[0];
@@ -26,7 +25,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {
-      this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/']);
+      const redirectUrl = localStorage.getItem('redirectUrl') || '/';
+      localStorage.removeItem('redirectUrl'); // Clear the stored URL after using it
+      this.router.navigate([redirectUrl]);
     }
   }
 
@@ -58,9 +59,6 @@ export class LoginComponent implements OnInit {
     setInterval(() => {
       this.changeImage((this.currentImageIndex + 1) % this.images.length);
     }, 10000);
-
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    console.log(this.returnUrl);
   }
 
   changeImage(index: number) {
@@ -83,7 +81,9 @@ export class LoginComponent implements OnInit {
       console.log("Employee login");
       this.authService.loginEmployee(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value).subscribe(
         (token) => {
-          this.router.navigate([this.returnUrl]);
+          const redirectUrl = localStorage.getItem('redirectUrl') || '/';
+          localStorage.removeItem('redirectUrl'); // Clear the stored URL after using it
+          this.router.navigate([redirectUrl]);
           this.loading = false;
         },
         error => {
@@ -96,7 +96,9 @@ export class LoginComponent implements OnInit {
       console.log("Customer login");
       this.authService.loginCustomer(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value, this.loginForm.controls['rememberMe'].value).subscribe(
         (token) => {
-          this.router.navigate([this.returnUrl]);
+          const redirectUrl = localStorage.getItem('redirectUrl') || '/';
+          localStorage.removeItem('redirectUrl'); // Clear the stored URL after using it
+          this.router.navigate([redirectUrl]);
           this.loading = false;
         },
         error => {

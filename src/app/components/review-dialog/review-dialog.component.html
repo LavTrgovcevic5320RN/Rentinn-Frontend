@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Write a Review</h1>
+<div mat-dialog-content>
+  <!-- Your form for submitting a review goes here -->
+  <p>Enter your review details:</p>
+  <!-- Example form fields -->
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="true">Submit</button>
+</div>

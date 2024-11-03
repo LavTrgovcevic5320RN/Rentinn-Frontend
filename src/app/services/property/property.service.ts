@@ -15,10 +15,6 @@ export class PropertyService {
 
 
   fetchProperties(values: any): Observable<Property[]> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-    });
-
     const checkIn = new Date(values.checkIn);
     const checkOut = new Date(values.checkOut);
     const formatDateWithoutOffset = (date: Date): string => {
@@ -37,16 +33,12 @@ export class PropertyService {
       .set('guests', 2)
       .set('rooms', 3);
 
-    return this.httpClient.get<Property[]>(`${this.apiUrl}/all`, { headers, params });
+    return this.httpClient.get<Property[]>(`${this.apiUrl}/all`, { params });
   }
 
 
   fetchProperty(propertyId: any): Observable<Property> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-    });
-
-    return this.httpClient.get<Property>(`${this.apiUrl}/${propertyId}`, { headers });
+    return this.httpClient.get<Property>(`${this.apiUrl}/${propertyId}`);
   }
 
 
@@ -54,7 +46,6 @@ export class PropertyService {
     const url = `assets/amenities.json`;
     return this.httpClient.get<string[]>(url);
   }
-
 
 
   public addProperty(formData: FormData): Observable<any>{

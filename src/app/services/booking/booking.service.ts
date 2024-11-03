@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Booking} from '../../models/model';
+import {Booking, DetailedResponse} from '../../models/model';
 
 @Injectable({
   providedIn: 'root'
@@ -59,5 +59,13 @@ export class BookingService {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
+
+  canLeaveReview(propertyId: number): Observable<DetailedResponse> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+    });
+
+    return this.httpClient.get<DetailedResponse>(`${this.apiUrl}/can-leave-review/${propertyId}`, { headers });
+  }
 
 }

@@ -38,7 +38,7 @@ export class RentingComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadStripe();
     this.initialiseCustomer();
-    this.property = history.state.property;
+    this.property = JSON.parse(localStorage.getItem('selectedProperty') || '{}');
     console.log('Property:', this.property);
 
     const savedForm = localStorage.getItem('searchForm');

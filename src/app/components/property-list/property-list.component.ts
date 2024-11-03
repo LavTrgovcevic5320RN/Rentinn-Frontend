@@ -7,6 +7,7 @@ import {NavigationEnd, Router} from '@angular/router';
 import {UserService} from '../../services/user/user.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {filter} from 'rxjs';
+import {StorageService} from '../../services/storage/storage.service';
 
 @Component({
   selector: 'app-property-list',
@@ -29,8 +30,12 @@ export class PropertyListComponent implements OnInit {
   isLoggedIn: boolean = false;
   selectedSortOption = 'recommended';
 
-  constructor(private fb: FormBuilder, private propertyService: PropertyService, private userService: UserService,
-              private authService: AuthService, private router: Router
+  constructor(private fb: FormBuilder,
+              private propertyService: PropertyService,
+              private userService: UserService,
+              private authService: AuthService,
+              private storageService: StorageService,
+              private router: Router
   ) {
     this.filtersForm = this.fb.group({
       minValue: new FormControl(30),
@@ -39,11 +44,33 @@ export class PropertyListComponent implements OnInit {
       freebies: this.fb.array(this.freebies.map(() => new FormControl(false))),
       amenities: this.fb.array(this.amenities.map(() => new FormControl(false)))
     });
+
+    this.searchForm = this.fb.group({
+        destination: ['', Validators.required],
+        checkIn: ['', Validators.required],
+        checkOut: ['', Validators.required],
+        roomsGuests: ['1 room, 2 guests', Validators.required]
+      },
+      {
+        validators: dateRangeValidator()
+      });
+
+    this.storageService.formState$.subscribe((form) => {
+      if (form) {
+        this.searchForm = form;
+      }
+    });
+
+    this.searchForm.valueChanges.subscribe((value) => {
+      // Prevent triggering an update during a programmatic change
+      if (!this.storageService['isProgrammaticUpdate']) {
+        this.storageService.updateForm(value);
+      }
+    });
   }
 
   ngOnInit(): void {
     this.fetchLoggedInUser();
-    this.loadSearchForm();
     this.fetchProperties();
     this.fetchAmenities();
     // this.initScrollPosition();
@@ -61,43 +88,6 @@ export class PropertyListComponent implements OnInit {
           }, {} as { [id: number]: boolean });
         });
       }
-    });
-  }
-
-  loadSearchForm() {
-    this.searchForm = this.fb.group({
-        destination: ['', Validators.required],
-        checkIn: ['', Validators.required],
-        checkOut: ['', Validators.required],
-        roomsGuests: ['1 room, 2 guests', Validators.required]
-      },
-      {
-        validators: dateRangeValidator()
-      });
-
-    const savedForm = localStorage.getItem('searchForm');
-    const dateForm = localStorage.getItem('dateForm');
-    if (savedForm && dateForm) {
-      const parsedSearchForm = JSON.parse(savedForm);
-      const parsedDateForm = JSON.parse(dateForm);
-      console.log('Parsed Form:', parsedSearchForm.roomGuests);
-
-      this.searchForm.patchValue({
-        destination: parsedSearchForm.destination,
-        checkIn: parsedDateForm.checkIn ? new Date(parsedDateForm.checkIn) : '',
-        checkOut: parsedDateForm.checkOut ? new Date(parsedDateForm.checkOut) : '',
-        roomsGuests: parsedSearchForm.roomsGuests
-      });
-    }
-
-    this.searchForm.valueChanges.subscribe(formData => {
-      const formToSave = {
-        destination: formData.destination.trim(),
-        checkIn: formData.checkIn ? new Date(formData.checkIn).toISOString() : '',
-        checkOut: formData.checkOut ? new Date(formData.checkOut).toISOString() : '',
-        roomGuests: formData.roomsGuests
-      };
-      localStorage.setItem('searchForm', JSON.stringify(formToSave));
     });
   }
 
@@ -264,7 +254,7 @@ export class PropertyListComponent implements OnInit {
 
   viewProperty(property: Property) {
     // console.log('Viewing property:', property);
-    localStorage.setItem('selectedProperty', property.id.toString());
+    localStorage.setItem('selectedPropertyId', property.id.toString());
     // localStorage.setItem('scrollPosition', window.scrollY.toString());
     this.router.navigate(['/property']);
   }

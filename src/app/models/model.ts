@@ -86,3 +86,8 @@ export interface Booking {
   // property: Property;
   // customer: Customer;
 }
+
+export interface DetailedResponse {
+  status: boolean;
+  message: string;
+}

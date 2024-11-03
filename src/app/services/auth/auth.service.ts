@@ -9,12 +9,7 @@ import {environment} from '../../../environments/environment';
 export class AuthService {
 
   private jwtSubject = new BehaviorSubject<string | null>(null);
-  private apiUrl = environment.userService + "/permissions";
-
-  // constructor(private http: HttpClient) {
-  //   const currentJwt = sessionStorage.getItem("jwt") || localStorage.getItem("jwt");
-  //   this.jwtSubject.next(currentJwt);
-  // }
+  // private apiUrl = environment.userService + "/permissions";
 
   constructor(private http: HttpClient) {
     const currentJwt = this.getJwt();
@@ -44,6 +39,15 @@ export class AuthService {
       })
     );
   }
+
+  registerCustomer(customerCreationRequest: any): Observable<any> {
+    return this.http.post(environment.userService + "/auth/register", customerCreationRequest);
+  }
+
+  activateCustomer(token: string): Observable<any> {
+    return this.http.post(environment.userService + "/auth/activate-account", { token });
+  }
+
 
   setJwt(token: string, permissions: any) {
     const expirationDate = this.getTokenExpirationDate(token);
@@ -91,5 +95,7 @@ export class AuthService {
     const payload = JSON.parse(atob(token.split('.')[1]));
     return new Date(payload.exp * 1000); // Convert to milliseconds
   }
+
+
 
 }

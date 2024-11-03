@@ -91,7 +91,7 @@ export class ProfileComponent implements OnInit {
 
   viewProperty(property: Property) {
     // console.log('Viewing property:', property);
-    localStorage.setItem('selectedProperty', property.id.toString());
+    localStorage.setItem('selectedPropertyId', property.id.toString());
     this.router.navigate(['/property']);
   }
 

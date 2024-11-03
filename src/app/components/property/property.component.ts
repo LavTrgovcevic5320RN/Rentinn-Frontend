@@ -9,6 +9,10 @@ import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {dateRangeValidator} from '../validators/date-range.validator';
 import {BookingService} from '../../services/booking/booking.service';
+import {MatDialog} from '@angular/material/dialog';
+import {ReviewDialogComponent} from '../review-dialog/review-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {StorageService} from '../../services/storage/storage.service';
 
 @Component({
   selector: 'app-property',
@@ -59,60 +63,62 @@ export class PropertyComponent implements OnInit {
   currentPage = 1;
   showAllAmenities = false;
   isFavorited = false;
-  parsedForm: any;
   map: any;
   searchForm: FormGroup;
   unavailableDates: Set<string> = new Set();
 
-  constructor(private fb: FormBuilder, private propertyService: PropertyService, private bookingService: BookingService, private router: Router) {
+  constructor(private fb: FormBuilder,
+              private propertyService: PropertyService,
+              private bookingService: BookingService,
+              private storageService: StorageService,
+              private router: Router,
+              public dialog: MatDialog,
+              private snackBar: MatSnackBar) {
     this.searchForm = this.fb.group({
+        destination: ['', Validators.required],
         checkIn: ['', Validators.required],
         checkOut: ['', Validators.required],
+        roomsGuests: ['1 room, 2 guests', Validators.required]
       },
       {
         validators: dateRangeValidator()
       });
 
-    const searchForm = localStorage.getItem('searchForm');
-    if (searchForm) {
-      this.parsedForm = JSON.parse(searchForm);
-      this.searchForm.patchValue({
-        checkIn: new Date(this.parsedForm.checkIn),
-        checkOut: new Date(this.parsedForm.checkOut)
-      });
-    }
+    this.storageService.formState$.subscribe((form) => {
+      if (form) {
+        this.searchForm = form;
+      }
+    });
 
-    this.searchForm.valueChanges.subscribe(formData => {
-      const formToSave = {
-        checkIn: formData.checkIn ? new Date(formData.checkIn).toString() : '',
-        checkOut: formData.checkOut ? new Date(formData.checkOut).toString() : ''
-      };
-      localStorage.setItem('dateForm', JSON.stringify(formToSave));
+    this.searchForm.valueChanges.subscribe((value) => {
+      if (!this.storageService['isProgrammaticUpdate']) {
+        this.storageService.updateForm(value);
+        this.loadPrices();
+
+      }
     });
   }
 
   ngOnInit(): void {
-    const propertyId = localStorage.getItem('selectedProperty') ? JSON.parse(localStorage.getItem('selectedProperty') || '{}') : {};
+    const propertyId = localStorage.getItem('selectedPropertyId') ? JSON.parse(localStorage.getItem('selectedPropertyId') || '{}') : {};
     this.fetchProperty(propertyId);
-  }
-
-  onBookClick() {
-    console.log('Proceed to renting!');
-    localStorage.setItem('searchForm', JSON.stringify(this.parsedForm));
-    this.router.navigate(['/renting'], { state: { property: this.property } });
   }
 
   fetchProperty(propertyId: any) {
     this.propertyService.fetchProperty(propertyId).subscribe(property => {
       this.property = property;
-      this.property.averagePrice = this.calculateAveragePriceForDates(property, this.parsedForm.checkIn, this.parsedForm.checkOut);
-      this.property.totalPrice = this.calculateTotalPriceForDates(property, this.parsedForm.checkIn, this.parsedForm.checkOut);
+      this.loadPrices()
       this.initializeVisibleImages();
       this.initPhotoSwipe();
       this.configMap();
       this.loadBookedDates();
-      console.log('Property:', this.property);
+      // console.log('Property:', this.property);
     });
+  }
+
+  loadPrices() {
+    this.property.averagePrice = this.calculateAveragePriceForDates(this.property, this.searchForm.get('checkIn')?.value, this.searchForm.get('checkOut')?.value);
+    this.property.totalPrice = this.calculateTotalPriceForDates(this.property, this.searchForm.get('checkIn')?.value, this.searchForm.get('checkOut')?.value);
   }
 
   initializeVisibleImages(): void {
@@ -146,8 +152,7 @@ export class PropertyComponent implements OnInit {
       const image = this.images[index];
       return {
         src: image.url,
-        // width: 2000,
-        width: 2500,
+        width: 3500,
         height: 2000
       };
     });
@@ -245,7 +250,7 @@ export class PropertyComponent implements OnInit {
       className: 'custom-div-icon',
       html: '<i class="material-icons">location_on</i>',
       iconSize: [30, 42],
-      iconAnchor: [15, 42]
+      iconAnchor: [0, 0]
     });
 
     L.marker([this.property.latitude, this.property.longitude], { icon: materialIcon }).addTo(this.map)
@@ -265,6 +270,37 @@ export class PropertyComponent implements OnInit {
   onShareClick() {
     const shareUrl = window.location.href;
     console.log('Sharing hotel:', shareUrl);
+  }
+
+  checkUserCanLeaveReview(): void {
+    this.bookingService.canLeaveReview(this.property.id).subscribe(
+      (response) => {
+        if (response.status) {
+          this.openReviewDialog();
+        } else {
+          this.snackBar.open(response.message, 'Close', {
+            duration: 3000,
+          });
+        }
+      },
+      (error) => {
+        console.error('Error checking if user can leave a review:', error);
+        this.snackBar.open('Unable to check review eligibility. Please try again later.', 'Close', {
+          duration: 3000,
+        });
+      }
+    );
+  }
+
+  openReviewDialog(): void {
+    const dialogRef = this.dialog.open(ReviewDialogComponent, {
+      width: '400px',
+      data: { }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+    });
   }
 
   pagedReviews() {
@@ -305,7 +341,6 @@ export class PropertyComponent implements OnInit {
     }
   }
 
-
   loadBookedDates(): void {
     this.bookingService.getBookedDates(this.property.id).subscribe(dates => {
       dates.forEach((booking) => {
@@ -314,14 +349,12 @@ export class PropertyComponent implements OnInit {
 
         while (tempDate < checkOutDate) {
           this.unavailableDates.add(this.formatDate(tempDate));
-          // tempDate.setUTCDate(tempDate.getUTCDate() + 1);
           tempDate.setDate(tempDate.getDate() + 1);
         }
       });
-      console.log('Unavailable dates:', this.unavailableDates);
+      // console.log('Unavailable dates:', this.unavailableDates);
     });
   }
-
 
   filterAvailableDates = (date: Date | null): boolean => {
     const today = new Date();
@@ -338,6 +371,12 @@ export class PropertyComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
+  onBookClick() {
+    console.log('Proceed to renting!');
+    // localStorage.setItem('searchForm', JSON.stringify(this.s));
+    localStorage.setItem('selectedProperty', JSON.stringify(this.property));
+    this.router.navigate(['/renting'], { state: { property: this.property } });
+  }
 
   onSearchSubmit() {
     console.log('Check-in and check-out submitted!');

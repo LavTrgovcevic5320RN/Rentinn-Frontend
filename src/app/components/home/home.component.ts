@@ -2,6 +2,7 @@ import {Component, HostListener} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from '@angular/router';
 import {dateRangeValidator} from '../validators/date-range.validator';
+import {StorageService} from '../../services/storage/storage.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class HomeComponent {
     { city: 'Columbia', country: 'Columbia', description: 'Amazing streets', price: 700, imageUrl: './assets/columbia.png'}
   ];
 
-  constructor(private fb: FormBuilder,  private router: Router) {
+  constructor(private fb: FormBuilder,  private router: Router, private storageService: StorageService) {
     this.searchForm = this.fb.group({
         destination: ['', Validators.required],
         checkIn: ['', Validators.required],
@@ -30,13 +31,17 @@ export class HomeComponent {
         validators: dateRangeValidator()
       });
 
-    this.searchForm.valueChanges.subscribe(formData => {
-      const formToSave = {
-        ...formData,
-        checkIn: formData.checkIn ? new Date(formData.checkIn).toString() : '',
-        checkOut: formData.checkOut ? new Date(formData.checkOut).toString() : ''
-      };
-      localStorage.setItem('searchForm', JSON.stringify(formToSave));
+    this.storageService.formState$.subscribe((form) => {
+      if (form) {
+        this.searchForm = form;
+      }
+    });
+
+    this.searchForm.valueChanges.subscribe((value) => {
+      // Prevent triggering an update during a programmatic change
+      if (!this.storageService['isProgrammaticUpdate']) {
+        this.storageService.updateForm(value);
+      }
     });
   }
 
@@ -49,14 +54,8 @@ export class HomeComponent {
   }
 
   onSubmit() {
-    if (this.searchForm.valid) {
-      // console.log('Form is valid');
-      // console.log(this.searchForm.value);
+    if (this.searchForm.valid)
       this.router.navigate(['/property-list']);
-        // .then(r => console.log('Navigation successful:', r));
-    } else {
-      // console.log('Form is invalid');
-    }
   }
 
   shortcutToPropertyList(card: any) {

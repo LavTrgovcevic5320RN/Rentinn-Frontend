@@ -38,6 +38,7 @@ import { RentingComponent } from './components/renting/renting.component';
 import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
 import {MatCard} from "@angular/material/card";
 import { AddAndEditPropertyComponent } from './components/add-and-edit-property/add-and-edit-property.component';
+import { ReviewDialogComponent } from './components/review-dialog/review-dialog.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { AddAndEditPropertyComponent } from './components/add-and-edit-property/
     EditDialogComponent,
     RentingComponent,
     AddAndEditPropertyComponent,
+    ReviewDialogComponent,
   ],
     imports: [
         BrowserModule,

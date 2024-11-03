@@ -19,8 +19,8 @@ const routes: Routes = [
   { path: 'property-list', component: PropertyListComponent },
   { path: 'property', component: PropertyComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [loginGuard] },
-  { path: 'renting', component: RentingComponent },
-  { path: 'add-property', component: AddAndEditPropertyComponent },
+  { path: 'renting', component: RentingComponent, canActivate: [loginGuard] },
+  { path: 'add-property', component: AddAndEditPropertyComponent, canActivate: [loginGuard] },
 
   { path: 'example', component: ExampleComponent }
 

@@ -40,17 +40,17 @@
 
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required />
-            <button mat-icon-button matSuffix (click)="hide = !hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required />
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Confirm Password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" required />
-            <button mat-icon-button matSuffix (click)="hide = !hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" required />
+            <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword">
+              <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
 
@@ -58,7 +58,10 @@
             I agree to all the <a href="#">Terms</a> and <a href="#">Privacy Policies</a>
           </mat-checkbox>
 
-          <button type="submit" class="sign-up-btn" [disabled]="signUpForm.invalid">Create account</button>
+          <button type="submit" class="sign-up-btn" [disabled]="signUpForm.invalid && loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm center"></span>
+            Create account
+          </button>
 
           <div class="login-container">
             <p class="login-text">Already have an account? <a class="login-link" [routerLink]="'/login'" >Login</a></p>
@@ -66,7 +69,28 @@
         </form>
       </div>
 
-      <div *ngIf="currentStage === 'payment'">
+
+      <div *ngIf="currentStage === 'activate'">
+        <h2 class="sign-up-title">Activate Your Account</h2>
+        <p class="sign-up-title-text">Please enter the activation token sent to your email.</p>
+
+        <form (ngSubmit)="onSubmitActivation()">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Activation Token</mat-label>
+            <input matInput [(ngModel)]="activationToken" name="activationToken" required />
+          </mat-form-field>
+
+          <button type="submit" class="sign-up-btn" [disabled]="!activationToken || loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm center"></span>
+            Activate Account
+          </button>
+        </form>
+      </div>
+
+
+
+
+      <!--<div *ngIf="currentStage === 'payment'">
         <a class="back-to-sing-up" (click)="backToSignUp()">
           <img src="assets/arrow-back.png" alt="Back" class="back-arrow" /> Back to login
         </a>
@@ -108,7 +132,8 @@
 
           <button type="submit" class="sign-up-btn" [disabled]="paymentForm.invalid">Add payment method</button>
         </form>
-      </div>
+      </div>-->
+
     </div>
   </div>
 </div>

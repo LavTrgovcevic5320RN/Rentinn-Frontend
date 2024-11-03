@@ -1,110 +1,157 @@
+/*!* Container *!*/
+/*.content-wrapper {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  padding: 30px;*/
+/*  width: 80%;*/
+/*  margin: 50px auto;*/
+/*  background-color: #ffffff;*/
+/*  border-radius: 12px;*/
+/*  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*!* Form *!*/
+/*.property-form {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  gap: 20px;*/
+/*  width: 100%;*/
+/*}*/
+
+/*!* Form Fields *!*/
+/*mat-form-field {*/
+/*  width: 100%;*/
+/*}*/
+
+/*.mat-form-field-appearance-outline .mat-form-field-outline-start,*/
+/*.mat-form-field-appearance-outline .mat-form-field-outline-end {*/
+/*  border-radius: 8px;*/
+/*}*/
+
+/*.mat-form-field-appearance-outline .mat-form-field-outline {*/
+/*  border-color: #c5c6d0;*/
+/*}*/
+
+/*.mat-form-field-appearance-outline .mat-form-field-outline-thick {*/
+/*  border-color: #007bff;*/
+/*}*/
+
+/*.mat-form-field-label {*/
+/*  font-size: 0.95rem;*/
+/*  color: #555;*/
+/*}*/
+
+/*input[type="file"] {*/
+/*  margin-top: 10px;*/
+/*  padding: 8px;*/
+/*  border-radius: 8px;*/
+/*  border: 1px solid #c5c6d0;*/
+/*  width: 100%;*/
+/*  font-size: 0.95rem;*/
+/*}*/
+
+/*!* Material Select styling *!*/
+/*mat-select {*/
+/*  border-radius: 8px;*/
+/*}*/
+
+/*.mat-select-value {*/
+/*  padding: 8px;*/
+/*  font-size: 0.95rem;*/
+/*}*/
+
+/*!* Buttons *!*/
+/*button[type="submit"] {*/
+/*  margin-top: 20px;*/
+/*  padding: 12px 20px;*/
+/*  font-size: 1rem;*/
+/*  font-weight: 500;*/
+/*  text-transform: uppercase;*/
+/*  border-radius: 8px;*/
+/*  background-color: #007bff;*/
+/*  color: white;*/
+/*  transition: background-color 0.3s ease;*/
+/*}*/
+
+/*button[type="submit"]:hover {*/
+/*  background-color: #005bbf;*/
+/*}*/
+
+/*button[mat-raised-button] {*/
+/*  box-shadow: 0px 3px 10px rgba(0, 123, 255, 0.2);*/
+/*}*/
+
+/*textarea {*/
+/*  resize: none;*/
+/*}*/
+
+/*!* Responsive Design *!*/
+/*@media (max-width: 600px) {*/
+/*  .content-wrapper {*/
+/*    padding: 20px;*/
+/*    margin: 30px auto;*/
+/*  }*/
+
+/*  button[type="submit"] {*/
+/*    width: 100%;*/
+/*  }*/
+/*}*/
+
+
+
+
+
+
+
+
+
+
+
 .content-wrapper {
-  width: 80%;
-  margin: 100px auto;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  width: 60%;
+  /*max-width: 900px;*/
+  margin: 50px auto;
   background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-
-
-/* General Form Styling */
 .property-form {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.form-row.two-column {
+  display: flex;
+  gap: 20px;
+}
+
+.column {
+  width: 100%;
+}
+
+.daily-price-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.daily-price-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
   border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-}
-
-/* Section Styling */
-.form-section {
-  margin-bottom: 50px;
-}
-
-.form-section h2 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  color: #333;
-}
-
-/* Row Styling */
-.form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-input,
-textarea {
-  padding: 8px;
-  border-radius: 4px;
   border: 1px solid #ccc;
-  font-size: 1rem;
+  width: calc(50% - 10px); /* Two items per row */
 }
 
-textarea {
-  resize: vertical;
+button mat-icon-button {
+  margin-left: auto;
 }
-
-/* Button Styling */
-.btn,
-.btn-submit {
-  margin-top: 10px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.btn-small {
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  margin-left: 5px;
-}
-
-.btn:hover,
-.btn-submit:hover {
-  background-color: #0056b3;
-}
-
-.btn-small:hover {
-  background-color: #0056b3;
-}
-
-/* Form Array Styling */
-.form-array {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-input[type="file"] {
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 5px;
-}
-
-input[type="file"]::file-selector-button {
-  padding: 8px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type="file"]::file-selector-button:hover {
-  background-color: #0056b3;
-}
-
