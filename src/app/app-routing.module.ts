@@ -6,7 +6,6 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
 import { PropertyComponent } from './components/property/property.component';
 import {ProfileComponent} from './components/profile/profile.component';
-import {ExampleComponent} from './components/example/example.component';
 import {loginGuard} from './guards/login.guard';
 import {RentingComponent} from './components/renting/renting.component';
 import {AddAndEditPropertyComponent} from './components/add-and-edit-property/add-and-edit-property.component';
@@ -21,8 +20,6 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [loginGuard] },
   { path: 'renting', component: RentingComponent, canActivate: [loginGuard] },
   { path: 'add-property', component: AddAndEditPropertyComponent, canActivate: [loginGuard] },
-
-  { path: 'example', component: ExampleComponent }
 
 ];
 

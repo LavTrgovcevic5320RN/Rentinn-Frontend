@@ -31,7 +31,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatDivider} from '@angular/material/divider';
 import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
 import { ProfileComponent } from './components/profile/profile.component';
-import {ExampleComponent} from './components/example/example.component';
 import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
 import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from '@angular/material/dialog';
 import { RentingComponent } from './components/renting/renting.component';
@@ -51,7 +50,6 @@ import { ReviewDialogComponent } from './components/review-dialog/review-dialog.
     PropertyListComponent,
     PropertyComponent,
     ProfileComponent,
-    ExampleComponent,
     EditDialogComponent,
     RentingComponent,
     AddAndEditPropertyComponent,
